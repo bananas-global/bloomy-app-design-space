@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import {
   fixtures,
   componentGroupsFor,
+  controlDisabledReason,
   patchComponent,
   sectionState,
   variationsFor,
@@ -53,14 +54,15 @@ export function FixtureEditor({
   return (
     <section className="ds-fixtures" aria-label={label}>
       {groups.map((group) => (
-        <div className="ds-component-controls" role="group" aria-label={group.title} key={group.title}>
+        <div className={`ds-component-controls${group.nested ? " ds-nested-controls" : ""}`} role="group" aria-label={group.title} key={group.title}>
           <div className="ds-component-controls-header">
             <span>{group.title}</span>
-            {group.component && <button type="button" className="ds-icon-button" aria-label={`Abrir componente ${group.component}`} title={`Abrir ${group.component}`} onClick={() => onOpenComponent(group.component)}>
+            {group.component && <button type="button" className="ds-icon-button" aria-label={`Abrir componente ${group.component}`} title={`Abrir ${group.component}`} onClick={() => { if (group.previewData) onApply("custom", patchComponent(data, { ...group.previewData, ...(["settings", "CAvatarUpdater"].includes(target) && group.component === "CAvatar" && group.previewData.avatarRole === "patient" ? {schedulePatientPhoto: String(data.settingsPatientPhoto)} : {}) })); onOpenComponent(group.component); }}>
               <ArrowUpRight size={16} aria-hidden="true" />
             </button>}
           </div>
           {group.controls.map((control) => {
+            const disabledReason = controlDisabledReason(target, group.component, control.field, data);
             const value =
               control.field === "feedState"
                 ? sectionState(data, "feed")
@@ -68,10 +70,12 @@ export function FixtureEditor({
                   ? sectionState(data, "schedule")
                   : String(data[control.field]);
             return (
-              <label key={control.field}>
+              <label key={control.field} title={disabledReason || control.label}>
                 <select
                   aria-label={control.label}
-                  title={control.label}
+                  title={disabledReason || control.label}
+                  disabled={!!disabledReason}
+                  aria-description={disabledReason}
                   value={value}
                   onChange={(event) =>
                     onApply(

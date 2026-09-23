@@ -9,6 +9,7 @@ const js = ts.transpileModule(
 const {
   fixtures,
   componentGroupsFor,
+  controlDisabledReason,
   patchComponent,
   sectionState,
   variationIds,
@@ -59,9 +60,9 @@ test("search matches Portuguese names regardless of accents", () =>
   ));
 
 test("each screen and component exposes valid contextual presets", () => {
-  assert.equal(Object.keys(variationIds).length, 20);
-  for (const ids of Object.values(variationIds)) {
-    assert.ok(ids.length >= 2);
+  assert.equal(Object.keys(variationIds).length, 30);
+  for (const [target, ids] of Object.entries(variationIds)) {
+    assert.ok(ids.length >= (target === "settings" ? 1 : 2));
     assert.equal(ids[0], "default");
     for (const id of ids)
       assert.deepEqual(
@@ -110,7 +111,7 @@ test("component changes preserve independent section state and survive URLs", ()
 test("every catalog item has contextual controls with valid values", () => {
   for (const target of Object.keys(variationIds)) {
     const groups = componentGroupsFor(target);
-    assert.ok(groups.length > 0, target);
+    assert.ok(target === "settings" || groups.length > 0, target);
     for (const group of groups) {
       if (group.component) assert.ok(variationIds[group.component], group.component);
       for (const control of group.controls) {
@@ -122,4 +123,48 @@ test("every catalog item has contextual controls with valid values", () => {
       }
     }
   }
+});
+
+ test("dependent controls retain values and respect their preview context", () => {
+   const base = { ...fixtures.populated.data, hasProfessional: false, professionalPhoto: true, hasSupervisor: true };
+   for (const target of ["home", "agenda", "AppointmentsSection", "CTileScheduleParent"]) {
+     for (const field of ["professionalPhoto", "hasSupervisor"])
+       assert.ok(controlDisabledReason(target, "CTileScheduleParent", field, base));
+   }
+   const restored = patchComponent(base, { hasProfessional: true });
+   assert.equal(restored.professionalPhoto, true);
+   assert.equal(restored.hasSupervisor, true);
+   assert.equal(controlDisabledReason("CTileScheduleParent", "CTileScheduleParent", "professionalPhoto", restored), undefined);
+   for (const state of ["empty", "loading", "error"]) {
+     const data = { ...base, feedState: state, scheduleState: state };
+     assert.ok(controlDisabledReason("home", "FeedSection", "feedCount", data));
+     assert.ok(controlDisabledReason("FeedSection", "CCardFeed", "postText", data));
+     assert.ok(controlDisabledReason("agenda", "CTileScheduleParent", "scheduleStatus", data));
+     assert.equal(controlDisabledReason("CCardFeed", "CCardFeed", "postText", data), undefined);
+     assert.equal(controlDisabledReason("CTileScheduleParent", "CTileScheduleParent", "scheduleStatus", data), undefined);
+     assert.equal(controlDisabledReason("home", "FeedSection", "feedState", data), undefined);
+   }
+   assert.ok(controlDisabledReason("contents", "CTileParentContent", "contentTitle", { ...base, state: "loading" }));
+   assert.ok(controlDisabledReason("CTileParentContent", "CTileParentContent", "contentType", { ...base, showContent: false }));
+   assert.equal(controlDisabledReason("CTileParentContent", "CTileParentContent", "showContent", { ...base, showContent: false }), undefined);
+ });
+
+test("nested component links retain the selected instance", () => {
+  const nested = componentGroupsFor("CTileScheduleParent").filter(group => group.nested);
+  assert.deepEqual([...new Set(nested.map(group => group.component))].sort(), ["CAvatar", "CChip", "CDivider"]);
+  for (const group of nested) {
+    assert.ok(variationIds[group.component]);
+    const data = patchComponent(fixtures.populated.data, group.previewData);
+    assert.deepEqual(parseFixture(JSON.stringify(data)), data);
+  }
+  const data = {...fixtures.populated.data, avatarRole: "supervisor", chipRole: "room"};
+  assert.ok(controlDisabledReason("CAvatar", "", "professionalPhoto", data));
+  assert.equal(controlDisabledReason("CAvatar", "", "supervisorInitials", data), undefined);
+  assert.ok(controlDisabledReason("CChip", "", "scheduleStatus", data));
+  assert.equal(controlDisabledReason("CChip", "", "scheduleRoom", data), undefined);
+});
+
+test("home does not expose a feed count override", () => {
+  assert.ok(!componentGroupsFor("home").flatMap(g => g.controls).some(c => c.field === "feedCount"));
+  assert.ok(componentGroupsFor("feed").flatMap(g => g.controls).some(c => c.field === "feedCount"));
 });

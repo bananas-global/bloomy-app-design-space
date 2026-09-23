@@ -457,13 +457,15 @@ class _PreviewState extends State<Preview> {
   );
   Widget appointment(int index) => Padding(
     padding: const EdgeInsets.fromLTRB(24, 0, 24, 8),
-    child: CTileScheduleParent(
+    child: appointmentCard(index),
+  );
+  CTileScheduleParent appointmentCard(int index) => CTileScheduleParent(
       CTileScheduleParentData(
         id: 'sample-$index',
         patientName: fixture.patient,
         patientService: index == 0 ? 'Fonoaudiologia' : 'Terapia ocupacional',
         patientAvatarData: CAvatarData(
-          imageUrl: fixture.postAvatarPhoto ? avatarPhoto('lucas') : '',
+          imageUrl: (fixture.schedulePatientPhoto == 'inherit' ? fixture.postAvatarPhoto : fixture.schedulePatientPhoto == 'true') ? avatarPhoto('lucas') : '',
           defaultAbbreviationName: fixture.patient,
           defaultPriority: DefaultPriority.abbreviation,
         ),
@@ -484,15 +486,15 @@ class _PreviewState extends State<Preview> {
         hasSupervisor: fixture.hasSupervisor,
         supervisorName: "Bia Luz",
         supervisorSpecialty: "SUPERVISOR",
-        supervisorAvatarData: sampleAvatar("Bia Luz"),
+        supervisorAvatarData: CAvatarData(imageUrl: "", defaultAbbreviationName: "Bia Luz", defaultPriority: fixture.supervisorInitials ? DefaultPriority.abbreviation : DefaultPriority.defaultImage),
         type: ScheduleType.patient,
         status: ScheduleStatus.fromString(fixture.scheduleStatus),
         sessionType: SessionType.none,
         sessionLocation: SessionLocation.inClinic,
-        startDateTime: DateTime(2026, 9, 23, 14 + index),
+        startDateTime: fixture.scheduleTime == 'none' ? null : DateTime(2026, 9, 23, fixture.scheduleTime == '09:30' ? 9 : 14 + index, fixture.scheduleTime == '09:30' ? 30 : 0),
         endDateTime: DateTime(2026, 9, 23, 14 + index, 50),
-        unitName: 'Unidade Jardim',
-        roomName: 'Sala ${index + 1}',
+        unitName: fixture.scheduleUnit,
+        roomName: fixture.scheduleRoom == 'none' ? '' : fixture.scheduleRoom == 'Sala 1' ? 'Sala ${index + 1}' : fixture.scheduleRoom,
       ),
       CTileScheduleParentDefaultStyle(
         status: ScheduleStatus.fromString(fixture.scheduleStatus),
@@ -500,8 +502,7 @@ class _PreviewState extends State<Preview> {
       onTap: () => message(
         'Atendimento fictício de ${fixture.patient}, às ${14 + index}h, na Unidade Jardim, sala ${index + 1}.',
       ),
-    ),
-  );
+    );
   Widget homeSectionState(bool feed) =>
       (feed ? fixture.resolvedFeedState : fixture.resolvedScheduleState) ==
           'loading'
@@ -520,7 +521,7 @@ class _PreviewState extends State<Preview> {
           ),
           const CContainerListInformationNotFoundStyle(),
         );
-  Widget feedSection({bool withHeader = true}) => Column(
+  Widget feedSection({bool withHeader = true, bool singlePost = false}) => Column(
     key: const ValueKey('FeedSection'),
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
@@ -536,7 +537,7 @@ class _PreviewState extends State<Preview> {
       if (['loading', 'error'].contains(fixture.resolvedFeedState))
         homeSectionState(true)
       else if (fixture.resolvedFeedState == 'ready')
-        for (var i = 0; i < fixture.postCount; i++) feedCard(i)
+        for (var i = 0; i < (singlePost ? 1 : fixture.postCount); i++) feedCard(i)
       else
         empty(true),
     ],
@@ -567,7 +568,7 @@ class _PreviewState extends State<Preview> {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        feedSection(),
+        feedSection(singlePost: true),
         appointmentsSection(),
         const SizedBox(height: 16),
       ],
@@ -712,16 +713,18 @@ class _PreviewState extends State<Preview> {
           AvatarUserData(
             id: 'guardian',
             title: fixture.guardian,
-            avatarUrl: Url(''),
+            avatarUrl: Url(fixture.settingsGuardianPhoto ? avatarPhoto('mother') : ''),
           ),
-          AvatarUserData(
+          if (fixture.settingsProfileCount != '1') AvatarUserData(
             id: 'patient',
             title: fixture.patient,
-            avatarUrl: Url(''),
+            avatarUrl: Url(fixture.settingsPatientPhoto ? avatarPhoto('lucas') : ''),
           ),
+          if (fixture.settingsProfileCount == '4') ...[AvatarUserData(id: 'patient-2', title: 'Sofia Santos', avatarUrl: Url('')), AvatarUserData(id: 'patient-3', title: 'Pedro Santos', avatarUrl: Url(''))],
         ],
       ),
       const CAvatarUpdaterDefaultStyle(),
+      key: ValueKey(fixture.settingsProfileCount),
       onAvatarTap: (_) =>
           message('Troca de foto simulada. Nenhuma imagem será enviada.'),
     ),
@@ -758,7 +761,7 @@ class _PreviewState extends State<Preview> {
             CTileSettingsCheckboxData(
               label: label,
               description:
-                  'Configurações → Apps → Bloomy → ${i == 2 ? 'Fotos' : label}',
+                  fixture.settingsPlatform == 'android' ? '' : 'Configurações → Apps → Bloomy → ${i == 2 ? 'Fotos' : label}',
               icon: [UIcons.notificationOn, UIcons.camera, UIcons.gallery][i],
               isChecked: permissions[i],
             ),
@@ -1087,7 +1090,24 @@ class _PreviewState extends State<Preview> {
   Widget library() {
     final component =
         widget.component ?? Uri.base.queryParameters['component'] ?? 'CButton';
+    final card = appointmentCard(0);
+    final cardData = card.data;
+    final cardStyle = card.style;
     Widget sample() => switch (component) {
+      'CAvatar' => Align(alignment: Alignment.topLeft, child: CAvatar(switch(fixture.avatarRole) { 'guardian' => CAvatarData(imageUrl: fixture.settingsGuardianPhoto ? avatarPhoto('mother') : '', defaultAbbreviationName: fixture.guardian), 'professional' => cardData.professionalAvatarData, 'supervisor' => cardData.supervisorAvatarData!, _ => cardData.patientAvatarData }, cardStyle.avatarStyle(context))),
+      'CDivider' => CDivider(cardStyle.dividerStyle(context)),
+      'CChip' => Align(alignment: Alignment.topLeft, child: CChip(switch(fixture.chipRole) {
+        'time' => CChipData.iconAndLabel(cardData.timeIcon, fixture.scheduleTime == 'none' ? '--:--' : fixture.scheduleTime),
+        'room' => CChipData.iconAndLabel(cardData.roomIcon, cardData.roomName.isEmpty ? 'Sem sala' : cardData.roomName),
+        'unit' => CChipData.label(cardData.unitName),
+        _ => CChipData.label(cardData.status.label),
+      }, fixture.chipRole == 'status' ? cardStyle.statusChipStyle(context) : cardStyle.dataChipStyle(context))),
+      'CAvatarUpdater' => settings().first,
+      'CAppBarRow' => backHeader('Configurações') as Widget,
+      'CText' => const CText(CTextData('Configurações'), CTextParentDetailsStyle()),
+      'CButtonBack' => Align(alignment: Alignment.topLeft, child: CButtonBack<void>(CButtonBackData(), const CButtonBackDefaultStyle(), onTap: () => message('Voltar para a tela anterior'))),
+      'CHeader' => settings()[fixture.settingsSection == 'permissions' ? 3 : fixture.settingsSection == 'information' ? 5 : 1],
+      'CCardList' => settings()[fixture.settingsSection == 'permissions' ? 4 : fixture.settingsSection == 'information' ? 6 : 2],
       'FeedSection' => feedSection(),
       'AppointmentsSection' => appointmentsSection(),
       'CCardFeed' => feedCard(0),
@@ -1121,21 +1141,11 @@ class _PreviewState extends State<Preview> {
         fixture.showContent
             ? contentTile()
             : const Text('Fixture sem conteúdo.'),
-      'CTileSettings' => CCardList(
-        const CCardListSettingsStyle(),
-        children: [
-          CTileSettings.checkbox(
-            CTileSettingsCheckboxData(
-              label: 'Notificações',
-              description: 'Permissão local de demonstração',
-              icon: UIcons.notificationOn,
-              isChecked: permissions[0],
-            ),
-            const CTileSettingsSettingsStyle(isFirst: true, isLast: true),
-            onChanged: (_) => setState(() => permissions[0] = !permissions[0]),
-          ),
-        ],
-      ),
+      'CTileSettings' => CCardList(const CCardListSettingsStyle(), children: [
+        if (['notifications', 'camera', 'gallery'].contains(fixture.settingsItem))
+          CTileSettings.checkbox(CTileSettingsCheckboxData(label: {'notifications':'Notificações','camera':'Câmera','gallery':'Galeria'}[fixture.settingsItem]!, description: fixture.settingsPlatform == 'ios' ? 'Configurações → Apps → Bloomy → ${fixture.settingsItem == 'camera' ? 'Câmera' : fixture.settingsItem == 'gallery' ? 'Fotos' : 'Notificações'}' : '', icon: fixture.settingsItem == 'camera' ? UIcons.camera : fixture.settingsItem == 'gallery' ? UIcons.gallery : UIcons.notificationOn, isChecked: permissions[0]), const CTileSettingsSettingsStyle(isFirst: true, isLast: true), onChanged: (_) => setState(() => permissions[0] = !permissions[0]))
+        else CTileSettings(CTileSettingsData(label: {'password':'Redefinir senha','terms':'Termos de uso','consent':'Termo de Ciência','about':'Sobre'}[fixture.settingsItem] ?? 'Sobre', icon: fixture.settingsItem == 'password' ? UIcons.changePassword : fixture.settingsItem == 'about' ? UIcons.about : UIcons.termsOfUse), const CTileSettingsSettingsStyle(isFirst: true,isLast: true), onTap: () => message('Navegação local de demonstração')),
+      ]),
       _ => CButton(
         CButtonData.label(
           fixture.buttonLabel,
@@ -1145,11 +1155,12 @@ class _PreviewState extends State<Preview> {
         onTap: () => message('CButton original'),
       ),
     };
-    if (component == 'CBottomBarUser' || component == 'CAppBarUser2') {
+    if (component == 'CScaffold') return CScaffold(const CScaffoldData(isBodyUnderAppBar: false), const CScaffoldParentStyle(), appBarBuilder: (_) => backHeader('Configurações'), body: const SizedBox.expand(), bottomBarBuilder: (_) => bottom());
+    if (component == 'CBottomBarUser' || component == 'CAppBarUser2' || component == 'CAppBarRow') {
       return CScaffold(
         const CScaffoldData(isBodyUnderAppBar: false),
         const CScaffoldParentStyle(),
-        appBarBuilder: (_) => component == 'CAppBarUser2'
+        appBarBuilder: (_) => component == 'CAppBarUser2' || component == 'CAppBarRow'
             ? sample() as IAppBar
             : const CAppBarEmpty(),
         body: const SizedBox.expand(),

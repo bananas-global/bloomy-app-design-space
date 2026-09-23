@@ -56,6 +56,13 @@ void main() {
       )..addFont(rootBundle.load('assets/fonts/${font.value}'))).load();
     }
   });
+  testWidgets('settings uses the supplied guardian and patient photos', (tester) async {
+    await open(tester, 'settings');
+    final updater = tester.widget<CAvatarUpdater>(find.byType(CAvatarUpdater));
+    expect(updater.data.avatarUsersData[0].avatarUrl.toString(), contains('avatar_mother.jpg'));
+    expect(updater.data.avatarUsersData[1].avatarUrl.toString(), contains('avatar_lucas.jpg'));
+    expect(tester.takeException(), isNull);
+  });
   testWidgets('structural component samples use their real screen slots', (tester) async {
     await open(tester, 'home');
     final headerRect = tester.getRect(find.byType(CAppBarUser2));
@@ -243,7 +250,7 @@ void main() {
       expect(tester.takeException(), isNull);
     });
   }
-  testWidgets('home composes three posts with schedules loading', (
+  testWidgets('home limits legacy three-post fixture with schedules loading', (
     tester,
   ) async {
     await open(
@@ -258,7 +265,7 @@ void main() {
         postAvatarPhoto: true,
       ),
     );
-    expect(find.byType(CCardFeed), findsNWidgets(3));
+    expect(find.byType(CCardFeed), findsOneWidget);
     expect(find.byType(CLoading), findsOneWidget);
     expect(find.byType(CTileScheduleParent), findsNothing);
     final post = tester.widget<CCardFeed>(find.byType(CCardFeed).first);
@@ -292,14 +299,15 @@ void main() {
     expect(tester.takeException(), isNull);
   });
   for (final count in ['1', '2', '3']) {
-    testWidgets('feed section count $count matches the home', (tester) async {
+    testWidgets('home limits feed count $count to one post', (tester) async {
       final fixture = PreviewFixture(
         feedState: 'ready',
         feedCount: count,
         scheduleState: 'empty',
       );
       await open(tester, 'home', fixture: fixture);
-      expect(find.byType(CCardFeed), findsNWidgets(int.parse(count)));
+      expect(find.byType(CCardFeed), findsOneWidget);
+      await tester.pumpWidget(const SizedBox.shrink());
       await open(tester, 'library', component: 'FeedSection', fixture: fixture);
       expect(find.byType(CCardFeed), findsNWidgets(int.parse(count)));
       expect(tester.takeException(), isNull);

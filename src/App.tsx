@@ -11,7 +11,7 @@ import {
   type Fixture,
 } from "./workbench";
 import { useRef, useState, useEffect, useMemo, type CSSProperties } from "react";
-import { ArrowUpRight, Package, RotateCcw, Monitor, RotateCw, Search, X, Copy, Check } from "lucide-react";
+import { ArrowUpRight, Share2, RotateCcw, Monitor, RotateCw, Search, X, Copy, Check } from "lucide-react";
 import "./native-space.css";
 const screens = [
   ["home", "Início"],
@@ -95,6 +95,16 @@ const components = [
     "tiles/tile_settings.dart",
     "Configurações",
   ],
+  ["CAvatarUpdater", "Seletor de perfis", "avatars/avatar_updater.dart", "Configurações"],
+  ["CAppBarRow", "Cabeçalho com retorno", "app_bars/app_bar_row.dart", "Configurações"],
+  ["CButtonBack", "Voltar", "buttons/button_back.dart", "Configurações"],
+  ["CText", "Texto", "texts/text.dart", "Configurações"],
+  ["CHeader", "Título de seção", "headers/header.dart", "Configurações"],
+  ["CCardList", "Cartão de lista", "cards/card_list.dart", "Configurações"],
+  ["CScaffold", "Estrutura da tela", "scaffolds/scaffold.dart", "Configurações"],
+  ["CAvatar", "Avatar", "avatars/avatar.dart", "Card de atendimento e outros componentes"],
+  ["CChip", "Chip", "chips/chip.dart", "Card de atendimento"],
+  ["CDivider", "Divisória", "dividers/divider.dart", "Card de atendimento"],
   [
     "CButton",
     "Botões",
@@ -259,16 +269,14 @@ export default function App() {
   }, []);
   const [exportText, setExportText] = useState("");
   const [copiedLink, setCopiedLink] = useState(false);
-  const [copiedText, setCopiedText] = useState(false);
   useEffect(() => {
     setCopiedLink(false);
-    setCopiedText(false);
   }, [exportText]);
   useEffect(() => {
-    if (!copiedLink && !copiedText) return;
-    const timer = setTimeout(() => { setCopiedLink(false); setCopiedText(false); }, 2000);
+    if (!copiedLink) return;
+    const timer = setTimeout(() => { setCopiedLink(false); }, 2000);
     return () => clearTimeout(timer);
-  }, [copiedLink, copiedText]);
+  }, [copiedLink]);
   const [status, setStatus] = useState("");
   const frame = useRef<HTMLIFrameElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
@@ -331,9 +339,7 @@ export default function App() {
     return () => removeEventListener("message", onMessage);
   }, []);
   function exportReview() {
-    setExportText(
-      `# Revisão — Bloomy Flutter\n\nContexto: ${location.href}\n\nStatus: candidata, sem aprovação humana.\nPacote: components_bloomy 6.39.0.\nFonte do app: a61a468.\n\n## Limites\nDados e avatares sintéticos. Sem autenticação, envio de arquivos ou backend. Gravação mostra app 1.10.3+89; código consultado é 1.11.3+94. Paridade avaliada visualmente, não certificada pixel a pixel. Contratos, vídeo e integrações ainda fora do recorte.\n\nVersão exata e diferenças: npm run handoff -- baseline\n`,
-    );
+    setExportText(location.href);
   }
   const c = components.find((c) => c[0] === focus)!;
   return (
@@ -495,8 +501,8 @@ export default function App() {
                 </div>
 
           <button className="ds-button" onClick={exportReview}>
-            <Package size={15} />
-            Handoff
+            <Share2 size={15} />
+            Compartilhar
           </button>
         </header>
         {view === "handoff" ? (
@@ -715,24 +721,22 @@ export default function App() {
           aria-labelledby="export-title"
         >
           <header className="ds-export-header">
-            <h2 id="export-title">Handoff</h2>
-            <button className="ds-icon-button" aria-label="Fechar handoff" title="Fechar" onClick={() => setExportText("")}>
+            <h2 id="export-title">Compartilhar prévia</h2>
+            <button className="ds-icon-button" aria-label="Fechar compartilhamento" title="Fechar" onClick={() => setExportText("")}>
               <X size={20} />
             </button>
           </header>
-          <div className="ds-export-content">
-            <textarea readOnly aria-label="Texto da revisão" value={exportText} />
-            <button className="ds-icon-button ds-copy-text" aria-label={copiedText ? "Texto copiado" : "Copiar texto"} title={copiedText ? "Copiado" : "Copiar texto"}
-              onClick={async () => {
-                try { await navigator.clipboard.writeText(exportText); setCopiedText(true); }
-                catch { setStatus("Selecione o texto e copie pelo teclado."); }
-              }}>
-              {copiedText ? <Check size={16} /> : <Copy size={16} />}
-            </button>
+          <p>Compartilhe esta prévia com as variações e o viewport selecionados.</p>
+          <div className="ds-share-summary">
+            <strong>{view === "library" ? focus : screens.find(([id]) => id === activeScreen)?.[1]}</strong>
+            <span>{view === "library" ? "Componente" : "Tela"} · {viewports[vp].label} · Zoom {displayZoom}%</span>
           </div>
+          <label className="ds-share-link-label" htmlFor="preview-share-url">Link da prévia</label>
+          <input id="preview-share-url" className="ds-share-url" readOnly value={exportText} onFocus={event => event.target.select()} />
+          {["localhost", "127.0.0.1", "::1", "[::1]"].includes(location.hostname) && <p className="ds-share-local">Este link é local e só abre neste computador. Depois da publicação, ele usará o endereço do site.</p>}
           <div className="ds-export-actions">
             <button className={`ds-button ds-copy-link${copiedLink ? " is-copied" : ""}`} onClick={async () => {
-              try { await navigator.clipboard.writeText(location.href); setCopiedLink(true); }
+              try { await navigator.clipboard.writeText(exportText); setCopiedLink(true); }
               catch { setStatus("Copie o endereço do navegador para compartilhar."); }
             }}>
               {copiedLink ? <Check size={16} /> : <Copy size={16} />}

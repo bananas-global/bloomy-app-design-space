@@ -3,6 +3,19 @@ import 'dart:convert';
 /// Synthetic, bounded data accepted by the local design environment.
 class PreviewFixture {
   const PreviewFixture({
+    this.settingsGuardianPhoto = true,
+    this.settingsPatientPhoto = true,
+    this.settingsProfileCount = '2',
+    this.settingsPlatform = 'ios',
+    this.settingsSection = 'security',
+    this.settingsItem = 'password',
+    this.avatarRole = 'patient',
+    this.chipRole = 'status',
+    this.schedulePatientPhoto = 'inherit',
+    this.supervisorInitials = true,
+    this.scheduleTime = '14:00',
+    this.scheduleRoom = 'Sala 1',
+    this.scheduleUnit = 'Unidade Jardim',
     this.headerPhoto = false,
     this.feedState = 'inherit',
     this.feedCount = '1',
@@ -34,6 +47,11 @@ class PreviewFixture {
     this.buttonLabel = 'PRÓXIMO',
     this.buttonEnabled = true,
   });
+  final bool settingsGuardianPhoto, settingsPatientPhoto;
+  final String settingsProfileCount, settingsPlatform, settingsSection, settingsItem;
+  final String avatarRole, chipRole;
+  final String schedulePatientPhoto, scheduleTime, scheduleRoom, scheduleUnit;
+  final bool supervisorInitials;
   final bool headerPhoto;
   final String feedState;
   final String feedCount;
@@ -84,6 +102,19 @@ class PreviewFixture {
       }
 
       return PreviewFixture(
+        settingsGuardianPhoto: data['settingsGuardianPhoto'] != false,
+        settingsPatientPhoto: data['settingsPatientPhoto'] != false,
+        settingsProfileCount: field('settingsProfileCount', '2'),
+        settingsPlatform: field('settingsPlatform', 'ios'),
+        settingsSection: field('settingsSection', 'security'),
+        settingsItem: field('settingsItem', 'password'),
+        avatarRole: field('avatarRole', 'patient'),
+        chipRole: field('chipRole', 'status'),
+        schedulePatientPhoto: field('schedulePatientPhoto', 'inherit'),
+        supervisorInitials: data['supervisorInitials'] != false,
+        scheduleTime: field('scheduleTime', '14:00'),
+        scheduleRoom: field('scheduleRoom', 'Sala 1'),
+        scheduleUnit: field('scheduleUnit', 'Unidade Jardim'),
         headerPhoto: data['headerPhoto'] is bool ? data['headerPhoto'] : false,
         feedState: field('feedState', 'inherit'),
         feedCount: field('feedCount', '1'),

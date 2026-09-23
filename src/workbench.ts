@@ -1,4 +1,17 @@
 export const componentDefaults = {
+  settingsGuardianPhoto: true,
+  settingsPatientPhoto: true,
+  settingsProfileCount: "2",
+  settingsPlatform: "ios",
+  settingsSection: "security",
+  settingsItem: "password",
+  avatarRole: "patient",
+  chipRole: "status",
+  schedulePatientPhoto: "inherit",
+  supervisorInitials: true,
+  scheduleTime: "14:00",
+  scheduleRoom: "Sala 1",
+  scheduleUnit: "Unidade Jardim",
   headerPhoto: false,
   feedState: "inherit",
   feedCount: "1",
@@ -195,7 +208,7 @@ export const variationIds: Record<string, string[]> = {
   agenda: ["default", "populated", "week", "loading", "error"],
   contents: ["default", "empty", "long", "document", "loading", "error"],
   metrics: ["default", "long", "loading", "error"],
-  settings: ["default", "permissions-on", "permissions-off"],
+  settings: ["default"],
   login: ["default", "password"],
   feed: ["default", "populated", "loading", "error"],
   notifications: ["default", "loading", "error"],
@@ -209,7 +222,17 @@ export const variationIds: Record<string, string[]> = {
   CTextField: ["default", "search-filled", "field-error"],
   CContainerListInformation: ["default", "loading", "error"],
   CTileParentContent: ["default", "long", "document"],
-  CTileSettings: ["default", "permissions-off"],
+  CTileSettings: ["default", "long"],
+  CAvatarUpdater: ["default", "photo"],
+  CAppBarRow: ["default", "long"],
+  CButtonBack: ["default", "long"],
+  CText: ["default", "long"],
+  CHeader: ["default", "long"],
+  CCardList: ["default", "long"],
+  CScaffold: ["default", "long"],
+  CAvatar: ["default", "photo"],
+  CChip: ["default", "cancelled"],
+  CDivider: ["default", "supervised"],
   CButton: ["default", "disabled", "long"],
 };
 export const variationsFor = (target: string) =>
@@ -337,7 +360,7 @@ type Control = {
   label: string;
   options: [string, string][];
 };
-type ControlGroup = { component: string; title: string; note?: string; controls: Control[] };
+type ControlGroup = { previewData?: Partial<Fixture>; nested?: boolean; component: string; title: string; note?: string; controls: Control[] };
 const yesNo: [string, string][] = [
   ["false", "Sem foto"],
   ["true", "Com foto"],
@@ -463,27 +486,67 @@ const contentControls = group("CTileParentContent", "Conteúdo · CTileParentCon
   { field: "contentTitle", label: "Título do conteúdo", options: [["Teste v1", "Teste v1"], ["Atividades de comunicação e cooperação", "Atividades de comunicação e cooperação"]] },
   { field: "contentDescription", label: "Descrição do conteúdo", options: [["Teste vídeo de coelho.", "Descrição curta"], ["Orientações para explorar a comunicação, a cooperação e a participação nas atividades do dia a dia com a família.", "Descrição longa"]] },
 ]);
-const permissionControls = group("CTileSettings", "Permissões · CTileSettings", [{ field: "permissions", label: "Permissões", options: [["reference", "Configuração inicial"], ["on", "Todas ativadas"], ["off", "Todas desativadas"]] }]);
+const platformControl: Control = {field: "settingsPlatform", label: "Plataforma das permissões", options: [["ios", "iOS · com instruções"], ["android", "Android · sem instruções"]]};
+const profileControls = group("CAvatarUpdater", "Perfis · CAvatarUpdater", [
+ {field: "settingsGuardianPhoto", label: "Foto do responsável", options: [["true", "Responsável com foto"], ["false", "Responsável sem foto"]]},
+ {field: "guardian", label: "Nome do responsável", options: [["Mariana", "Mariana"], ["Mariana de Albuquerque Santos", "Mariana de Albuquerque Santos"]]},
+ {field: "settingsPatientPhoto", label: "Foto do paciente", options: [["true", "Paciente com foto"], ["false", "Paciente sem foto"]]},
+ {field: "patient", label: "Nome do paciente", options: [["Lucas Santos", "Lucas Santos"], ["Lucas de Albuquerque Santos", "Lucas de Albuquerque Santos"]]},
+ {field: "settingsProfileCount", label: "Quantidade de perfis", options: [["1", "Somente responsável"], ["2", "Responsável e 1 paciente"], ["4", "Responsável e 3 pacientes"]]},
+]);
+const sectionControl: Control = {field: "settingsSection", label: "Seção de configurações", options: [["security", "Segurança"], ["permissions", "Permissões"], ["information", "Informações"]]};
+const itemControl: Control = {field: "settingsItem", label: "Item de configuração", options: [["password", "Redefinir senha"], ["notifications", "Notificações"], ["camera", "Câmera"], ["gallery", "Galeria"], ["terms", "Termos de uso"], ["consent", "Termo de Ciência"], ["about", "Sobre"]]};
+const permissionControls = group("CTileSettings", "Permissões · CTileSettings", [platformControl]);
 export function componentGroupsFor(target: string): ControlGroup[] {
   switch (target) {
-    case "home": return [headerControls, feedControls, postControls, scheduleControls, appointmentControls];
+    case "home": return [headerControls, { ...feedControls, controls: feedControls.controls.filter(control => control.field !== "feedCount") }, postControls, scheduleControls, appointmentControls];
     case "feed": case "FeedSection": return [feedControls, postControls];
     case "agenda": return [headerControls, calendarControls, searchControls, scheduleControls, appointmentControls];
     case "contents": return [headerControls, group("", "Lista de conteúdos", [stateControl, { field: "showContent", label: "Conteúdos disponíveis", options: [["true", "Com conteúdo"], ["false", "Sem conteúdos"]] }]), searchControls, contentControls];
     case "metrics": return [headerControls, group("", "Evolutivo", [stateControl])];
-    case "settings": return [permissionControls];
+    case "settings": return [
+ group("CAppBarRow", "Cabeçalho · CAppBarRow", []),
+ profileControls,
+ {component: "CAvatar", title: "Responsável · CAvatar", nested: true, previewData: {avatarRole: "guardian"}, controls: []},
+ {component: "CAvatar", title: "Paciente · CAvatar", nested: true, previewData: {avatarRole: "patient"}, controls: []},
+ group("CHeader", "Títulos das seções · CHeader", []),
+ group("CCardList", "Cartões das seções · CCardList", []),
+ {...permissionControls, previewData: {settingsItem: "notifications"}},
+ group("CBottomBarUser", "Navegação · CBottomBarUser", []),
+ group("CScaffold", "Estrutura da tela · CScaffold", []),
+ ];
     case "login": return [group("", "Acesso", [{ field: "loginStep", label: "Etapa de acesso", options: [["cpf", "CPF"], ["password", "Senha"]] }])];
     case "notifications": return [group("", "Notificações", [stateControl])];
     case "CAppBarUser2": return [headerControls];
     case "CCardFeed": return [postControls];
     case "AppointmentsSection": return [scheduleControls, appointmentControls];
-    case "CTileScheduleParent": return [appointmentControls];
+    case "CTileScheduleParent": return [
+      { ...appointmentControls, controls: appointmentControls.controls.filter(c => ["hasProfessional", "hasSupervisor"].includes(c.field)) },
+      { component: "CAvatar", previewData: { avatarRole: "patient" }, nested: true, title: "Paciente · CAvatar", controls: [{field: "schedulePatientPhoto", label: "Avatar do paciente", options: [["inherit", "Foto conforme os dados atuais"], ["true", "Com foto"], ["false", "Sem foto · iniciais"]]}] },
+      { component: "CChip", previewData: { chipRole: "status" }, nested: true, title: "Status · CChip", controls: [appointmentControls.controls[0]] },
+      { component: "CDivider", previewData: {  }, nested: true, title: "Separação · CDivider", controls: [], note: "Aparece quando há profissional. Usa o estilo definido pelo card." },
+      { component: "CAvatar", previewData: { avatarRole: "professional" }, nested: true, title: "Profissional · CAvatar", controls: [appointmentControls.controls[2]] },
+      { component: "CAvatar", previewData: { avatarRole: "supervisor" }, nested: true, title: "Supervisor · CAvatar", controls: [{field: "supervisorInitials", label: "Avatar do supervisor", options: [["true", "Iniciais"], ["false", "Ícone padrão"]]}] },
+      { component: "CChip", previewData: { chipRole: "time" }, nested: true, title: "Horário · CChip", controls: [{field: "scheduleTime", label: "Horário", options: [["14:00", "14:00"], ["09:30", "09:30"], ["none", "Sem horário"]]}] },
+      { component: "CChip", previewData: { chipRole: "room" }, nested: true, title: "Sala · CChip", controls: [{field: "scheduleRoom", label: "Sala", options: [["Sala 1", "Sala 1"], ["Sala de atendimento infantil", "Sala de atendimento infantil"], ["none", "Sem sala"]]}] },
+      { component: "CChip", previewData: { chipRole: "unit" }, nested: true, title: "Unidade · CChip", controls: [{field: "scheduleUnit", label: "Unidade", options: [["Unidade Jardim", "Unidade Jardim"], ["Unidade Vila Mariana", "Unidade Vila Mariana"]]}] },
+    ];
     case "CCalendarWeekly": return [calendarControls, searchControls];
     case "CTextField": return [group("CTextField", "Campo · CTextField", [searchControl, { field: "fieldError", label: "Validação do campo", options: [["false", "Sem erro"], ["true", "Com erro"]] }])];
     case "CBottomBarUser": return [group("CBottomBarUser", "Navegação · CBottomBarUser", [{ field: "navigation", label: "Item selecionado", options: [["home", "Início"], ["contents", "Conteúdos"], ["metrics", "Evolutivo"], ["agenda", "Agenda"]] }])];
     case "CContainerListInformation": return [group("CContainerListInformation", "Estado da lista", [{ ...stateControl, options: [["ready", "Vazio"], ["loading", "Carregando"], ["error", "Erro"]] }])];
     case "CTileParentContent": return [{ ...contentControls, controls: [{ field: "showContent", label: "Conteúdo disponível", options: [["true", "Com conteúdo"], ["false", "Sem conteúdo"]] }, ...contentControls.controls] }];
-    case "CTileSettings": return [permissionControls];
+    case "CTileSettings": return [group("", "Item · CTileSettings", [itemControl, platformControl])];
+    case "CAvatarUpdater": return [profileControls, {component: "CAvatar", title: "Avatar do responsável", previewData: {avatarRole: "guardian"}, controls: []}, {component: "CButton", title: "Botão de edição", controls: [], note: "O seletor de perfis usa o botão da biblioteca para editar a foto."}];
+    case "CAppBarRow": return [group("CText", "Título · CText", []), group("CButtonBack", "Voltar · CButtonBack", [])];
+    case "CButtonBack": return [group("", "Botão de voltar", [])];
+    case "CText": return [group("", "Título de Configurações", [])];
+    case "CHeader": return [group("", "Título da seção", [sectionControl])];
+    case "CCardList": return [group("", "Cartão de lista", [sectionControl, platformControl]), group("CTileSettings", "Itens · CTileSettings", [])];
+    case "CScaffold": return [group("CAppBarRow", "Cabeçalho", []), group("CBottomBarUser", "Navegação inferior", [])];
+    case "CAvatar": return [group("", "Avatar · CAvatar", [{field: "avatarRole", label: "Pessoa do avatar", options: [["patient", "Paciente"], ["guardian", "Responsável"], ["professional", "Profissional"], ["supervisor", "Supervisor"]]}, {field: "settingsGuardianPhoto", label: "Foto do responsável", options: [["true", "Responsável com foto"], ["false", "Responsável sem foto"]]}, ...componentGroupsFor("CTileScheduleParent").filter(g => g.component === "CAvatar").flatMap(g => g.controls)])];
+    case "CChip": return [group("", "Chip · CChip", [{field: "chipRole", label: "Tipo de chip", options: [["status", "Status"], ["time", "Horário"], ["room", "Sala"], ["unit", "Unidade"]]}, ...componentGroupsFor("CTileScheduleParent").filter(g => g.component === "CChip").flatMap(g => g.controls)])];
+    case "CDivider": return [{component: "", title: "Divisória · CDivider", controls: [], note: "Estilo usado no card de atendimento. A largura acompanha o espaço disponível."}];
     case "CButton": return [group("CButton", "Botão · CButton", [{ field: "buttonEnabled", label: "Disponibilidade", options: [["true", "Habilitado"], ["false", "Desabilitado"]] }, { field: "buttonLabel", label: "Texto do botão", options: [["PRÓXIMO", "PRÓXIMO"], ["CONTINUAR PARA A PRÓXIMA ETAPA", "CONTINUAR PARA A PRÓXIMA ETAPA"]] }])];
     default: return [];
   }
@@ -508,7 +571,17 @@ export const itemDetails: Record<string, string> = {
   CTextField: "Campo de busca com texto editável. A amostra isolada permite conferir o campo vazio, preenchido e com mensagem de erro.",
   CContainerListInformation: "Mensagem ilustrada de lista vazia. Carregamento e erro substituem essa mensagem pelos estados correspondentes da prévia.",
   CTileParentContent: "Cartão de conteúdo educativo com paciente, título, descrição, data e etiquetas. Diferencia vídeo e documento e permite avaliar textos mais longos.",
-  CTileSettings: "Item de configuração com controle de permissão. O estado pode ser alterado pelas variações ou diretamente na amostra.",
+  CTileSettings: "Item de configuração com controle de permissão. As variações escolhem o tipo de item e a plataforma; os toggles são operados diretamente na amostra.",
+  CAvatarUpdater: "Organiza os perfis do responsável e pacientes, com seleção e botão de edição. Usa CAvatar e CButton.",
+  CAppBarRow: "Cabeçalho superior com título central e botão de voltar.",
+  CButtonBack: "Botão de retorno usado no cabeçalho. A amostra simula a ação localmente.",
+  CText: "Texto do título com o estilo de detalhes do app.",
+  CHeader: "Título de seção para Segurança, Permissões e Informações.",
+  CCardList: "Container que agrupa itens de configuração e preserva o estilo de lista.",
+  CScaffold: "Estrutura que distribui cabeçalho, conteúdo rolável e navegação inferior.",
+  CAvatar: "Avatar reutilizável. A amostra usa os dados e o estilo do card de atendimento, com paciente, profissional e supervisor.",
+  CChip: "Rótulo compacto de status, horário, sala ou unidade. A amostra preserva o estilo usado no atendimento.",
+  CDivider: "Linha que separa os dados do paciente da equipe no card de atendimento. Sua presença é controlada pelo card.",
   CButton: "Botão de ação com texto configurável. Permite comparar rótulos curtos e longos, habilitado ou desabilitado.",
 };
 
@@ -524,5 +597,45 @@ export const componentPositioning: Record<string, string> = {
   CContainerListInformation: "Dentro da seção cujo conteúdo está vazio, centralizado horizontalmente. Não é uma sobreposição nem ocupa obrigatoriamente a tela inteira.",
   CTileParentContent: "Dentro da lista de conteúdos educativos, ocupando a largura disponível. A altura acompanha o título, a descrição e as etiquetas.",
   CTileSettings: "Dentro do cartão de configurações, como uma linha da lista. Acompanha a rolagem da tela.",
+  CAvatarUpdater: "Dentro da área de conteúdo; na tela, o componente pai define sua posição.",
+  CAppBarRow: "Fixo no topo da prévia.",
+  CButtonBack: "Dentro da área de conteúdo; na tela, o componente pai define sua posição.",
+  CText: "Dentro da área de conteúdo; na tela, o componente pai define sua posição.",
+  CHeader: "Dentro da área de conteúdo; na tela, o componente pai define sua posição.",
+  CCardList: "Dentro da área de conteúdo; na tela, o componente pai define sua posição.",
+  CScaffold: "Ocupa o viewport e reserva espaço para cabeçalho e rodapé.",
+  CAvatar: "Posicionado pelo componente que o contém. No atendimento, aparece ao lado do nome da pessoa.",
+  CChip: "Ocupa a largura do conteúdo. No atendimento, fica junto ao paciente ou na linha de horário e local.",
+  CDivider: "Ocupa a largura disponível dentro do container, entre as seções do card.",
   CButton: "No container da ação. O posicionamento é definido pela tela que o utiliza; a amostra isolada tem margem de 16 pixels.",
 };
+
+/** Returns the reason a visible variation cannot affect the current preview. */
+export function controlDisabledReason(target: string, component: string, field: keyof Fixture, data: Fixture): string | undefined {
+  if (["settings", "CAvatarUpdater"].includes(target) && data.settingsProfileCount === "1" && ["settingsPatientPhoto", "patient"].includes(field)) return "Disponível quando há paciente.";
+  if (target === "CTileSettings" && field === "settingsPlatform" && !["notifications", "camera", "gallery"].includes(data.settingsItem)) return "Disponível nos itens de permissão.";
+  if (target === "CCardList" && field === "settingsPlatform" && data.settingsSection !== "permissions") return "Disponível na seção de permissões.";
+  if (target === "CAvatar" && ({settingsGuardianPhoto: "guardian", schedulePatientPhoto: "patient", professionalPhoto: "professional", supervisorInitials: "supervisor"} as Record<string,string>)[field] && ({settingsGuardianPhoto: "guardian", schedulePatientPhoto: "patient", professionalPhoto: "professional", supervisorInitials: "supervisor"} as Record<string,string>)[field] !== data.avatarRole) return "Selecione a pessoa correspondente.";
+  if (target === "CChip" && ({scheduleStatus: "status", scheduleTime: "time", scheduleRoom: "room", scheduleUnit: "unit"} as Record<string,string>)[field] && ({scheduleStatus: "status", scheduleTime: "time", scheduleRoom: "room", scheduleUnit: "unit"} as Record<string,string>)[field] !== data.chipRole) return "Selecione o tipo correspondente.";
+  if (target === "CTileScheduleParent" && field === "professionalPhoto" && !data.hasProfessional)
+    return "Disponível quando há profissional.";
+  if (target === "CTileScheduleParent" && field === "supervisorInitials" && (!data.hasProfessional || !data.hasSupervisor))
+    return "Disponível quando há profissional e supervisor.";
+  const feedContext = ["home", "feed", "FeedSection"].includes(target);
+  const scheduleContext = ["home", "agenda", "AppointmentsSection"].includes(target);
+  if (feedContext && sectionState(data, "feed") !== "ready" &&
+      (component === "CCardFeed" || field === "feedCount"))
+    return "Disponível quando o feed está preenchido.";
+  if (scheduleContext && sectionState(data, "schedule") !== "ready" &&
+      (component === "CTileScheduleParent" || field === "scheduleCount"))
+    return "Disponível quando os atendimentos estão preenchidos.";
+  if (component === "CTileScheduleParent" && !data.hasProfessional &&
+      (field === "professionalPhoto" || field === "hasSupervisor"))
+    return "Disponível quando há profissional.";
+  if (target === "contents" && data.state !== "ready" &&
+      (component === "CTileParentContent" || field === "showContent"))
+    return "Disponível quando a lista de conteúdos está pronta.";
+  if (component === "CTileParentContent" && !data.showContent && field !== "showContent")
+    return "Disponível quando há conteúdo.";
+  return undefined;
+}
