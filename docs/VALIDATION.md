@@ -34,3 +34,7 @@ A moldura foi comparada com o contrato/README do @brucesantos/design-space usado
 - Browser: busca por “calendario” abre CCalendarWeekly; fixture vazia remove cartão; JSON personalizado altera responsável/paciente/conteúdo; link reaberto preserva os dados e viewport tablet 768 × 1024. Dimensão personalizada 430 × 932 confirmada no iframe; zoom apenas visual.
 - Viewports grandes mantêm rolagem do canvas; a moldura é opcional e sua remoção também zera a área segura injetada no Flutter.
 - O catálogo atual tem oito componentes e oito telas principais. A restauração não importa os 285 cenários ou a matriz de permissões do outro produto.
+
+## Barra compacta — revisão do usuário
+
+Removido o cabeçalho promocional em telas e biblioteca. Controles reunidos na barra de seleção de tela/viewport, sem campos de largura e altura. Reiniciar prévia permanece como botão de ícone com rótulo acessível. Em larguras menores, a barra permite rolagem horizontal sem criar uma segunda linha. Links antigos com dimensões personalizadas continuam abrindo; novas dimensões são escolhidas pelos presets ou pela rotação.

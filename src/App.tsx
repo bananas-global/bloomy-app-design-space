@@ -1,4 +1,3 @@
-import { DimensionField } from "./DimensionField";
 import { FixtureEditor } from "./FixtureEditor";
 import {
   initialFixture,
@@ -393,33 +392,6 @@ export default function App() {
           </section>
         ) : (
           <>
-            <section className="ds-title">
-              <div>
-                <p className="ds-label">
-                  {view === "library"
-                    ? "MESMO PACOTE, MESMOS WIDGETS"
-                    : "REFERÊNCIA: GRAVAÇÕES DO APLICATIVO"}
-                </p>
-                <h1>
-                  {view === "library"
-                    ? "Biblioteca Flutter original"
-                    : "O app real, no espaço de criação."}
-                </h1>
-                <p>
-                  Componentes originais · composição editável · dados locais
-                </p>
-              </div>
-              <button
-                className="ds-text-button"
-                onClick={() => {
-                  setScreen(activeScreen);
-                  setRevision((r) => r + 1);
-                }}
-              >
-                <RotateCcw size={15} />
-                Reiniciar prévia
-              </button>
-            </section>
             <div className="ds-canvas">
               <section className="ds-stage">
                 <div className="ds-toolbar">
@@ -469,7 +441,11 @@ export default function App() {
                           {v.label}
                         </option>
                       ))}
-                      <option value="custom">Personalizado</option>
+                      {vp === "custom" && (
+                        <option value="custom">
+                          {width} × {height}
+                        </option>
+                      )}
                     </select>
                   </label>
                   <a
@@ -480,35 +456,6 @@ export default function App() {
                   >
                     <ArrowUpRight size={16} />
                   </a>
-                </div>
-                <div className="ds-viewport-controls">
-                  <label>
-                    Largura
-                    <DimensionField
-                      label="Largura da tela"
-                      value={width}
-                      min={320}
-                      max={1920}
-                      onChange={(v) => {
-                        setVp("custom");
-                        setWidth(v);
-                      }}
-                    />
-                  </label>
-                  <span>×</span>
-                  <label>
-                    Altura
-                    <DimensionField
-                      label="Altura da tela"
-                      value={height}
-                      min={480}
-                      max={1600}
-                      onChange={(v) => {
-                        setVp("custom");
-                        setHeight(v);
-                      }}
-                    />
-                  </label>
                   <button
                     className="ds-text-button"
                     onClick={() => {
@@ -572,6 +519,17 @@ export default function App() {
                     />
                     Moldura iPhone
                   </label>
+                  <button
+                    className="ds-text-button"
+                    title="Reiniciar prévia"
+                    aria-label="Reiniciar prévia"
+                    onClick={() => {
+                      setScreen(activeScreen);
+                      setRevision((r) => r + 1);
+                    }}
+                  >
+                    <RotateCcw size={15} />
+                  </button>
                   <button
                     className="ds-text-button"
                     onClick={async () => {

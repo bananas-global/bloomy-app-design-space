@@ -796,3 +796,27 @@ textarea:focus-visible {
     margin-bottom: 12px;
   }
 }
+
+/* One compact toolbar for preview selection and display controls. */
+.ds-toolbar {
+  gap: 12px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  min-height: 64px;
+  padding: 12px 20px;
+}
+.ds-toolbar > * {
+  flex-shrink: 0;
+}
+.ds-toolbar label {
+  white-space: nowrap;
+}
+.ds-toolbar input[type="checkbox"] {
+  accent-color: #4094bb;
+}
+.ds-toolbar .ds-text-button {
+  white-space: nowrap;
+}
+.ds-toolbar select {
+  padding-right: 8px;
+}

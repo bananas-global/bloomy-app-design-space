@@ -42,7 +42,7 @@ O redesign React anterior permanece no histórico Git; foi substituído pelo lab
 
 - Busca unificada por telas, nomes de widgets e usos; aceita termos sem acento. Cmd/Ctrl+K foca a busca.
 - Biblioteca com oito amostras isoladas dos widgets reais e origem no pacote.
-- Viewports celular, tablet, desktop e personalizado (320–1920 × 480–1600); girar, zoom 25–150% e moldura opcional. O zoom altera só a visualização; largura/altura chegam ao Flutter.
+- Viewports celular, tablet e desktop; girar, zoom 25–150% e moldura opcional. Os controles ficam em uma única barra, sem campos de largura/altura. O zoom altera só a visualização; largura/altura chegam ao Flutter.
 - Fixtures de referência, sem conteúdos, textos longos e botão desabilitado. Editor JSON validado, salvamento local, restauração e exportação. Os campos e seus usos aparecem no painel.
 - URL preserva tela/componente, fixture, dados personalizados, dimensões, zoom e moldura. Copiar link e exportar revisão preservam esse contexto. Dados personalizados ficam no endereço: use somente dados sintéticos.
 
