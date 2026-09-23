@@ -1,5 +1,11 @@
 import { execFileSync } from "node:child_process";
-import { mkdirSync, writeFileSync, copyFileSync } from "node:fs";
+import {
+  mkdirSync,
+  writeFileSync,
+  copyFileSync,
+  openSync,
+  closeSync,
+} from "node:fs";
 const git = (...args) => execFileSync("git", args, { encoding: "utf8" }).trim();
 if (git("status", "--porcelain"))
   throw new Error("Salve as alterações em um commit antes de gerar a entrega.");
@@ -25,10 +31,14 @@ writeFileSync(
     2,
   ),
 );
-writeFileSync(
-  `${dir}/changes.patch`,
-  execFileSync("git", ["diff", "--binary", base, commit]),
-);
+const patchFile = openSync(`${dir}/changes.patch`, "w");
+try {
+  execFileSync("git", ["diff", "--binary", base, commit], {
+    stdio: ["ignore", patchFile, "inherit"],
+  });
+} finally {
+  closeSync(patchFile);
+}
 writeFileSync(`${dir}/changes.txt`, git("diff", "--stat", base, commit) + "\n");
 copyFileSync("HANDOFF.md", `${dir}/HANDOFF.md`);
 execFileSync("git", [
