@@ -290,9 +290,10 @@ export const viewports: Record<
   { label: string; width: number; height: number }
 > = {
   mobile: { label: "iPhone · 402 × 874", width: 402, height: 874 },
-  compact: { label: "Celular · 375 × 812", width: 375, height: 812 },
+  max: { label: "iPhone Max · 440 × 956", width: 440, height: 956 },
+  android: { label: "Android · 412 × 915", width: 412, height: 915 },
   tablet: { label: "Tablet · 768 × 1024", width: 768, height: 1024 },
-  desktop: { label: "Desktop · 1440 × 900", width: 1440, height: 900 },
+  fluid: { label: "Área livre", width: 0, height: 0 },
 };
 export function dimension(
   raw: string | null,
@@ -336,7 +337,7 @@ type Control = {
   label: string;
   options: [string, string][];
 };
-type ControlGroup = { title: string; note?: string; controls: Control[] };
+type ControlGroup = { component: string; title: string; note?: string; controls: Control[] };
 const yesNo: [string, string][] = [
   ["false", "Sem foto"],
   ["true", "Com foto"],
@@ -353,6 +354,7 @@ const counts: [string, string][] = [
   ["3", "3"],
 ];
 const headerControls: ControlGroup = {
+  component: "CAppBarUser2",
   title: "Cabeçalho · CAppBarUser2",
   controls: [
     { field: "headerPhoto", label: "Avatar do responsável", options: yesNo },
@@ -360,13 +362,14 @@ const headerControls: ControlGroup = {
       field: "guardian",
       label: "Nome do responsável",
       options: [
-        ["Teste", "Normal"],
-        ["Responsável de demonstração", "Longo"],
+        ["Mariana", "Mariana"],
+        ["Mariana de Albuquerque Santos", "Mariana de Albuquerque Santos"],
       ],
     },
   ],
 };
 const feedControls: ControlGroup = {
+  component: "FeedSection",
   title: "Feed · seção",
   controls: [
     { field: "feedState", label: "Estado do feed", options: states },
@@ -374,8 +377,8 @@ const feedControls: ControlGroup = {
   ],
 };
 const postControls: ControlGroup = {
+  component: "CCardFeed",
   title: "Post · CCardFeed",
-  note: "O avatar é do paciente. O card original exige imagem ou vídeo; não oferece post sem mídia. As variações abaixo se aplicam a todos os posts da amostra.",
   controls: [
     {
       field: "postMedia",
@@ -398,6 +401,7 @@ const postControls: ControlGroup = {
   ],
 };
 const scheduleControls: ControlGroup = {
+  component: "AppointmentsSection",
   title: "Próximos atendimentos · seção",
   controls: [
     {
@@ -413,6 +417,7 @@ const scheduleControls: ControlGroup = {
   ],
 };
 const appointmentControls: ControlGroup = {
+  component: "CTileScheduleParent",
   title: "Atendimento · CTileScheduleParent",
   controls: [
     {
@@ -448,30 +453,76 @@ const appointmentControls: ControlGroup = {
     },
   ],
 };
+const group = (component: string, title: string, controls: Control[]): ControlGroup => ({ component, title, controls });
+const stateControl: Control = { field: "state", label: "Estado da tela", options: [["ready", "Pronto"], ["loading", "Carregando"], ["error", "Erro ao carregar"]] };
+const searchControl: Control = { field: "searchText", label: "Busca", options: [["", "Busca vazia"], ["Teste", "Teste"], ["Sala 1", "Sala 1"], ["Sem resultado", "Sem resultado"]] };
+const calendarControls = group("CCalendarWeekly", "Calendário · CCalendarWeekly", [{ field: "calendarMode", label: "Formato do calendário", options: [["month", "Mês"], ["week", "Semana"]] }]);
+const searchControls = group("CTextField", "Busca · CTextField", [searchControl]);
+const contentControls = group("CTileParentContent", "Conteúdo · CTileParentContent", [
+  { field: "contentType", label: "Tipo de conteúdo", options: [["video", "Vídeo"], ["document", "Documento"]] },
+  { field: "contentTitle", label: "Título do conteúdo", options: [["Teste v1", "Teste v1"], ["Atividades de comunicação e cooperação", "Atividades de comunicação e cooperação"]] },
+  { field: "contentDescription", label: "Descrição do conteúdo", options: [["Teste vídeo de coelho.", "Descrição curta"], ["Orientações para explorar a comunicação, a cooperação e a participação nas atividades do dia a dia com a família.", "Descrição longa"]] },
+]);
+const permissionControls = group("CTileSettings", "Permissões · CTileSettings", [{ field: "permissions", label: "Permissões", options: [["reference", "Configuração inicial"], ["on", "Todas ativadas"], ["off", "Todas desativadas"]] }]);
 export function componentGroupsFor(target: string): ControlGroup[] {
   switch (target) {
-    case "home":
-      return [
-        headerControls,
-        feedControls,
-        postControls,
-        scheduleControls,
-        appointmentControls,
-      ];
-    case "feed":
-    case "FeedSection":
-      return [feedControls, postControls];
-    case "agenda":
-      return [headerControls, scheduleControls, appointmentControls];
-    case "CAppBarUser2":
-      return [headerControls];
-    case "CCardFeed":
-      return [postControls];
-    case "AppointmentsSection":
-      return [scheduleControls, appointmentControls];
-    case "CTileScheduleParent":
-      return [appointmentControls];
-    default:
-      return [];
+    case "home": return [headerControls, feedControls, postControls, scheduleControls, appointmentControls];
+    case "feed": case "FeedSection": return [feedControls, postControls];
+    case "agenda": return [headerControls, calendarControls, searchControls, scheduleControls, appointmentControls];
+    case "contents": return [headerControls, group("", "Lista de conteúdos", [stateControl, { field: "showContent", label: "Conteúdos disponíveis", options: [["true", "Com conteúdo"], ["false", "Sem conteúdos"]] }]), searchControls, contentControls];
+    case "metrics": return [headerControls, group("", "Evolutivo", [stateControl])];
+    case "settings": return [permissionControls];
+    case "login": return [group("", "Acesso", [{ field: "loginStep", label: "Etapa de acesso", options: [["cpf", "CPF"], ["password", "Senha"]] }])];
+    case "notifications": return [group("", "Notificações", [stateControl])];
+    case "CAppBarUser2": return [headerControls];
+    case "CCardFeed": return [postControls];
+    case "AppointmentsSection": return [scheduleControls, appointmentControls];
+    case "CTileScheduleParent": return [appointmentControls];
+    case "CCalendarWeekly": return [calendarControls, searchControls];
+    case "CTextField": return [group("CTextField", "Campo · CTextField", [searchControl, { field: "fieldError", label: "Validação do campo", options: [["false", "Sem erro"], ["true", "Com erro"]] }])];
+    case "CBottomBarUser": return [group("CBottomBarUser", "Navegação · CBottomBarUser", [{ field: "navigation", label: "Item selecionado", options: [["home", "Início"], ["contents", "Conteúdos"], ["metrics", "Evolutivo"], ["agenda", "Agenda"]] }])];
+    case "CContainerListInformation": return [group("CContainerListInformation", "Estado da lista", [{ ...stateControl, options: [["ready", "Vazio"], ["loading", "Carregando"], ["error", "Erro"]] }])];
+    case "CTileParentContent": return [{ ...contentControls, controls: [{ field: "showContent", label: "Conteúdo disponível", options: [["true", "Com conteúdo"], ["false", "Sem conteúdo"]] }, ...contentControls.controls] }];
+    case "CTileSettings": return [permissionControls];
+    case "CButton": return [group("CButton", "Botão · CButton", [{ field: "buttonEnabled", label: "Disponibilidade", options: [["true", "Habilitado"], ["false", "Desabilitado"]] }, { field: "buttonLabel", label: "Texto do botão", options: [["PRÓXIMO", "PRÓXIMO"], ["CONTINUAR PARA A PRÓXIMA ETAPA", "CONTINUAR PARA A PRÓXIMA ETAPA"]] }])];
+    default: return [];
   }
 }
+
+export const itemDetails: Record<string, string> = {
+  home: "O feed e os próximos atendimentos têm estados independentes. É possível combinar carregamento, erro, vazio e dados preenchidos em cada seção.",
+  agenda: "O calendário alterna entre mês e semana. Os atendimentos de demonstração estão em 23 de setembro de 2026. A busca filtra paciente, sala e unidade.",
+  contents: "A lista mostra conteúdos educativos em vídeo ou documento. A busca considera o título e a descrição; cada cartão abre seus detalhes.",
+  metrics: "Apresenta áreas e fases de evolução. A amostra atual tem valores zerados; as variações permitem conferir carregamento e erro.",
+  settings: "Reúne o perfil do responsável e as preferências do aplicativo. As permissões são simuladas localmente e podem ser alteradas na prévia.",
+  login: "O acesso tem uma etapa de CPF e outra de senha. Os campos são interativos, mas não autenticam em um serviço real.",
+  feed: "Reúne os registros de atividades do paciente. O estado e a quantidade de posts são configuráveis; as opções do cartão se aplicam aos posts da amostra.",
+  notifications: "Lista de avisos do responsável. A amostra atual é vazia; também permite avaliar carregamento e erro.",
+  CAppBarUser2: "Cabeçalho com saudação, nome do responsável, avatar e acesso ao menu. Permite comparar nomes de comprimentos diferentes e avatar com ou sem foto.",
+  FeedSection: "Seção que reúne o título, o acesso ao feed completo e seus posts. Pode estar vazia, carregando, com erro ou preenchida com um a três registros.",
+  CCardFeed: "O avatar é do paciente. O card exige imagem ou vídeo e não oferece post sem mídia. As variações se aplicam a todos os posts da amostra.",
+  AppointmentsSection: "Seção dos próximos atendimentos, com acesso à agenda. O estado da lista e a quantidade de cartões são independentes dos estados do feed.",
+  CTileScheduleParent: "Cartão com paciente, especialidade, status, profissional, supervisor, horário e local. Permite comparar disponibilidade da equipe, fotos e status do atendimento.",
+  CBottomBarUser: "Navegação principal do responsável. A amostra isolada permite escolher o item selecionado; nas telas, ele acompanha a navegação do app.",
+  CCalendarWeekly: "Calendário com visualização mensal ou semanal e seleção de data. A amostra inclui a busca e feriados de demonstração em setembro de 2026.",
+  CTextField: "Campo de busca com texto editável. A amostra isolada permite conferir o campo vazio, preenchido e com mensagem de erro.",
+  CContainerListInformation: "Mensagem ilustrada de lista vazia. Carregamento e erro substituem essa mensagem pelos estados correspondentes da prévia.",
+  CTileParentContent: "Cartão de conteúdo educativo com paciente, título, descrição, data e etiquetas. Diferencia vídeo e documento e permite avaliar textos mais longos.",
+  CTileSettings: "Item de configuração com controle de permissão. O estado pode ser alterado pelas variações ou diretamente na amostra.",
+  CButton: "Botão de ação com texto configurável. Permite comparar rótulos curtos e longos, habilitado ou desabilitado.",
+};
+
+export const componentPositioning: Record<string, string> = {
+  CAppBarUser2: "No topo da tela, ocupando toda a largura abaixo da área segura superior. Fica fora da rolagem do conteúdo.",
+  CBottomBarUser: "Fixa no rodapé, ocupando toda a largura e respeitando a área segura inferior. O conteúdo da tela rola acima dela.",
+  FeedSection: "Na área de conteúdo, com título e posts empilhados. Acompanha a rolagem da tela; não tem posição fixa.",
+  AppointmentsSection: "Na área de conteúdo, com título e atendimentos empilhados. Acompanha a rolagem da tela; não tem posição fixa.",
+  CCardFeed: "Dentro da lista de posts, ocupando a largura disponível com margens laterais. A altura acompanha a mídia e o texto; rola com a lista.",
+  CTileScheduleParent: "Dentro da lista de atendimentos, com margens laterais. A altura depende das informações exibidas; rola com a lista.",
+  CCalendarWeekly: "Na Agenda, integra a área abaixo do cabeçalho, acima da lista de atendimentos. Na amostra isolada aparece no topo da área útil, junto da busca.",
+  CTextField: "Ocupa a largura disponível no seu container. Nas buscas da Agenda e de Conteúdos, fica abaixo do cabeçalho; na amostra isolada recebe margem de 16 pixels.",
+  CContainerListInformation: "Dentro da seção cujo conteúdo está vazio, centralizado horizontalmente. Não é uma sobreposição nem ocupa obrigatoriamente a tela inteira.",
+  CTileParentContent: "Dentro da lista de conteúdos educativos, ocupando a largura disponível. A altura acompanha o título, a descrição e as etiquetas.",
+  CTileSettings: "Dentro do cartão de configurações, como uma linha da lista. Acompanha a rolagem da tela.",
+  CButton: "No container da ação. O posicionamento é definido pela tela que o utiliza; a amostra isolada tem margem de 16 pixels.",
+};

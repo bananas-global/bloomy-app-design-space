@@ -41,6 +41,36 @@
     For more details:
     * https://docs.flutter.dev/platform-integration/web/initialization
   -->
+  <script>
+    // Mouse clicks act like touch in the preview when hover is disabled.
+    // Wheel scrolling and actual touch input keep their native behavior.
+    if (new URLSearchParams(location.search).get('hover') !== '1') {
+      const cursorStyle = document.createElement('style');
+      cursorStyle.textContent = `html, body, body * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='19' fill='%237c788b' fill-opacity='.28' stroke='%235c576b' stroke-opacity='.45'/%3E%3C/svg%3E") 20 20, auto !important; }`;
+      document.head.appendChild(cursorStyle);
+      const forwarded = new WeakSet();
+      for (const type of ['pointerover', 'pointerenter', 'pointermove', 'pointerout', 'pointerleave', 'pointerdown', 'pointerup', 'pointercancel']) {
+        window.addEventListener(type, event => {
+          if (event.pointerType !== 'mouse' || forwarded.has(event)) return;
+          event.stopImmediatePropagation();
+          if (type === 'pointerdown' || type === 'pointerup' || type === 'pointercancel' || (type === 'pointermove' && event.buttons)) {
+            const touch = new PointerEvent(type, {
+              bubbles: event.bubbles, cancelable: true, composed: true,
+              pointerId: event.pointerId, pointerType: 'touch', isPrimary: true,
+              clientX: event.clientX, clientY: event.clientY,
+              screenX: event.screenX, screenY: event.screenY,
+              button: event.button, buttons: event.buttons,
+              pressure: event.buttons ? 0.5 : 0,
+              ctrlKey: event.ctrlKey, shiftKey: event.shiftKey,
+              altKey: event.altKey, metaKey: event.metaKey,
+            });
+            forwarded.add(touch);
+            event.target.dispatchEvent(touch);
+          }
+        }, true);
+      }
+    }
+  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

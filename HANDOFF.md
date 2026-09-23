@@ -17,7 +17,7 @@ Composição editável em `flutter_preview/lib/main.dart`. O cartão de conteúd
 - Tema, fontes e ícones originais. Fontes completas no build para preservar glifos eliminados pelo tree shaking.
 - Marcações de calendário de 5, 6 e 7/9 e 10/10 reproduzem a amostra visível, sem assumir calendário operacional real.
 - Galeria mantida em Configurações por aparecer no vídeo, embora o código mais novo tenha removido essa permissão.
-- Dados sintéticos e avatares neutros. Fotos, e-mail, CPF e dados privados das gravações não foram incorporados.
+- Dados sintéticos e três retratos fornecidos pelo usuário para mãe, Lucas e Ana Lima. Fotos, e-mail, CPF e dados privados das gravações não foram incorporados.
 
 ## Limites
 
@@ -29,7 +29,7 @@ Não há backend, envio de arquivo, autenticação, alteração real de senha, p
 
 `npm run handoff -- baseline` gera ZIP dos fontes, patch binário, resumo e version.json com commit e base. `.env` e binários compilados ficam fora do Git/ZIP. O receptor precisa de acesso ao registro privado. Baseline e histórico preservam a versão React anterior.
 
-Após revisão humana, registrar aprovador, data, escopo e commit aprovado. Não houve push, deploy nem modificação do app original.
+Após revisão humana, registrar aprovador, data, escopo e commit aprovado. Publicação do código autorizada no repositório privado `bananas-global/bloomy-app-design-space`, na branch `main`. Não houve deploy nem modificação do app original.
 
 ## Ferramentas restauradas
 
@@ -41,4 +41,8 @@ A biblioteca agora mostra o componente selecionado em vez de uma lista fixa. As 
 
 As abas Telas/Componentes substituem Área de criação/Biblioteca Flutter. O painel Variações é contextual, e editar JSON é opcional. A matriz gerada cobre os estados dos widgets originais e os controles independentes têm testes de composição; estados de carregamento/erro ficam estáveis para revisão. Nenhum catálogo de fluxos foi criado, pois as entradas atuais são telas e componentes, não jornadas completas.
 
-Home, Feed, Agenda e suas peças isoladas compartilham controles por componente. Sem a opção “Referência da gravação”. Consultar README para o contrato de compatibilidade, mídia obrigatória e avatar sintético.
+Home, Feed, Agenda e suas peças isoladas compartilham controles por componente. Sem a opção “Referência da gravação”. Consultar README para o contrato de compatibilidade, mídia obrigatória e avatares fornecidos.
+
+## Revisão do ambiente
+
+Laterais redimensionáveis, controles de viewport no cabeçalho, Handoff com cópia de link e texto, painel contextual de informações e variações para os 20 itens do catálogo. O índice de uso dos componentes é gerado pelos testes Flutter. As amostras respeitam o posicionamento estrutural de cabeçalho e navegação inferior. O modo sem hover simula toques e usa um cursor circular. Os posts usam a foto ilustrativa fornecida pelo usuário.

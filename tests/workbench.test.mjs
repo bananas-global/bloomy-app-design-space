@@ -106,3 +106,20 @@ test("component changes preserve independent section state and survive URLs", ()
     "default",
   );
 });
+
+test("every catalog item has contextual controls with valid values", () => {
+  for (const target of Object.keys(variationIds)) {
+    const groups = componentGroupsFor(target);
+    assert.ok(groups.length > 0, target);
+    for (const group of groups) {
+      if (group.component) assert.ok(variationIds[group.component], group.component);
+      for (const control of group.controls) {
+        for (const [value] of control.options) {
+          const patch = { [control.field]: typeof fixtures.default.data[control.field] === 'boolean' ? value === 'true' : value };
+          const data = patchComponent(fixtures.default.data, patch);
+          assert.deepEqual(parseFixture(JSON.stringify(data)), data);
+        }
+      }
+    }
+  }
+});

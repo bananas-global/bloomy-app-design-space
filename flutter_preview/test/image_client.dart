@@ -18,8 +18,8 @@ class _Request extends Fake implements HttpClientRequest {
 class _Response extends Stream<List<int>> implements HttpClientResponse {
   _Response(Uri url)
     : bytes = File(
-        url.path.endsWith('avatar_synthetic.png')
-            ? 'assets/images/avatar_synthetic.png'
+        (url.pathSegments.last.startsWith('avatar_') || url.pathSegments.last == 'feed_activity.png')
+            ? 'assets/images/${url.pathSegments.last}'
             : 'assets/images/login_background_for_light2.png',
       ).readAsBytesSync();
   final List<int> bytes;

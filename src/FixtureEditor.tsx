@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import {
   fixtures,
@@ -14,7 +15,9 @@ export function FixtureEditor({
   id,
   data,
   onApply,
+  onOpenComponent,
 }: {
+  onOpenComponent: (component: string) => void;
   target: string;
   label: string;
   id: string;
@@ -48,16 +51,15 @@ export function FixtureEditor({
   }
   const groups = componentGroupsFor(target);
   return (
-    <section className="ds-fixtures">
-      <h2>{label}</h2>
-      <p>
-        {groups.length
-          ? "Combine os estados de cada componente. Dados e fotos sintéticos."
-          : "Escolha um estado para explorar. As amostras usam dados sintéticos."}
-      </p>
+    <section className="ds-fixtures" aria-label={label}>
       {groups.map((group) => (
-        <fieldset className="ds-component-controls" key={group.title}>
-          <legend>{group.title}</legend>
+        <div className="ds-component-controls" role="group" aria-label={group.title} key={group.title}>
+          <div className="ds-component-controls-header">
+            <span>{group.title}</span>
+            {group.component && <button type="button" className="ds-icon-button" aria-label={`Abrir componente ${group.component}`} title={`Abrir ${group.component}`} onClick={() => onOpenComponent(group.component)}>
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </button>}
+          </div>
           {group.controls.map((control) => {
             const value =
               control.field === "feedState"
@@ -67,8 +69,9 @@ export function FixtureEditor({
                   : String(data[control.field]);
             return (
               <label key={control.field}>
-                <span>{control.label}</span>
                 <select
+                  aria-label={control.label}
+                  title={control.label}
                   value={value}
                   onChange={(event) =>
                     onApply(
@@ -95,7 +98,7 @@ export function FixtureEditor({
             );
           })}
           {group.note && <p>{group.note}</p>}
-        </fieldset>
+        </div>
       ))}
       {!groups.length && (
         <div className="ds-variation-list" aria-label="Variações disponíveis">

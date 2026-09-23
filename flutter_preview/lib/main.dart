@@ -85,28 +85,68 @@ class _PreviewState extends State<Preview> {
   DateTime day = DateTime(2026, 9, 23);
   late bool passwordStep = fixture.loginStep == 'password';
   bool keep = true;
-  late final permissions = fixture.permissions == 'on'
+  late List<bool> permissions = fixture.permissions == 'on'
       ? [true, true, true]
       : fixture.permissions == 'off'
       ? [false, false, false]
       : [true, false, false];
-  late final fixture =
+  late PreviewFixture fixture =
       widget.fixture ??
       PreviewFixture.fromJson(Uri.base.queryParameters['data']);
   late String patient = fixture.patient;
-  String get samplePhoto =>
+  String avatarPhoto(String role) =>
       (['http', 'https'].contains(Uri.base.scheme)
               ? Uri.base
               : Uri.parse('http://localhost/flutter/'))
-          .resolve('assets/assets/images/avatar_synthetic.png')
+          .resolve('assets/assets/images/avatar_$role.jpg')
           .toString();
   String get sampleMedia => Uri.base
-      .resolve('assets/assets/images/login_background_for_light2.png')
+      .resolve('assets/assets/images/feed_activity.png')
       .toString();
   CAvatarData get avatar => CAvatarData(
-    imageUrl: fixture.headerPhoto ? samplePhoto : '',
+    imageUrl: fixture.headerPhoto ? avatarPhoto('mother') : '',
     defaultAbbreviationName: 'TS',
   );
+  late final void Function() stopFixtureListener;
+  @override
+  void initState() {
+    super.initState();
+    stopFixtureListener = listenFixtures((data) {
+      if (!mounted) return;
+      updateFixture(PreviewFixture.fromJson(data));
+    });
+  }
+
+  void updateFixture(PreviewFixture next) {
+    setState(() {
+      if (next.patient != fixture.patient) patient = next.patient;
+      if (next.searchText != fixture.searchText) search.text = next.searchText;
+      if (next.loginStep != fixture.loginStep)
+        passwordStep = next.loginStep == 'password';
+      if (next.permissions != fixture.permissions) {
+        permissions = next.permissions == 'on'
+            ? [true, true, true]
+            : next.permissions == 'off'
+            ? [false, false, false]
+            : [true, false, false];
+      }
+      if (next.calendarMode != fixture.calendarMode) {
+        next.calendarMode == 'week'
+            ? calendar.changeToWeekly()
+            : calendar.changeToMonthly();
+      }
+      fixture = next;
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant Preview oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.fixture != null && widget.fixture != oldWidget.fixture) {
+      updateFixture(widget.fixture!);
+    }
+  }
+
   void go(String next) {
     setState(() {
       page = next;
@@ -117,6 +157,7 @@ class _PreviewState extends State<Preview> {
 
   @override
   void dispose() {
+    stopFixtureListener();
     calendar.dispose();
     search.dispose();
     cpf.dispose();
@@ -385,7 +426,7 @@ class _PreviewState extends State<Preview> {
     child: CCardFeed(
       CCardFeedData(
         name: Name(fixture.patient),
-        avatarUrl: Url(fixture.postAvatarPhoto ? samplePhoto : ''),
+        avatarUrl: Url(fixture.postAvatarPhoto ? avatarPhoto('lucas') : ''),
         url: Url(sampleMedia),
         thumbnailUrl: Url(sampleMedia),
         type: fixture.postMedia == 'video' ? FeedType.video : FeedType.image,
@@ -421,19 +462,25 @@ class _PreviewState extends State<Preview> {
         id: 'sample-$index',
         patientName: fixture.patient,
         patientService: index == 0 ? 'Fonoaudiologia' : 'Terapia ocupacional',
-        patientAvatarData: sampleAvatar(fixture.patient),
+        patientAvatarData: CAvatarData(
+          imageUrl: fixture.postAvatarPhoto ? avatarPhoto('lucas') : '',
+          defaultAbbreviationName: fixture.patient,
+          defaultPriority: DefaultPriority.abbreviation,
+        ),
         hasProfessional: fixture.hasProfessional,
         professionalName: index == 0 ? 'Ana Lima' : 'Paula Costa',
         professionalSpecialty: index == 0
             ? 'Fonoaudióloga'
             : 'Terapeuta ocupacional',
         professionalAvatarData: CAvatarData(
-          imageUrl: fixture.professionalPhoto ? samplePhoto : '',
+          imageUrl: fixture.professionalPhoto && index == 0
+              ? avatarPhoto('ana_lima')
+              : '',
           defaultAbbreviationName: index == 0 ? 'Ana Lima' : 'Paula Costa',
           defaultPriority: DefaultPriority.abbreviation,
         ),
         legalGuardianName: fixture.guardian,
-        legalGuardianAvatarData: sampleAvatar(fixture.guardian),
+        legalGuardianAvatarData: avatar,
         hasSupervisor: fixture.hasSupervisor,
         supervisorName: "Bia Luz",
         supervisorSpecialty: "SUPERVISOR",
@@ -474,6 +521,7 @@ class _PreviewState extends State<Preview> {
           const CContainerListInformationNotFoundStyle(),
         );
   Widget feedSection({bool withHeader = true}) => Column(
+    key: const ValueKey('FeedSection'),
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
       if (withHeader)
@@ -494,6 +542,7 @@ class _PreviewState extends State<Preview> {
     ],
   );
   Widget appointmentsSection({bool withHeader = true}) => Column(
+    key: const ValueKey('AppointmentsSection'),
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
       if (withHeader)
@@ -1096,6 +1145,17 @@ class _PreviewState extends State<Preview> {
         onTap: () => message('CButton original'),
       ),
     };
+    if (component == 'CBottomBarUser' || component == 'CAppBarUser2') {
+      return CScaffold(
+        const CScaffoldData(isBodyUnderAppBar: false),
+        const CScaffoldParentStyle(),
+        appBarBuilder: (_) => component == 'CAppBarUser2'
+            ? sample() as IAppBar
+            : const CAppBarEmpty(),
+        body: const SizedBox.expand(),
+        bottomBarBuilder: component == 'CBottomBarUser' ? (_) => bottom() : null,
+      );
+    }
     return CScaffold.list(
       const CScaffoldListData(
         isBodyUnderAppBar: false,
@@ -1104,7 +1164,7 @@ class _PreviewState extends State<Preview> {
       const CScaffoldParentStyle(
         customListMainAxisAlignment: MainAxisAlignment.start,
       ),
-      appBarBuilder: (_) => backHeader(component),
+      appBarBuilder: (_) => const CAppBarEmpty(),
       bodies: [
         Padding(
           padding:

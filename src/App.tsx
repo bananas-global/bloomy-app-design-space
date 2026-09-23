@@ -1,14 +1,17 @@
+import componentUsage from "./component-usage.generated.json";
 import { FixtureEditor } from "./FixtureEditor";
 import {
   variationsFor,
+  itemDetails,
+  componentPositioning,
   initialFixture,
   viewports,
   dimension,
   normalizeSearch,
   type Fixture,
 } from "./workbench";
-import { useRef, useState, useEffect } from "react";
-import { ArrowUpRight, Download, RotateCcw } from "lucide-react";
+import { useRef, useState, useEffect, useMemo, type CSSProperties } from "react";
+import { ArrowUpRight, Package, RotateCcw, Monitor, RotateCw, Search, X, Copy, Check } from "lucide-react";
 import "./native-space.css";
 const screens = [
   ["home", "Início"],
@@ -20,6 +23,16 @@ const screens = [
   ["feed", "Feed"],
   ["notifications", "Notificações"],
 ] as const;
+const screenDescriptions: Record<string, string> = {
+  home: "Visão geral do responsável, com novidades do feed e os próximos atendimentos.",
+  agenda: "Consulta dos atendimentos por data, com informações de horário, profissional e local.",
+  contents: "Conteúdos e orientações para acompanhar o desenvolvimento do paciente.",
+  metrics: "Acompanhamento da evolução do paciente ao longo dos atendimentos.",
+  settings: "Dados do perfil e preferências de uso do aplicativo.",
+  login: "Acesso do responsável ao aplicativo por CPF e senha.",
+  feed: "Registros de atividades do paciente, com fotos, vídeos e descrições.",
+  notifications: "Avisos e atualizações para o responsável.",
+};
 const components = [
   [
     "FeedSection",
@@ -89,30 +102,75 @@ const components = [
     "Login, cabeçalhos e Biblioteca",
   ],
 ];
-type Note = { text: string; screen: string; done: boolean };
-function initialNotes(): Note[] {
-  try {
-    const n = JSON.parse(localStorage.getItem("native-review-v1") || "[]");
-    return Array.isArray(n)
-      ? n.filter(
-          (v) =>
-            typeof v.text === "string" &&
-            typeof v.screen === "string" &&
-            typeof v.done === "boolean",
-        )
-      : [];
-  } catch {
-    return [];
-  }
+function SidebarTabs({ label, value, items, onChange }: {
+  label: string;
+  value: string;
+  items: { value: string; label: string }[];
+  onChange: (value: string) => void;
+}) {
+  return <nav className="ds-shared-tabs" aria-label={label}>
+    {items.map((item) => <button key={item.value} type="button"
+      aria-pressed={value === item.value}
+      className={value === item.value ? "active" : ""}
+      onClick={() => onChange(item.value)}>{item.label}</button>)}
+  </nav>;
 }
+
 export default function App() {
   const params = new URLSearchParams(location.search);
   const [screen, setScreen] = useState(params.get("screen") || "home");
   const [activeScreen, setActiveScreen] = useState(screen);
   const [view, setView] = useState(params.get("view") || "canvas");
+  const [sidebarWidths, setSidebarWidths] = useState(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem("bloomy-sidebar-widths") || "{}");
+      return { left: Number.isFinite(saved.left) ? Math.max(220, Math.min(480, saved.left)) : 300,
+        right: Number.isFinite(saved.right) ? Math.max(220, Math.min(480, saved.right)) : 300 };
+    } catch { return { left: 300, right: 300 }; }
+  });
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [resizingSidebar, setResizingSidebar] = useState<string | null>(null);
+  useEffect(() => {
+    const resize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+  useEffect(() => {
+    try { localStorage.setItem("bloomy-sidebar-widths", JSON.stringify(sidebarWidths)); } catch { /* Storage may be unavailable. */ }
+  }, [sidebarWidths]);
+  const sidebarMax = Math.max(220, Math.min(480, Math.floor((windowWidth - 420) / 2)));
+  const sidebarWidth = (side: "left" | "right") => Math.min(sidebarMax, sidebarWidths[side]);
+  const resizeSidebar = (side: "left" | "right", value: number) =>
+    setSidebarWidths(current => ({ ...current, [side]: Math.max(220, Math.min(sidebarMax, value)) }));
+  const sidebarHandle = (side: "left" | "right") => <div
+    className={`ds-sidebar-resizer ds-sidebar-resizer-${side}`}
+    role="separator" aria-orientation="vertical" tabIndex={0}
+    aria-label={`Largura da lateral ${side === "left" ? "esquerda" : "direita"}`}
+    aria-valuemin={220} aria-valuemax={sidebarMax} aria-valuenow={sidebarWidth(side)}
+    title="Arraste para ajustar a largura. Duplo clique para restaurar."
+    onDoubleClick={() => resizeSidebar(side, 300)}
+    onPointerDown={event => {
+      if (event.button !== 0) return;
+      event.preventDefault();
+      event.currentTarget.setPointerCapture(event.pointerId);
+      setResizingSidebar(side);
+    }}
+    onPointerMove={event => {
+      if (event.currentTarget.hasPointerCapture(event.pointerId))
+        resizeSidebar(side, side === "left" ? event.clientX : window.innerWidth - event.clientX);
+    }}
+    onPointerUp={event => {
+      if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+      setResizingSidebar(null);
+    }}
+    onLostPointerCapture={() => setResizingSidebar(null)}
+    onKeyDown={event => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const delta = (event.key === "ArrowRight" ? 10 : -10) * (side === "left" ? 1 : -1);
+      resizeSidebar(side, event.key === "Home" ? 220 : event.key === "End" ? sidebarMax : sidebarWidth(side) + delta);
+    }} />;
   const [revision, setRevision] = useState(0);
-  const [notes, setNotes] = useState<Note[]>(initialNotes);
-  const [draft, setDraft] = useState("");
   const [panel, setPanel] = useState("fixtures");
   const [focus, setFocus] = useState(
     components.some((c) => c[0] === params.get("component"))
@@ -123,15 +181,32 @@ export default function App() {
   const searchRef = useRef<HTMLInputElement>(null);
   const previewArea = useRef<HTMLDivElement>(null);
   const [fixture, setFixture] = useState(() => initialFixture(params));
-  const [vp, setVp] = useState(params.get("viewport") || "mobile");
+  const [vp, setVp] = useState(viewports[params.get("viewport") || ""] ? params.get("viewport")! : "mobile");
   const [width, setWidth] = useState(
     dimension(params.get("w"), viewports[vp]?.width || 402, 320, 1920),
   );
   const [height, setHeight] = useState(
     dimension(params.get("h"), viewports[vp]?.height || 874, 480, 1600),
   );
+  const [hoverEnabled, setHoverEnabled] = useState(params.get("hover") === "1");
   const [zoom, setZoom] = useState(dimension(params.get("zoom"), 100, 25, 150));
-  const [safe, setSafe] = useState(params.get("safe") !== "0");
+  const safe = vp === "mobile" || vp === "max";
+  const fluid = vp === "fluid";
+  const displayZoom = fluid ? 100 : zoom;
+  useEffect(() => {
+    if (!fluid || !previewArea.current) return;
+    const area = previewArea.current;
+    const resize = () => {
+      const rect = area.getBoundingClientRect();
+      setWidth(Math.max(1, Math.floor(rect.width)));
+      setHeight(Math.max(1, Math.floor(window.innerHeight - rect.top)));
+    };
+    const observer = new ResizeObserver(resize);
+    observer.observe(area);
+    window.addEventListener("resize", resize);
+    resize();
+    return () => { observer.disconnect(); window.removeEventListener("resize", resize); };
+  }, [fluid, view]);
   const target = view === "library" ? focus : activeScreen;
   useEffect(() => {
     if (
@@ -147,14 +222,24 @@ export default function App() {
     component: view === "library" ? focus : "",
     data: JSON.stringify(fixture.data),
     safe: safe ? "1" : "0",
+    hover: hoverEnabled ? "1" : "0",
   });
   const previewUrl = "/flutter/index.html?" + fixtureQuery;
+  // Fixture changes travel over the bridge; only navigation/reset remounts Flutter.
+  const frameUrl = useMemo(() => previewUrl, [screen, view, focus, safe, revision, hoverEnabled]);
+  const latestFixture = useRef(fixture.data);
+  latestFixture.current = fixture.data;
+  function sendFixture() {
+    frame.current?.contentWindow?.postMessage(
+      JSON.stringify({ type: "bloomy-fixture", data: latestFixture.current }),
+      location.origin,
+    );
+  }
+  useEffect(() => { sendFixture(); }, [fixture.data]);
   const matches = (...texts: string[]) =>
     normalizeSearch(texts.join(" ")).includes(normalizeSearch(query));
   function applyFixture(id: string, data: Fixture) {
-    setScreen(activeScreen);
     setFixture({ id, data, error: "" });
-    setRevision((r) => r + 1);
   }
   function openComponent(id: string) {
     setFocus(id);
@@ -173,6 +258,17 @@ export default function App() {
     return () => removeEventListener("keydown", key);
   }, []);
   const [exportText, setExportText] = useState("");
+  const [copiedLink, setCopiedLink] = useState(false);
+  const [copiedText, setCopiedText] = useState(false);
+  useEffect(() => {
+    setCopiedLink(false);
+    setCopiedText(false);
+  }, [exportText]);
+  useEffect(() => {
+    if (!copiedLink && !copiedText) return;
+    const timer = setTimeout(() => { setCopiedLink(false); setCopiedText(false); }, 2000);
+    return () => clearTimeout(timer);
+  }, [copiedLink, copiedText]);
   const [status, setStatus] = useState("");
   const frame = useRef<HTMLIFrameElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
@@ -189,6 +285,7 @@ export default function App() {
     u.searchParams.set("w", String(width));
     u.searchParams.set("h", String(height));
     u.searchParams.set("zoom", String(zoom));
+    u.searchParams.set("hover", hoverEnabled ? "1" : "0");
     u.searchParams.set("safe", safe ? "1" : "0");
     history.replaceState({}, "", u);
   }, [
@@ -201,6 +298,7 @@ export default function App() {
     width,
     height,
     zoom,
+    hoverEnabled,
     safe,
   ]);
   useEffect(() => {
@@ -220,6 +318,7 @@ export default function App() {
         return;
       try {
         const data = JSON.parse(event.data);
+        if (data.type === "bloomy-ready") sendFixture();
         if (
           data.type === "bloomy-screen" &&
           typeof data.screen === "string" &&
@@ -231,24 +330,19 @@ export default function App() {
     addEventListener("message", onMessage);
     return () => removeEventListener("message", onMessage);
   }, []);
-  function save(n: Note[]) {
-    setNotes(n);
-    try {
-      localStorage.setItem("native-review-v1", JSON.stringify(n));
-    } catch {
-      setStatus(
-        "Exporte a revisão: o navegador não conseguiu salvar os comentários.",
-      );
-    }
-  }
   function exportReview() {
     setExportText(
-      `# Revisão — Bloomy Flutter\n\nContexto: ${location.href}\n\nStatus: candidata, sem aprovação humana.\nPacote: components_bloomy 6.39.0.\nFonte do app: a61a468.\n\n## Comentários\n${notes.map((n) => `- [${n.done ? "x" : " "}] ${n.screen}: ${n.text}`).join("\n")}\n\n## Limites\nDados e avatares sintéticos. Sem autenticação, envio de arquivos ou backend. Gravação mostra app 1.10.3+89; código consultado é 1.11.3+94. Paridade avaliada visualmente, não certificada pixel a pixel. Contratos, vídeo e integrações ainda fora do recorte.\n\nVersão exata e diferenças: npm run handoff -- baseline\n`,
+      `# Revisão — Bloomy Flutter\n\nContexto: ${location.href}\n\nStatus: candidata, sem aprovação humana.\nPacote: components_bloomy 6.39.0.\nFonte do app: a61a468.\n\n## Limites\nDados e avatares sintéticos. Sem autenticação, envio de arquivos ou backend. Gravação mostra app 1.10.3+89; código consultado é 1.11.3+94. Paridade avaliada visualmente, não certificada pixel a pixel. Contratos, vídeo e integrações ainda fora do recorte.\n\nVersão exata e diferenças: npm run handoff -- baseline\n`,
     );
   }
   const c = components.find((c) => c[0] === focus)!;
   return (
-    <div className="ds">
+    <div className={`ds${resizingSidebar ? " ds-resizing" : ""}`} style={{
+      "--sidebar-left": `${sidebarWidth("left")}px`,
+      "--sidebar-right": `${sidebarWidth("right")}px`,
+    } as CSSProperties}>
+      {sidebarHandle("left")}
+      {view !== "handoff" && sidebarHandle("right")}
       <aside className="ds-sidebar">
         <a className="ds-brand" href="/">
           <span>b.</span>
@@ -256,46 +350,24 @@ export default function App() {
             bloomy<small>DESIGN SPACE</small>
           </div>
         </a>
-        <nav className="ds-catalog-tabs" aria-label="Catálogo">
-          <button
-            aria-pressed={view !== "library"}
-            className={view !== "library" ? "active" : ""}
-            onClick={() => {
-              setView("canvas");
-              setQuery("");
-              setPanel("fixtures");
-            }}
-          >
-            Telas
-          </button>
-          <button
-            aria-pressed={view === "library"}
-            className={view === "library" ? "active" : ""}
-            onClick={() => {
-              setView("library");
-              setQuery("");
-              setPanel("fixtures");
-            }}
-          >
-            Componentes
-          </button>
-        </nav>
+        <SidebarTabs label="Catálogo" value={view === "library" ? "library" : "canvas"}
+          items={[{value: "canvas", label: "Telas"}, {value: "library", label: "Componentes"}]}
+          onChange={(value) => {setView(value); setQuery(""); setPanel("fixtures");}} />
         <label className="ds-search">
-          <span>
-            {view === "library" ? "Buscar componentes" : "Buscar telas"}
-          </span>
+          <Search size={15} aria-hidden="true" />
           <input
             ref={searchRef}
             type="search"
-            placeholder="Buscar… ⌘K"
+            placeholder="Buscar…"
+            aria-label={view === "library" ? "Buscar componentes" : "Buscar telas"}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             aria-keyshortcuts="Meta+K Control+K"
           />
+          <kbd aria-hidden="true">⌘K</kbd>
         </label>
         {view !== "library" && (
           <div className="ds-pages">
-            <p className="ds-label">TELAS DO APP REAL</p>
             {screens
               .filter(([id, label]) => matches(id, label))
               .map(([id, label]) => (
@@ -312,7 +384,6 @@ export default function App() {
                     setPanel("fixtures");
                   }}
                 >
-                  <span className="ds-dot" />
                   {label}
                 </button>
               ))}
@@ -344,30 +415,88 @@ export default function App() {
           </div>
         )}
         <footer>
-          <span className="ds-dot live" />
           Flutter 3.44.9<p>components_bloomy 6.39.0</p>
-          <small>Ambiente local · dados sintéticos</small>
+          <button className="ds-text-button" onClick={() => setView("handoff")}>
+            Sobre este ambiente
+          </button>
         </footer>
       </aside>
-      <main className="ds-main">
+      <main className={`ds-main${view !== "handoff" ? " ds-main-with-inspector" : ""}`}>
         <header className="ds-top">
-          <div>
-            Bloomy App <span>/</span>{" "}
-            <strong>
-              {view === "canvas"
-                ? screens.find((s) => s[0] === activeScreen)?.[1] || screen
-                : view === "library"
-                  ? focus
-                  : "Revisão & handoff"}
-            </strong>
-          </div>
-          <button className="ds-text-button" onClick={() => setView("handoff")}>
-            Revisão & handoff
-          </button>
-          <span className="ds-badge">Candidata · não aprovada</span>
+<div className="ds-toolbar">
+
+                  <label>
+                    Viewport
+                    <select
+                      aria-label="Preset de viewport"
+                      value={vp}
+                      onChange={(e) => {
+                        setVp(e.target.value);
+                        if (viewports[e.target.value] && e.target.value !== "fluid") {
+                          setWidth(viewports[e.target.value].width);
+                          setHeight(viewports[e.target.value].height);
+                        }
+                      }}
+                    >
+                      {Object.entries(viewports).map(([id, v]) => (
+                        <option key={id} value={id}>
+                          {v.label}
+                        </option>
+                      ))}
+                      {vp === "custom" && (
+                        <option value="custom">
+                          {width} × {height}
+                        </option>
+                      )}
+                    </select>
+                  </label>
+                  <a
+                    href={previewUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Abrir prévia Flutter isolada"
+                    title="Abrir prévia em nova aba"
+                  >
+                    <Monitor size={16} />
+                  </a>
+                  <button
+                    className="ds-text-button"
+                    disabled={fluid}
+                    aria-label="Girar orientação da prévia"
+                    title="Girar orientação da prévia"
+                    onClick={() => {
+                      setWidth(height);
+                      setHeight(width);
+                    }}
+                  >
+                    <RotateCw size={16} />
+                  </button>
+                  <label>
+                    Zoom
+                    <select
+                      aria-label="Zoom da prévia"
+                      value={displayZoom}
+                      disabled={fluid}
+                      onChange={(e) => setZoom(Number(e.target.value))}
+                    >
+                      {[...new Set([25, 50, 75, 100, 125, 150, zoom])]
+                        .sort((a, b) => a - b)
+                        .map((z) => (
+                          <option key={z} value={z}>
+                            {z}%
+                          </option>
+                        ))}
+                    </select>
+                  </label>
+                  <label className="ds-hover-toggle">
+                    <input type="checkbox" role="switch" aria-label="Hover na prévia" checked={hoverEnabled} onChange={event => setHoverEnabled(event.target.checked)} />
+                    <span>Hover</span>
+                  </label>
+                </div>
+
           <button className="ds-button" onClick={exportReview}>
-            <Download size={15} />
-            Exportar revisão
+            <Package size={15} />
+            Handoff
           </button>
         </header>
         {view === "handoff" ? (
@@ -398,7 +527,13 @@ export default function App() {
                 <p>
                   Managers, autenticação, rede e permissões nativas foram
                   substituídos por estado local. Avatares e dados são
-                  sintéticos. A moldura simula a área segura do telefone.
+                  sintéticos. Os avatares podem mostrar iniciais ou as fotos
+                  de demonstração fornecidas. A moldura simula a área segura do telefone.
+                </p>
+                <p>
+                  Login e permissões são demonstrações locais, sem conexão com
+                  o backend clínico. Geometria, cores e tipografia foram
+                  conferidas com as gravações do aplicativo.
                 </p>
                 <p>
                   O vídeo mostra 1.10.3+89; o código disponível é 1.11.3+94.
@@ -408,7 +543,7 @@ export default function App() {
               <article>
                 <h2>Revisar e entregar</h2>
                 <p>
-                  Registre os comentários, salve as alterações em Git e gere o
+                  Salve as alterações em Git e gere o
                   pacote com commit exato, fontes e patch.
                 </p>
                 <code>npm run handoff -- baseline</code>
@@ -424,10 +559,7 @@ export default function App() {
                   clínicos não são simulados como produção. As gravações não
                   mostram atendimentos preenchidos ou devolutivas.
                 </p>
-                <p>
-                  Comentários são locais e exportáveis; não há sincronização
-                  entre revisores.
-                </p>
+
               </article>
             </div>
           </section>
@@ -435,164 +567,12 @@ export default function App() {
           <>
             <div className="ds-canvas">
               <section className="ds-stage">
-                <div className="ds-toolbar">
-                  <label>
-                    Tela{" "}
-                    <select
-                      aria-label="Tela da prévia"
-                      value={
-                        view === "library"
-                          ? "library"
-                          : screens.some((s) => s[0] === activeScreen)
-                            ? activeScreen
-                            : screen
-                      }
-                      onChange={(e) => {
-                        setScreen(e.target.value);
-                        setActiveScreen(e.target.value);
-                        setRevision((r) => r + 1);
-                        setView("canvas");
-                      }}
-                    >
-                      {screens.map(([id, label]) => (
-                        <option value={id} key={id}>
-                          {label}
-                        </option>
-                      ))}
-                      {view === "library" && (
-                        <option value="library">Biblioteca</option>
-                      )}
-                    </select>
-                  </label>
-                  <label>
-                    Viewport
-                    <select
-                      aria-label="Preset de viewport"
-                      value={vp}
-                      onChange={(e) => {
-                        setVp(e.target.value);
-                        if (viewports[e.target.value]) {
-                          setWidth(viewports[e.target.value].width);
-                          setHeight(viewports[e.target.value].height);
-                        }
-                      }}
-                    >
-                      {Object.entries(viewports).map(([id, v]) => (
-                        <option key={id} value={id}>
-                          {v.label}
-                        </option>
-                      ))}
-                      {vp === "custom" && (
-                        <option value="custom">
-                          {width} × {height}
-                        </option>
-                      )}
-                    </select>
-                  </label>
-                  <a
-                    href={previewUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Abrir prévia Flutter isolada"
-                  >
-                    <ArrowUpRight size={16} />
-                  </a>
-                  <button
-                    className="ds-text-button"
-                    onClick={() => {
-                      setVp("custom");
-                      setWidth(Math.max(320, Math.min(1920, height)));
-                      setHeight(Math.max(480, Math.min(1600, width)));
-                    }}
-                  >
-                    Girar
-                  </button>
-                  <label>
-                    Zoom
-                    <select
-                      aria-label="Zoom da prévia"
-                      value={zoom}
-                      onChange={(e) => setZoom(Number(e.target.value))}
-                    >
-                      {[...new Set([25, 50, 75, 100, 125, 150, zoom])]
-                        .sort((a, b) => a - b)
-                        .map((z) => (
-                          <option key={z} value={z}>
-                            {z}%
-                          </option>
-                        ))}
-                    </select>
-                  </label>
-                  <button
-                    className="ds-text-button"
-                    onClick={() => {
-                      const area = previewArea.current?.getBoundingClientRect();
-                      if (area)
-                        setZoom(
-                          Math.max(
-                            25,
-                            Math.min(
-                              100,
-                              Math.floor(
-                                Math.min(
-                                  (area.width - 40) / width,
-                                  (window.innerHeight -
-                                    Math.max(0, area.top) -
-                                    24) /
-                                    height,
-                                ) * 100,
-                              ),
-                            ),
-                          ),
-                        );
-                    }}
-                  >
-                    Ajustar à área
-                  </button>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={safe}
-                      onChange={(e) => {
-                        setScreen(activeScreen);
-                        setSafe(e.target.checked);
-                      }}
-                    />
-                    Moldura iPhone
-                  </label>
-                  <button
-                    className="ds-text-button"
-                    title="Reiniciar prévia"
-                    aria-label="Reiniciar prévia"
-                    onClick={() => {
-                      setScreen(activeScreen);
-                      setRevision((r) => r + 1);
-                    }}
-                  >
-                    <RotateCcw size={15} />
-                  </button>
-                  <button
-                    className="ds-text-button"
-                    onClick={async () => {
-                      try {
-                        await navigator.clipboard.writeText(location.href);
-                        setStatus("Link do ambiente copiado.");
-                      } catch {
-                        setStatus(
-                          "Copie o endereço do navegador para compartilhar.",
-                        );
-                      }
-                    }}
-                  >
-                    Copiar link
-                  </button>
-                </div>
-                <div className="ds-preview-scroll" ref={previewArea}>
+                <div className={`ds-preview-scroll${fluid ? " ds-preview-fluid" : ""}`} ref={previewArea}>
                   <div
                     className="ds-preview-size"
                     style={{
-                      width: (width * zoom) / 100,
-                      height: (height * zoom) / 100,
+                      width: (width * displayZoom) / 100,
+                      height: (height * displayZoom) / 100,
                     }}
                   >
                     <div
@@ -600,7 +580,7 @@ export default function App() {
                       style={{
                         width,
                         height,
-                        transform: `scale(${zoom / 100})`,
+                        transform: `scale(${displayZoom / 100})`,
                         transformOrigin: "top left",
                         borderRadius: safe ? 35 : 0,
                       }}
@@ -608,7 +588,7 @@ export default function App() {
                       <iframe
                         ref={frame}
                         key={`${screen}-${view}-${revision}`}
-                        src={previewUrl}
+                        src={frameUrl}
                         title="App Bloomy em Flutter"
                       />
                       {safe && (
@@ -667,28 +647,17 @@ export default function App() {
                 </div>
               </section>
               <aside className="ds-inspector">
-                <div className="ds-panel-tabs">
-                  <button
-                    className={panel === "fixtures" ? "active" : ""}
-                    onClick={() => setPanel("fixtures")}
-                  >
-                    Variações
-                  </button>
-                  <button
-                    className={panel === "context" ? "active" : ""}
-                    onClick={() => setPanel("context")}
-                  >
-                    Informações
-                  </button>
-                  <button
-                    className={panel === "notes" ? "active" : ""}
-                    onClick={() => setPanel("notes")}
-                  >
-                    Comentários ({notes.length})
-                  </button>
-                </div>
+                <header className="ds-inspector-heading">
+                  <h2>{view === "library" ? focus : screens.find((s) => s[0] === activeScreen)?.[1] || activeScreen}</h2>
+                  <p>{view === "library" ? `${c[1]}. Usado em ${c[3]}.` : screenDescriptions[activeScreen] || "Detalhes e opções da tela selecionada."}</p>
+                </header>
+                <SidebarTabs label="Painel da prévia" value={panel}
+                  items={[{value: "fixtures", label: "Variações"}, {value: "context", label: "Informações"}]}
+                  onChange={setPanel} />
                 {fixture.error && <p role="alert">{fixture.error}</p>}
                 {panel === "fixtures" ? (
+                  <>
+
                   <FixtureEditor
                     target={target}
                     label={
@@ -700,127 +669,39 @@ export default function App() {
                     id={fixture.id}
                     data={fixture.data}
                     onApply={applyFixture}
+                    onOpenComponent={openComponent}
                   />
-                ) : panel === "notes" ? (
-                  <>
-                    <h2>
-                      Revisar {screens.find((s) => s[0] === activeScreen)?.[1]}
-                    </h2>
-                    <p>
-                      Comentários guardados neste navegador. Exporte para
-                      compartilhar.
-                    </p>
-                    <form
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        if (draft.trim()) {
-                          save([
-                            ...notes,
-                            {
-                              text: draft.trim(),
-                              screen: activeScreen,
-                              done: false,
-                            },
-                          ]);
-                          setDraft("");
-                        }
-                      }}
-                    >
-                      <label htmlFor="review-note">Comentário</label>
-                      <textarea
-                        id="review-note"
-                        value={draft}
-                        onChange={(e) => setDraft(e.target.value)}
-                        required
-                        placeholder="O que difere do app real?"
-                      />
-                      <button className="ds-button primary">
-                        Adicionar comentário
-                      </button>
-                    </form>
-                    {notes.map((n, i) => (
-                      <article className="ds-note" key={i}>
-                        <small>{n.screen}</small>
-                        <p
-                          style={{
-                            textDecoration: n.done ? "line-through" : "none",
-                          }}
-                        >
-                          {n.text}
-                        </p>
-                        <button
-                          className="ds-text-button"
-                          onClick={() =>
-                            save(
-                              notes.map((v, j) =>
-                                j === i ? { ...v, done: !v.done } : v,
-                              ),
-                            )
-                          }
-                        >
-                          {n.done ? "Reabrir" : "Resolver"}
-                        </button>
-                        <button
-                          className="ds-text-button"
-                          onClick={() => save(notes.filter((_, j) => j !== i))}
-                        >
-                          Excluir comentário
-                        </button>
-                      </article>
-                    ))}
+                  <button
+                    className="ds-button ds-reset-preview"
+                    title="Reiniciar prévia"
+                    aria-label="Reiniciar prévia"
+                    onClick={() => {
+                      setScreen(activeScreen);
+                      setRevision((r) => r + 1);
+                    }}
+                  >
+                    <RotateCcw size={15} />
+                    Reiniciar prévia
+                  </button>
                   </>
                 ) : (
                   <>
-                    <span className="ds-native">PACOTE ORIGINAL</span>
-                    <h2>O componente é o mesmo.</h2>
-                    <p>
-                      A prévia usa widgets Dart de{" "}
-                      <strong>components_bloomy</strong>, sem recriá-los em CSS.
-                    </p>
-                    <label className="ds-label" htmlFor="native-component">
-                      INSPECIONAR COMPONENTE
-                    </label>
-                    <select
-                      id="native-component"
-                      value={focus}
-                      onChange={(e) => openComponent(e.target.value)}
-                    >
-                      {components.map((c) => (
-                        <option key={c[0]}>{c[0]}</option>
-                      ))}
-                    </select>
-                    <h3>{c[1]}</h3>
-                    <code>lib/src/widgets/{c[2]}</code>
-                    <p>Usos: {c[3]}.</p>
-                    <p className="ds-small">
-                      Fonte no pacote privado instalado. A composição editável
-                      está em <code>flutter_preview/lib/main.dart</code>.
-                    </p>
-                    <button
-                      className="ds-text-button"
-                      onClick={() => setView("library")}
-                    >
-                      Abrir amostras reais <ArrowUpRight size={14} />
-                    </button>
-                    <hr />
-                    <h3>Referência e limites</h3>
-                    <p>
-                      Geometria, cores, tipografia e componentes conferidos com
-                      as gravações. Avatares substituídos por iniciais
-                      sintéticas.
-                    </p>
-                    <p>
-                      Login e permissões são demonstrações locais. Nenhuma
-                      credencial de paciente, arquivo ou notificação é enviada.
-                    </p>
-                    <a
-                      className="ds-source"
-                      href="https://gitea.sidedoor.tech/bloomy/-/packages/pub/components_bloomy/6.39.0"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      components_bloomy 6.39.0 ↗
-                    </a>
+                    <h3>Sobre {view === "library" ? "o componente" : "a tela"}</h3>
+                    <p>{itemDetails[target]}</p>
+                    {view === "library" && <><h3>Posicionamento</h3><p>{componentPositioning[focus]}</p></>}
+                    <h3>{view === "library" ? "Onde é usado" : "Componentes desta tela"}</h3>
+                    <ul className="ds-component-usage">
+                      {view === "library" ? screens.filter(([id]) => ((componentUsage as Record<string, string[]>)[focus] || []).includes(id)).map(([id, label]) => <li key={id}>
+                        <button className="ds-text-button" onClick={() => {
+                          setScreen(id); setActiveScreen(id); setView("canvas"); setPanel("fixtures"); setQuery("");
+                        }}>{label} <ArrowUpRight size={14} /></button>
+                      </li>) : components.filter(([id]) => ((componentUsage as Record<string, string[]>)[id] || []).includes(activeScreen)).map(([id, label]) => <li key={id}>
+                        <button className="ds-text-button" onClick={() => openComponent(id)}>{label} <ArrowUpRight size={14} /></button>
+                      </li>)}
+                    </ul>
+                    <h3>Origem do código</h3>
+                    <code>{view !== "library" || focus === "FeedSection" || focus === "AppointmentsSection" ? "flutter_preview/lib/main.dart" : `lib/src/widgets/${c[2]}`}</code>
+                    {view === "library" && <a className="ds-source" href="https://gitea.sidedoor.tech/bloomy/-/packages/pub/components_bloomy/6.39.0" target="_blank" rel="noreferrer">components_bloomy 6.39.0 ↗</a>}
                   </>
                 )}
               </aside>
@@ -833,24 +714,29 @@ export default function App() {
           className="ds-export"
           aria-labelledby="export-title"
         >
-          <h2 id="export-title">Revisão pronta para compartilhar</h2>
-          <textarea readOnly aria-label="Texto da revisão" value={exportText} />
-          <div>
-            <button
-              className="ds-button primary"
-              onClick={async () => {
-                try {
-                  await navigator.clipboard.writeText(exportText);
-                  setStatus("Revisão copiada.");
-                } catch {
-                  setStatus("Selecione o texto e copie pelo teclado.");
-                }
-              }}
-            >
-              Copiar revisão
+          <header className="ds-export-header">
+            <h2 id="export-title">Handoff</h2>
+            <button className="ds-icon-button" aria-label="Fechar handoff" title="Fechar" onClick={() => setExportText("")}>
+              <X size={20} />
             </button>
-            <button className="ds-button" onClick={() => setExportText("")}>
-              Fechar exportação
+          </header>
+          <div className="ds-export-content">
+            <textarea readOnly aria-label="Texto da revisão" value={exportText} />
+            <button className="ds-icon-button ds-copy-text" aria-label={copiedText ? "Texto copiado" : "Copiar texto"} title={copiedText ? "Copiado" : "Copiar texto"}
+              onClick={async () => {
+                try { await navigator.clipboard.writeText(exportText); setCopiedText(true); }
+                catch { setStatus("Selecione o texto e copie pelo teclado."); }
+              }}>
+              {copiedText ? <Check size={16} /> : <Copy size={16} />}
+            </button>
+          </div>
+          <div className="ds-export-actions">
+            <button className={`ds-button ds-copy-link${copiedLink ? " is-copied" : ""}`} onClick={async () => {
+              try { await navigator.clipboard.writeText(location.href); setCopiedLink(true); }
+              catch { setStatus("Copie o endereço do navegador para compartilhar."); }
+            }}>
+              {copiedLink ? <Check size={16} /> : <Copy size={16} />}
+              <span aria-live="polite">{copiedLink ? "Copiado" : "Copiar link"}</span>
             </button>
           </div>
         </dialog>

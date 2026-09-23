@@ -34,6 +34,18 @@ Future<void> open(
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  final componentUsage = <String, Set<String>>{};
+  tearDownAll(() {
+    if (componentUsage.isEmpty) return;
+    final sorted = componentUsage.keys.toList()..sort();
+    final output = <String, List<String>>{
+      for (final component in sorted)
+        component: componentUsage[component]!.toList()..sort(),
+    };
+    File('../src/component-usage.generated.json').writeAsStringSync(
+      '${const JsonEncoder.withIndent('  ').convert(output)}\n',
+    );
+  });
   setUpAll(() async {
     for (final font in {
       'Nunito': 'Nunito-VariableFont_wght.ttf',
@@ -43,6 +55,54 @@ void main() {
         font.key,
       )..addFont(rootBundle.load('assets/fonts/${font.value}'))).load();
     }
+  });
+  testWidgets('structural component samples use their real screen slots', (tester) async {
+    await open(tester, 'home');
+    final headerRect = tester.getRect(find.byType(CAppBarUser2));
+    final bottomRect = tester.getRect(find.byType(CBottomBarUser));
+    await tester.pumpWidget(const SizedBox.shrink());
+    await open(tester, 'library', component: 'CBottomBarUser');
+    expect(tester.getRect(find.byType(CBottomBarUser)), bottomRect);
+    expect(find.text('CBottomBarUser'), findsNothing);
+    await tester.pumpWidget(const SizedBox.shrink());
+    await open(tester, 'library', component: 'CAppBarUser2');
+    expect(tester.getRect(find.byType(CAppBarUser2)), headerRect);
+    expect(find.text('CAppBarUser2'), findsNothing);
+    expect(tester.takeException(), isNull);
+  });
+  testWidgets('live fixtures preserve preview state and scroll offset', (
+    tester,
+  ) async {
+    await open(
+      tester,
+      'home',
+      fixture: const PreviewFixture(
+        feedState: 'empty',
+        scheduleState: 'ready',
+        scheduleCount: '3',
+      ),
+    );
+    final state = tester.state(find.byType(Preview));
+    final scroll = tester.state<ScrollableState>(find.byType(Scrollable).first);
+    scroll.position.jumpTo(20);
+    final offset = scroll.position.pixels;
+    await tester.pumpWidget(
+      const PreviewApp(
+        initialScreen: 'home',
+        fixture: PreviewFixture(
+          guardian: 'Marina',
+          feedState: 'loading',
+          scheduleState: 'ready',
+          scheduleCount: '3',
+        ),
+      ),
+    );
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(tester.state(find.byType(Preview)), same(state));
+    expect(scroll.position.pixels, offset);
+    expect(find.text('Marina'), findsOneWidget);
+    expect(find.byType(CLoading), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
   for (final entry
       in jsonDecode(File('test/variation_cases.json').readAsStringSync())
@@ -59,6 +119,16 @@ void main() {
             : null,
         fixture: PreviewFixture.fromJson(jsonEncode(entry['data'])),
       );
+      if (!(target.startsWith('C') || target.endsWith('Section'))) {
+        for (final element in find.byWidgetPredicate((_) => true).evaluate()) {
+          final widget = element.widget;
+          final name = widget.key is ValueKey<String> &&
+                  (widget.key as ValueKey<String>).value.endsWith('Section')
+              ? (widget.key as ValueKey<String>).value
+              : widget.runtimeType.toString();
+          (componentUsage[name] ??= <String>{}).add(target);
+        }
+      }
       final id = entry['id'];
       if (id == 'populated') {
         if (target == 'home' || target == 'feed') {
@@ -193,7 +263,7 @@ void main() {
     expect(find.byType(CTileScheduleParent), findsNothing);
     final post = tester.widget<CCardFeed>(find.byType(CCardFeed).first);
     expect(post.data.description.length, greaterThan(300));
-    expect(post.data.avatarUrl.toString(), contains('avatar_synthetic.png'));
+    expect(post.data.avatarUrl.toString(), contains('avatar_lucas.jpg'));
     expect(tester.takeException(), isNull);
   });
   testWidgets('home composes feed loading with three supervised appointments', (
