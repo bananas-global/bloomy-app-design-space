@@ -94,8 +94,19 @@ class _PreviewState extends State<Preview> {
       widget.fixture ??
       PreviewFixture.fromJson(Uri.base.queryParameters['data']);
   late String patient = fixture.patient;
-  CAvatarData get avatar =>
-      const CAvatarData(imageUrl: "", defaultAbbreviationName: 'TS');
+  String get samplePhoto =>
+      (['http', 'https'].contains(Uri.base.scheme)
+              ? Uri.base
+              : Uri.parse('http://localhost/flutter/'))
+          .resolve('assets/assets/images/avatar_synthetic.png')
+          .toString();
+  String get sampleMedia => Uri.base
+      .resolve('assets/assets/images/login_background_for_light2.png')
+      .toString();
+  CAvatarData get avatar => CAvatarData(
+    imageUrl: fixture.headerPhoto ? samplePhoto : '',
+    defaultAbbreviationName: 'TS',
+  );
   void go(String next) {
     setState(() {
       page = next;
@@ -293,10 +304,7 @@ class _PreviewState extends State<Preview> {
         : null,
   );
   Widget statePreview() => fixture.state == 'loading'
-      ? const Padding(
-          padding: EdgeInsets.all(32),
-          child: CLoading(CLoadingData(), CLoadingParentStyle()),
-        )
+      ? const Center(child: CLoading(CLoadingData(), CLoadingParentStyle()))
       : CContainerListInformation(
           CContainerListInformationData(
             icon: UIconsExtension.contentError,
@@ -377,18 +385,18 @@ class _PreviewState extends State<Preview> {
     child: CCardFeed(
       CCardFeedData(
         name: Name(fixture.patient),
-        avatarUrl: Url(''),
-        url: Url(
-          Uri.base
-              .resolve('assets/assets/images/login_background_for_light2.png')
-              .toString(),
-        ),
-        thumbnailUrl: Url(''),
-        type: FeedType.image,
-        duration: 0,
-        description: index == 0
-            ? 'Registro de demonstração: atividades de comunicação e brincadeiras em grupo. Imagem ilustrativa.'
-            : 'Registro de demonstração: explorando cores e formas durante a atividade de hoje. Imagem ilustrativa.',
+        avatarUrl: Url(fixture.postAvatarPhoto ? samplePhoto : ''),
+        url: Url(sampleMedia),
+        thumbnailUrl: Url(sampleMedia),
+        type: fixture.postMedia == 'video' ? FeedType.video : FeedType.image,
+        duration: 45,
+        description: switch (fixture.postText) {
+          'short' => 'Registro ilustrativo da atividade ${index + 1}.',
+          'long' =>
+            'Registro de demonstração da atividade ${index + 1}. Hoje exploramos cores, formas e diferentes maneiras de comunicar escolhas durante brincadeiras em grupo. A proposta incluiu momentos de cooperação, organização dos materiais e uma pausa entre as atividades. Este texto é fictício e serve para avaliar a leitura, as quebras de linha e a altura do card quando a descrição ocupa mais espaço. A imagem também é ilustrativa e não representa um atendimento real.',
+          _ =>
+            'Registro de demonstração da atividade ${index + 1}: comunicação e brincadeiras em grupo. Imagem ilustrativa.',
+        },
         postedAt: DateTime(2026, 9, 23 - index, 11, 30),
         baseUrl: ['http', 'https'].contains(Uri.base.scheme)
             ? Uri.base.origin
@@ -414,19 +422,24 @@ class _PreviewState extends State<Preview> {
         patientName: fixture.patient,
         patientService: index == 0 ? 'Fonoaudiologia' : 'Terapia ocupacional',
         patientAvatarData: sampleAvatar(fixture.patient),
-        hasProfessional: true,
+        hasProfessional: fixture.hasProfessional,
         professionalName: index == 0 ? 'Ana Lima' : 'Paula Costa',
         professionalSpecialty: index == 0
             ? 'Fonoaudióloga'
             : 'Terapeuta ocupacional',
-        professionalAvatarData: sampleAvatar(
-          index == 0 ? 'Ana Lima' : 'Paula Costa',
+        professionalAvatarData: CAvatarData(
+          imageUrl: fixture.professionalPhoto ? samplePhoto : '',
+          defaultAbbreviationName: index == 0 ? 'Ana Lima' : 'Paula Costa',
+          defaultPriority: DefaultPriority.abbreviation,
         ),
         legalGuardianName: fixture.guardian,
         legalGuardianAvatarData: sampleAvatar(fixture.guardian),
-        hasSupervisor: false,
+        hasSupervisor: fixture.hasSupervisor,
+        supervisorName: "Bia Luz",
+        supervisorSpecialty: "SUPERVISOR",
+        supervisorAvatarData: sampleAvatar("Bia Luz"),
         type: ScheduleType.patient,
-        status: ScheduleStatus.scheduled,
+        status: ScheduleStatus.fromString(fixture.scheduleStatus),
         sessionType: SessionType.none,
         sessionLocation: SessionLocation.inClinic,
         startDateTime: DateTime(2026, 9, 23, 14 + index),
@@ -434,16 +447,36 @@ class _PreviewState extends State<Preview> {
         unitName: 'Unidade Jardim',
         roomName: 'Sala ${index + 1}',
       ),
-      CTileScheduleParentDefaultStyle(status: ScheduleStatus.scheduled),
+      CTileScheduleParentDefaultStyle(
+        status: ScheduleStatus.fromString(fixture.scheduleStatus),
+      ),
       onTap: () => message(
         'Atendimento fictício de ${fixture.patient}, às ${14 + index}h, na Unidade Jardim, sala ${index + 1}.',
       ),
     ),
   );
-  Widget home() => SingleChildScrollView(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
+  Widget homeSectionState(bool feed) =>
+      (feed ? fixture.resolvedFeedState : fixture.resolvedScheduleState) ==
+          'loading'
+      ? const Padding(
+          padding: EdgeInsets.symmetric(vertical: 32),
+          child: Center(child: CLoading(CLoadingData(), CLoadingParentStyle())),
+        )
+      : CContainerListInformation(
+          CContainerListInformationData(
+            icon: feed
+                ? UIconsExtension.contentError
+                : UIconsExtension.calendarError,
+            description: feed
+                ? 'Erro ao recuperar o vídeo do feed.'
+                : 'Erro ao recuperar os atendimentos agendados.',
+          ),
+          const CContainerListInformationNotFoundStyle(),
+        );
+  Widget feedSection({bool withHeader = true}) => Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      if (withHeader)
         CHeader.content(
           const CHeaderContentData(
             'FEED',
@@ -452,7 +485,18 @@ class _PreviewState extends State<Preview> {
           const CHeaderDefaultStyle(isTop: true),
           onTap: () => go('feed'),
         ),
-        if (fixture.showFeed) feedCard(0) else empty(true),
+      if (['loading', 'error'].contains(fixture.resolvedFeedState))
+        homeSectionState(true)
+      else if (fixture.resolvedFeedState == 'ready')
+        for (var i = 0; i < fixture.postCount; i++) feedCard(i)
+      else
+        empty(true),
+    ],
+  );
+  Widget appointmentsSection({bool withHeader = true}) => Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      if (withHeader)
         CHeader.content(
           const CHeaderContentData(
             'PRÓXIMOS ATENDIMENTOS',
@@ -461,19 +505,26 @@ class _PreviewState extends State<Preview> {
           const CHeaderDefaultStyle(),
           onTap: () => go('agenda'),
         ),
-        if (fixture.showSchedules) ...[
-          const SizedBox(height: 12),
-          appointment(0),
-          appointment(1),
-        ] else
-          empty(false),
+      if (['loading', 'error'].contains(fixture.resolvedScheduleState))
+        homeSectionState(false)
+      else if (fixture.resolvedScheduleState == 'ready') ...[
+        const SizedBox(height: 12),
+        for (var i = 0; i < fixture.appointmentCount; i++) appointment(i),
+      ] else
+        empty(false),
+    ],
+  );
+  Widget home() => SingleChildScrollView(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        feedSection(),
+        appointmentsSection(),
         const SizedBox(height: 16),
       ],
     ),
   );
-  Widget feed() => fixture.showFeed
-      ? ListView(children: [feedCard(0), feedCard(1)])
-      : empty(true);
+  Widget feed() => SingleChildScrollView(child: feedSection(withHeader: false));
   Widget agenda() => SingleChildScrollView(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -484,13 +535,19 @@ class _PreviewState extends State<Preview> {
           const CHeaderDateTimeStyle(isHoliday: false),
         ),
         const SizedBox(height: 16),
-        if (fixture.showSchedules &&
-            day == DateTime(2026, 9, 23) &&
-            '${fixture.patient} Unidade Jardim Sala 1 Sala 2'
+        if (['loading', 'error'].contains(fixture.resolvedScheduleState))
+          homeSectionState(false)
+        else if (fixture.resolvedScheduleState == 'ready' &&
+            day == DateTime(2026, 9, 23)) ...[
+          for (var i = 0; i < fixture.appointmentCount; i++)
+            if ('${fixture.patient} Unidade Jardim Sala ${i + 1}'
                 .toLowerCase()
-                .contains(search.text.toLowerCase())) ...[
-          appointment(0),
-          appointment(1),
+                .contains(search.text.toLowerCase()))
+              appointment(i),
+          if (!'${fixture.patient} Unidade Jardim ${List.generate(fixture.appointmentCount, (i) => 'Sala ${i + 1}').join(' ')}'
+              .toLowerCase()
+              .contains(search.text.toLowerCase()))
+            empty(false),
         ] else
           empty(false),
       ],
@@ -726,7 +783,8 @@ class _PreviewState extends State<Preview> {
       appBarBuilder: (ctx) => ['feed', 'notifications'].contains(page)
           ? backHeader(labels[page]!)
           : header(ctx),
-      body: fixture.state != 'ready'
+      body:
+          !['home', 'feed', 'agenda'].contains(page) && fixture.state != 'ready'
           ? statePreview()
           : switch (page) {
               'agenda' => agenda(),
@@ -981,6 +1039,10 @@ class _PreviewState extends State<Preview> {
     final component =
         widget.component ?? Uri.base.queryParameters['component'] ?? 'CButton';
     Widget sample() => switch (component) {
+      'FeedSection' => feedSection(),
+      'AppointmentsSection' => appointmentsSection(),
+      'CCardFeed' => feedCard(0),
+      'CTileScheduleParent' => appointment(0),
       'CAppBarUser2' => CAppBarUser2(
         CAppBarUser2Data(
           greetings: 'Olá,',
@@ -1043,7 +1105,20 @@ class _PreviewState extends State<Preview> {
         customListMainAxisAlignment: MainAxisAlignment.start,
       ),
       appBarBuilder: (_) => backHeader(component),
-      bodies: [Padding(padding: const EdgeInsets.all(16), child: sample())],
+      bodies: [
+        Padding(
+          padding:
+              [
+                'CCardFeed',
+                'CTileScheduleParent',
+                'FeedSection',
+                'AppointmentsSection',
+              ].contains(component)
+              ? EdgeInsets.zero
+              : const EdgeInsets.all(16),
+          child: sample(),
+        ),
+      ],
     );
   }
 }

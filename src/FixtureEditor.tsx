@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import {
   fixtures,
+  componentGroupsFor,
+  patchComponent,
+  sectionState,
   variationsFor,
   parseFixture,
   type Fixture,
@@ -43,24 +46,73 @@ export function FixtureEditor({
       setError((e as Error).message);
     }
   }
+  const groups = componentGroupsFor(target);
   return (
     <section className="ds-fixtures">
       <h2>{label}</h2>
-      <p>Escolha um estado para explorar. As amostras usam dados sintéticos.</p>
-      <div className="ds-variation-list" aria-label="Variações disponíveis">
-        {variationsFor(target).map((key) => (
-          <button
-            key={key}
-            aria-pressed={id === key}
-            className={id === key ? "selected" : ""}
-            onClick={() => onApply(key, fixtures[key].data)}
-          >
-            <span>{fixtures[key].label}</span>
-            {id === key && <span aria-hidden="true">✓</span>}
-          </button>
-        ))}
-        {id === "custom" && <p>Personalizada aplicada</p>}
-      </div>
+      <p>
+        {groups.length
+          ? "Combine os estados de cada componente. Dados e fotos sintéticos."
+          : "Escolha um estado para explorar. As amostras usam dados sintéticos."}
+      </p>
+      {groups.map((group) => (
+        <fieldset className="ds-component-controls" key={group.title}>
+          <legend>{group.title}</legend>
+          {group.controls.map((control) => {
+            const value =
+              control.field === "feedState"
+                ? sectionState(data, "feed")
+                : control.field === "scheduleState"
+                  ? sectionState(data, "schedule")
+                  : String(data[control.field]);
+            return (
+              <label key={control.field}>
+                <span>{control.label}</span>
+                <select
+                  value={value}
+                  onChange={(event) =>
+                    onApply(
+                      "custom",
+                      patchComponent(data, {
+                        [control.field]:
+                          typeof data[control.field] === "boolean"
+                            ? event.target.value === "true"
+                            : event.target.value,
+                      }),
+                    )
+                  }
+                >
+                  {!control.options.some(([key]) => key === value) && (
+                    <option value={value}>{value}</option>
+                  )}
+                  {control.options.map(([key, label]) => (
+                    <option key={key} value={key}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            );
+          })}
+          {group.note && <p>{group.note}</p>}
+        </fieldset>
+      ))}
+      {!groups.length && (
+        <div className="ds-variation-list" aria-label="Variações disponíveis">
+          {variationsFor(target).map((key) => (
+            <button
+              key={key}
+              aria-pressed={id === key}
+              className={id === key ? "selected" : ""}
+              onClick={() => onApply(key, fixtures[key].data)}
+            >
+              <span>{fixtures[key].label}</span>
+              {id === key && <span aria-hidden="true">✓</span>}
+            </button>
+          ))}
+          {id === "custom" && <p>Personalizada aplicada</p>}
+        </div>
+      )}
       <details key={target}>
         <summary>Editar dados</summary>
         <label htmlFor="fixture-json">Editar fixture (JSON)</label>
@@ -116,9 +168,9 @@ export function FixtureEditor({
           </button>
           <button
             className="ds-text-button"
-            onClick={() => onApply("reference", fixtures.reference.data)}
+            onClick={() => onApply("default", fixtures.default.data)}
           >
-            Restaurar referência
+            Restaurar padrões
           </button>
         </div>
         <p role="status">{saved}</p>

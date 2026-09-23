@@ -5,18 +5,24 @@ import 'package:flutter_test/flutter_test.dart';
 // Serve the same bundled illustration to native widget tests without networking.
 class FixtureImageClient extends Fake implements HttpClient {
   @override
-  Future<HttpClientRequest> getUrl(Uri url) async => _Request();
+  Future<HttpClientRequest> getUrl(Uri url) async => _Request(url);
 }
 
 class _Request extends Fake implements HttpClientRequest {
+  _Request(this.url);
+  final Uri url;
   @override
-  Future<HttpClientResponse> close() async => _Response();
+  Future<HttpClientResponse> close() async => _Response(url);
 }
 
 class _Response extends Stream<List<int>> implements HttpClientResponse {
-  final bytes = File(
-    'assets/images/login_background_for_light2.png',
-  ).readAsBytesSync();
+  _Response(Uri url)
+    : bytes = File(
+        url.path.endsWith('avatar_synthetic.png')
+            ? 'assets/images/avatar_synthetic.png'
+            : 'assets/images/login_background_for_light2.png',
+      ).readAsBytesSync();
+  final List<int> bytes;
   @override
   int get statusCode => 200;
   @override

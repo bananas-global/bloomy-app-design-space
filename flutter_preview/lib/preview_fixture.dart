@@ -3,6 +3,19 @@ import 'dart:convert';
 /// Synthetic, bounded data accepted by the local design environment.
 class PreviewFixture {
   const PreviewFixture({
+    this.headerPhoto = false,
+    this.feedState = 'inherit',
+    this.feedCount = '1',
+    this.postAvatarPhoto = false,
+    this.postText = 'medium',
+    this.postMedia = 'image',
+    this.scheduleState = 'inherit',
+    this.scheduleCount = '2',
+    this.scheduleStatus = 'scheduled',
+    this.hasProfessional = true,
+    this.hasSupervisor = false,
+    this.professionalPhoto = false,
+
     this.showFeed = false,
     this.showSchedules = false,
     this.state = 'ready',
@@ -21,6 +34,34 @@ class PreviewFixture {
     this.buttonLabel = 'PRÓXIMO',
     this.buttonEnabled = true,
   });
+  final bool headerPhoto;
+  final String feedState;
+  final String feedCount;
+  final bool postAvatarPhoto;
+  final String postText;
+  final String postMedia;
+  final String scheduleState;
+  final String scheduleCount;
+  final String scheduleStatus;
+  final bool hasProfessional;
+  final bool hasSupervisor;
+  final bool professionalPhoto;
+  String get resolvedFeedState => feedState != "inherit"
+      ? feedState
+      : state != "ready"
+      ? state
+      : showFeed
+      ? "ready"
+      : "empty";
+  String get resolvedScheduleState => scheduleState != "inherit"
+      ? scheduleState
+      : state != "ready"
+      ? state
+      : showSchedules
+      ? "ready"
+      : "empty";
+  int get postCount => (int.tryParse(feedCount) ?? 1).clamp(1, 3);
+  int get appointmentCount => (int.tryParse(scheduleCount) ?? 2).clamp(1, 3);
   final String guardian, patient, contentTitle, contentDescription, buttonLabel;
   final bool showContent, buttonEnabled, showFeed, showSchedules;
   final String state,
@@ -43,6 +84,27 @@ class PreviewFixture {
       }
 
       return PreviewFixture(
+        headerPhoto: data['headerPhoto'] is bool ? data['headerPhoto'] : false,
+        feedState: field('feedState', 'inherit'),
+        feedCount: field('feedCount', '1'),
+        postAvatarPhoto: data['postAvatarPhoto'] is bool
+            ? data['postAvatarPhoto']
+            : false,
+        postText: field('postText', 'medium'),
+        postMedia: field('postMedia', 'image'),
+        scheduleState: field('scheduleState', 'inherit'),
+        scheduleCount: field('scheduleCount', '2'),
+        scheduleStatus: field('scheduleStatus', 'scheduled'),
+        hasProfessional: data['hasProfessional'] is bool
+            ? data['hasProfessional']
+            : true,
+        hasSupervisor: data['hasSupervisor'] is bool
+            ? data['hasSupervisor']
+            : false,
+        professionalPhoto: data['professionalPhoto'] is bool
+            ? data['professionalPhoto']
+            : false,
+
         showFeed: data['showFeed'] == true,
         showSchedules: data['showSchedules'] == true,
         state: field('state', 'ready'),

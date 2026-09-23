@@ -8,6 +8,9 @@ const js = ts.transpileModule(
 ).outputText;
 const {
   fixtures,
+  componentGroupsFor,
+  patchComponent,
+  sectionState,
   variationIds,
   variationsFor,
   parseFixture,
@@ -19,7 +22,7 @@ const {
 );
 test("custom fixture round trips through a shareable URL", () => {
   const data = {
-    ...fixtures.reference.data,
+    ...fixtures.default.data,
     patient: "Amostra Silva",
     showContent: false,
   };
@@ -36,9 +39,9 @@ test("invalid fixture data falls back explicitly", () => {
   for (const value of [
     null,
     [],
-    { ...fixtures.reference.data, showContent: "false" },
-    { ...fixtures.reference.data, patient: "x".repeat(301) },
-    { ...fixtures.reference.data, extra: 1 },
+    { ...fixtures.default.data, showContent: "false" },
+    { ...fixtures.default.data, patient: "x".repeat(301) },
+    { ...fixtures.default.data, extra: 1 },
   ])
     assert.throws(() => parseFixture(JSON.stringify(value)));
   assert.ok(initialFixture(new URLSearchParams({ data: "{" })).error);
@@ -56,10 +59,10 @@ test("search matches Portuguese names regardless of accents", () =>
   ));
 
 test("each screen and component exposes valid contextual presets", () => {
-  assert.equal(Object.keys(variationIds).length, 16);
+  assert.equal(Object.keys(variationIds).length, 20);
   for (const ids of Object.values(variationIds)) {
     assert.ok(ids.length >= 2);
-    assert.equal(ids[0], "reference");
+    assert.equal(ids[0], "default");
     for (const id of ids)
       assert.deepEqual(
         parseFixture(JSON.stringify(fixtures[id].data)),
@@ -68,4 +71,38 @@ test("each screen and component exposes valid contextual presets", () => {
   }
   assert.ok(!variationsFor("agenda").includes("disabled"));
   assert.ok(variationsFor("CButton").includes("disabled"));
+});
+
+test("component changes preserve independent section state and survive URLs", () => {
+  const mixed = patchComponent(fixtures.loading.data, {
+    feedState: "ready",
+    feedCount: "3",
+  });
+  assert.equal(sectionState(mixed, "schedule"), "loading");
+  assert.equal(sectionState(mixed, "feed"), "ready");
+  const photo = patchComponent(mixed, { headerPhoto: true });
+  assert.equal(photo.feedCount, "3");
+  assert.equal(photo.scheduleState, "loading");
+  assert.deepEqual(
+    initialFixture(new URLSearchParams({ data: JSON.stringify(photo) })).data,
+    photo,
+  );
+  assert.deepEqual(
+    componentGroupsFor("home")[0],
+    componentGroupsFor("CAppBarUser2")[0],
+  );
+  assert.deepEqual(
+    componentGroupsFor("home")[2],
+    componentGroupsFor("CCardFeed")[0],
+  );
+  for (const invalid of [
+    { feedCount: "4" },
+    { scheduleState: "unknown" },
+    { headerPhoto: "yes" },
+  ])
+    assert.throws(() => parseFixture(JSON.stringify({ ...photo, ...invalid })));
+  assert.equal(
+    initialFixture(new URLSearchParams({ fixture: "reference" })).id,
+    "default",
+  );
 });

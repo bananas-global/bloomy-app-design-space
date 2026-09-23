@@ -22,7 +22,9 @@ Future<void> open(
   await tester.pumpWidget(
     PreviewApp(initialScreen: page, fixture: fixture, component: component),
   );
-  if (fixture?.state == 'loading') {
+  if (fixture?.state == 'loading' ||
+      fixture?.resolvedFeedState == 'loading' ||
+      fixture?.resolvedScheduleState == 'loading') {
     await tester.pump(const Duration(milliseconds: 500));
   } else {
     await tester.pumpAndSettle();
@@ -49,8 +51,12 @@ void main() {
       final target = entry['target'] as String;
       await open(
         tester,
-        target.startsWith('C') ? 'library' : target,
-        component: target.startsWith('C') ? target : null,
+        (target.startsWith('C') || target.endsWith('Section'))
+            ? 'library'
+            : target,
+        component: (target.startsWith('C') || target.endsWith('Section'))
+            ? target
+            : null,
         fixture: PreviewFixture.fromJson(jsonEncode(entry['data'])),
       );
       final id = entry['id'];
@@ -79,10 +85,57 @@ void main() {
         );
       }
 
-      if (id == 'loading') expect(find.byType(CLoading), findsOneWidget);
-      if (id == 'error')
+      if (id == 'loading') {
+        expect(find.byType(CLoading), findsNWidgets(target == 'home' ? 2 : 1));
+        if (target == 'home') {
+          expect(find.text('FEED'), findsOneWidget);
+          expect(find.text('PRÓXIMOS ATENDIMENTOS'), findsOneWidget);
+          for (final loader in find.byType(CLoading).evaluate()) {
+            expect(
+              tester
+                  .getSize(
+                    find.byElementPredicate(
+                      (element) => identical(element, loader),
+                    ),
+                  )
+                  .width,
+              tester
+                  .getSize(
+                    find.byElementPredicate(
+                      (element) => identical(element, loader),
+                    ),
+                  )
+                  .height,
+            );
+            expect(
+              tester
+                  .getSize(
+                    find.byElementPredicate(
+                      (element) => identical(element, loader),
+                    ),
+                  )
+                  .height,
+              lessThan(100),
+            );
+          }
+        }
+      }
+      if (id == 'error' && target == 'home') {
+        expect(find.text('Erro ao recuperar o vídeo do feed.'), findsOneWidget);
         expect(
-          find.text('Não foi possível carregar os dados.'),
+          find.text('Erro ao recuperar os atendimentos agendados.'),
+          findsOneWidget,
+        );
+      }
+      if (id == 'error' && target != 'home')
+        expect(
+          find.text(
+            ['feed', 'FeedSection'].contains(target)
+                ? 'Erro ao recuperar o vídeo do feed.'
+                : ['agenda', 'AppointmentsSection'].contains(target)
+                ? 'Erro ao recuperar os atendimentos agendados.'
+                : 'Não foi possível carregar os dados.',
+          ),
           findsOneWidget,
         );
       if (id == 'week')
@@ -120,18 +173,79 @@ void main() {
       expect(tester.takeException(), isNull);
     });
   }
-  testWidgets(
-    'home navigates to agenda and preserves the empty reference state',
-    (tester) async {
-      await open(tester, 'home');
-      expect(find.text('Não há feed disponíveis.'), findsOneWidget);
-      await tester.tap(find.text('Ver Tudo'));
-      await tester.pumpAndSettle();
-      expect(find.text('Setembro 2026'), findsOneWidget);
-      expect(find.text('Não há atendimentos agendados.'), findsOneWidget);
+  testWidgets('home composes three posts with schedules loading', (
+    tester,
+  ) async {
+    await open(
+      tester,
+      'home',
+      fixture: const PreviewFixture(
+        feedState: 'ready',
+        feedCount: '3',
+        scheduleState: 'loading',
+        postText: 'long',
+        headerPhoto: true,
+        postAvatarPhoto: true,
+      ),
+    );
+    expect(find.byType(CCardFeed), findsNWidgets(3));
+    expect(find.byType(CLoading), findsOneWidget);
+    expect(find.byType(CTileScheduleParent), findsNothing);
+    final post = tester.widget<CCardFeed>(find.byType(CCardFeed).first);
+    expect(post.data.description.length, greaterThan(300));
+    expect(post.data.avatarUrl.toString(), contains('avatar_synthetic.png'));
+    expect(tester.takeException(), isNull);
+  });
+  testWidgets('home composes feed loading with three supervised appointments', (
+    tester,
+  ) async {
+    await open(
+      tester,
+      'home',
+      fixture: const PreviewFixture(
+        feedState: 'loading',
+        scheduleState: 'ready',
+        scheduleCount: '3',
+        hasSupervisor: true,
+        professionalPhoto: true,
+        scheduleStatus: 'cancelled',
+      ),
+    );
+    expect(find.byType(CLoading), findsOneWidget);
+    expect(find.byType(CCardFeed), findsNothing);
+    expect(find.byType(CTileScheduleParent), findsNWidgets(3));
+    final appointment = tester.widget<CTileScheduleParent>(
+      find.byType(CTileScheduleParent).first,
+    );
+    expect(appointment.data.hasSupervisor, isTrue);
+    expect(appointment.data.status, ScheduleStatus.cancelled);
+    expect(tester.takeException(), isNull);
+  });
+  for (final count in ['1', '2', '3']) {
+    testWidgets('feed section count $count matches the home', (tester) async {
+      final fixture = PreviewFixture(
+        feedState: 'ready',
+        feedCount: count,
+        scheduleState: 'empty',
+      );
+      await open(tester, 'home', fixture: fixture);
+      expect(find.byType(CCardFeed), findsNWidgets(int.parse(count)));
+      await open(tester, 'library', component: 'FeedSection', fixture: fixture);
+      expect(find.byType(CCardFeed), findsNWidgets(int.parse(count)));
       expect(tester.takeException(), isNull);
-    },
-  );
+    });
+  }
+  testWidgets('home navigates to agenda and preserves the empty state', (
+    tester,
+  ) async {
+    await open(tester, 'home');
+    expect(find.text('Não há feed disponíveis.'), findsOneWidget);
+    await tester.tap(find.text('Ver Tudo'));
+    await tester.pumpAndSettle();
+    expect(find.text('Setembro 2026'), findsOneWidget);
+    expect(find.text('Não há atendimentos agendados.'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
   testWidgets('content search hides unmatched synthetic content', (
     tester,
   ) async {

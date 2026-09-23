@@ -1,6 +1,5 @@
 import { FixtureEditor } from "./FixtureEditor";
 import {
-  fixtures,
   variationsFor,
   initialFixture,
   viewports,
@@ -22,6 +21,25 @@ const screens = [
   ["notifications", "Notificações"],
 ] as const;
 const components = [
+  [
+    "FeedSection",
+    "Feed · seção",
+    "cards/card_feed.dart",
+    "Composição da Home e Feed",
+  ],
+  ["CCardFeed", "Post do feed", "cards/card_feed.dart", "Início e Feed"],
+  [
+    "AppointmentsSection",
+    "Próximos atendimentos · seção",
+    "tiles/tile_schedule_parent.dart",
+    "Composição da Home e Agenda",
+  ],
+  [
+    "CTileScheduleParent",
+    "Atendimento",
+    "tiles/tile_schedule_parent.dart",
+    "Início e Agenda",
+  ],
   [
     "CAppBarUser2",
     "Cabeçalho",
@@ -121,7 +139,7 @@ export default function App() {
       !variationsFor(target).includes(fixture.id)
     ) {
       setScreen(activeScreen);
-      setFixture({ id: "reference", data: fixtures.reference.data, error: "" });
+      setFixture((current) => ({ ...current, id: "custom" }));
     }
   }, [target, fixture.id, activeScreen]);
   const fixtureQuery = new URLSearchParams({
@@ -598,7 +616,45 @@ export default function App() {
                           <div className="ds-ios" aria-hidden="true">
                             <span>13:05</span>
                             <i />
-                            <span>▮▮▮ ▰</span>
+                            <span className="ds-ios-icons">
+                              <svg width="18" height="14" viewBox="0 0 18 14">
+                                <path
+                                  fill="currentColor"
+                                  d="M0 9h3v5H0zm5-3h3v8H5zm5-3h3v11h-3zm5-3h3v14h-3z"
+                                />
+                              </svg>
+                              <svg width="18" height="14" viewBox="0 0 18 14">
+                                <path
+                                  fill="currentColor"
+                                  d="M9 14 6.5 11.5a3.5 3.5 0 0 1 5 0ZM4.5 9.5l-2-2a9.2 9.2 0 0 1 13 0l-2 2a6.3 6.3 0 0 0-9 0ZM0 5l2 2a10 10 0 0 1 14 0l2-2A12.8 12.8 0 0 0 0 5Z"
+                                />
+                              </svg>
+                              <svg width="27" height="14" viewBox="0 0 27 14">
+                                <rect
+                                  x=".5"
+                                  y=".5"
+                                  width="23"
+                                  height="13"
+                                  rx="3"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  opacity=".4"
+                                />
+                                <rect
+                                  x="2.5"
+                                  y="2.5"
+                                  width="19"
+                                  height="9"
+                                  rx="1.5"
+                                  fill="currentColor"
+                                />
+                                <path
+                                  d="M25 4v6c2-1 2-5 0-6"
+                                  fill="currentColor"
+                                  opacity=".5"
+                                />
+                              </svg>
+                            </span>
                           </div>
                           <div
                             className="ds-home-indicator"
@@ -609,9 +665,6 @@ export default function App() {
                     </div>
                   </div>
                 </div>
-                <p className="ds-caption">
-                  Flutter real · sem conexão com dados clínicos
-                </p>
               </section>
               <aside className="ds-inspector">
                 <div className="ds-panel-tabs">
