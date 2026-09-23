@@ -30,3 +30,9 @@ Não há backend, envio de arquivo, autenticação, alteração real de senha, p
 `npm run handoff -- baseline` gera ZIP dos fontes, patch binário, resumo e version.json com commit e base. `.env` e binários compilados ficam fora do Git/ZIP. O receptor precisa de acesso ao registro privado. Baseline e histórico preservam a versão React anterior.
 
 Após revisão humana, registrar aprovador, data, escopo e commit aprovado. Não houve push, deploy nem modificação do app original.
+
+## Ferramentas restauradas
+
+Busca unificada, biblioteca de componentes isolados, viewport com presets e medidas livres, zoom e orientação, fixtures editáveis/salvas/exportáveis e links de contexto foram recuperados. O schema compartilhado do ambiente está em `src/workbench.ts`; o contrato correspondente no Flutter é `lib/preview_fixture.dart`. Os componentes e os dados continuam locais. O estado de busca e o JSON ainda não aplicado não entram no link; a fixture aplicada entra.
+
+A biblioteca agora mostra o componente selecionado em vez de uma lista fixa. Referência continua sendo o estado inicial; fixtures de textos longos são instrumentos para explorar limites do componente original, não um compromisso de layout de produção.

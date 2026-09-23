@@ -24,3 +24,13 @@
 ## O que não mede
 
 Não há percentual de similaridade fabricado nem certificação pixel a pixel. As comparações foram visuais contra quadros das gravações. Diferenças de sistema, avatares sintéticos, teclado, versão e funcionalidades não gravadas estão em HANDOFF.md. Testes de widgets não substituem validação no iOS real ou integração clínica.
+
+## Restauração das ferramentas do Design Space
+
+A moldura foi comparada com o contrato/README do @brucesantos/design-space usado em `/Users/brunosantos/Documents/GitHub/bloomy-design-space`. Busca, deep links, viewport e fixtures foram adaptados ao Flutter sem modificar esse repositório ou importar seus cenários clínicos de backoffice.
+
+- 4 testes Node: busca sem acento, validação de fixtures, round-trip de dados no link e limites do viewport.
+- 19 testes Flutter: incluem dados personalizados, estado sem conteúdo, botão desabilitado e sete amostras isoladas, além dos dez checks anteriores.
+- Browser: busca por “calendario” abre CCalendarWeekly; fixture vazia remove cartão; JSON personalizado altera responsável/paciente/conteúdo; link reaberto preserva os dados e viewport tablet 768 × 1024. Dimensão personalizada 430 × 932 confirmada no iframe; zoom apenas visual.
+- Viewports grandes mantêm rolagem do canvas; a moldura é opcional e sua remoção também zera a área segura injetada no Flutter.
+- O catálogo atual tem oito componentes e oito telas principais. A restauração não importa os 285 cenários ou a matriz de permissões do outro produto.

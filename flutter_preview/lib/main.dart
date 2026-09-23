@@ -2,6 +2,7 @@ import 'package:components_bloomy/components_bloomy.dart';
 import 'package:flutter_extension/flutter_extension.dart' hide context;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'app_icons.dart';
+import 'preview_fixture.dart';
 import 'preview_bridge.dart';
 
 void main() {
@@ -11,7 +12,14 @@ void main() {
 }
 
 class PreviewApp extends StatefulWidget {
-  const PreviewApp({super.key, this.initialScreen});
+  const PreviewApp({
+    super.key,
+    this.initialScreen,
+    this.fixture,
+    this.component,
+  });
+  final PreviewFixture? fixture;
+  final String? component;
   final String? initialScreen;
   @override
   State<PreviewApp> createState() => _PreviewAppState();
@@ -37,11 +45,19 @@ class _PreviewAppState extends State<PreviewApp> {
           locale: locale,
           localizationsDelegates: delegates,
           supportedLocales: locales,
-          home: Preview(initialScreen: widget.initialScreen),
+          home: Preview(
+            initialScreen: widget.initialScreen,
+            fixture: widget.fixture,
+            component: widget.component,
+          ),
           builder: (context, child) => MediaQuery(
             data: MediaQuery.of(context).copyWith(
-              padding: const EdgeInsets.only(top: 62, bottom: 34),
-              viewPadding: const EdgeInsets.only(top: 62, bottom: 34),
+              padding: Uri.base.queryParameters['safe'] == '0'
+                  ? EdgeInsets.zero
+                  : const EdgeInsets.only(top: 62, bottom: 34),
+              viewPadding: Uri.base.queryParameters['safe'] == '0'
+                  ? EdgeInsets.zero
+                  : const EdgeInsets.only(top: 62, bottom: 34),
               textScaler: const TextScaler.linear(1.1),
             ),
             child: child!,
@@ -51,7 +67,9 @@ class _PreviewAppState extends State<PreviewApp> {
 }
 
 class Preview extends StatefulWidget {
-  const Preview({super.key, this.initialScreen});
+  const Preview({super.key, this.initialScreen, this.fixture, this.component});
+  final PreviewFixture? fixture;
+  final String? component;
   final String? initialScreen;
   @override
   State<Preview> createState() => _PreviewState();
@@ -67,11 +85,12 @@ class _PreviewState extends State<Preview> {
   DateTime day = DateTime(2026, 9, 23);
   bool passwordStep = false, keep = true;
   final permissions = [true, false, false];
-  String patient = 'Teste Maria';
-  CAvatarData get avatar => const CAvatarData(
-    imageUrl: "",
-    defaultAbbreviationName: 'TS',
-  );
+  late final fixture =
+      widget.fixture ??
+      PreviewFixture.fromJson(Uri.base.queryParameters['data']);
+  late String patient = fixture.patient;
+  CAvatarData get avatar =>
+      const CAvatarData(imageUrl: "", defaultAbbreviationName: 'TS');
   void go(String next) {
     setState(() {
       page = next;
@@ -183,7 +202,7 @@ class _PreviewState extends State<Preview> {
             padding: EdgeInsets.all(20),
             child: Text('Selecionar pacientes'),
           ),
-          for (final name in ['Todos', 'Teste Maria', 'Teste João'])
+          for (final name in ['Todos', fixture.patient, 'Teste João'])
             ListTile(
               title: Text(name),
               trailing: patient == name ? const Icon(Icons.check) : null,
@@ -198,7 +217,7 @@ class _PreviewState extends State<Preview> {
   );
   Widget drawer() => CDrawer(
     CDrawerData(
-      name: Name('Teste Responsável'),
+      name: Name(fixture.guardian),
       email: Email('responsavel@example.invalid'),
       avatarData: avatar,
       itemsData: [
@@ -230,7 +249,7 @@ class _PreviewState extends State<Preview> {
   IAppBar header(BuildContext ctx) => CAppBarUser2(
     CAppBarUser2Data(
       greetings: 'Olá,',
-      name: 'Teste',
+      name: fixture.guardian,
       avatarData: avatar,
       buttonData: CButtonData.icon(UIconsExtension.menu),
     ),
@@ -253,11 +272,14 @@ class _PreviewState extends State<Preview> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CDropdown<String>(
               CDropdownData<String>(
-                items: const [
-                  CDropdownItemData(label: 'Teste Maria', value: 'Teste Maria'),
+                items: [
+                  CDropdownItemData(
+                    label: fixture.patient,
+                    value: fixture.patient,
+                  ),
                   CDropdownItemData(label: 'Teste João', value: 'Teste João'),
                 ],
-                valueSelected: patient == 'Todos' ? 'Teste Maria' : patient,
+                valueSelected: patient == 'Todos' ? fixture.patient : patient,
               ),
               const CDropdownDefaultStyle(),
               onSelect: (v) => setState(() => patient = v),
@@ -376,10 +398,11 @@ class _PreviewState extends State<Preview> {
             CHeaderParentHomeStyle(),
           ),
         ),
-        if (search.text.isEmpty ||
-            'teste v1 teste vídeo de coelho'.contains(
-              search.text.toLowerCase(),
-            ))
+        if (fixture.showContent &&
+            (search.text.isEmpty ||
+                '${fixture.contentTitle} ${fixture.contentDescription}'
+                    .toLowerCase()
+                    .contains(search.text.toLowerCase())))
           Padding(padding: EdgeInsets.zero, child: contentTile())
         else
           const Padding(
@@ -391,15 +414,15 @@ class _PreviewState extends State<Preview> {
   );
   Widget contentTile() => CTileParentContent(
     CTileParentContentData(
-      patientName: patient == 'Todos' ? 'Teste Maria' : patient,
+      patientName: patient == 'Todos' ? fixture.patient : patient,
       updatedAt: DateTime(2025, 10, 1, 17, 21),
       patientAvatarData: const CAvatarData(
         imageUrl: "",
         defaultAbbreviationName: 'TM',
         defaultPriority: DefaultPriority.abbreviation,
       ),
-      title: 'Teste v1',
-      description: 'Teste vídeo de coelho.',
+      title: fixture.contentTitle,
+      description: fixture.contentDescription,
       contentType: ContentType.video,
       id: 'synthetic-content-1',
     ),
@@ -471,12 +494,12 @@ class _PreviewState extends State<Preview> {
         avatarUsersData: [
           AvatarUserData(
             id: 'guardian',
-            title: 'Teste Responsável',
+            title: fixture.guardian,
             avatarUrl: Url(''),
           ),
           AvatarUserData(
             id: 'patient',
-            title: 'Teste Maria',
+            title: fixture.patient,
             avatarUrl: Url(''),
           ),
         ],
@@ -664,7 +687,7 @@ class _PreviewState extends State<Preview> {
         'consent': 'Termo de Ciência',
         'contracts': 'Contrato de Adesão',
         'about': 'Sobre',
-        'content': 'Teste v1',
+        'content': fixture.contentTitle,
         'password': 'Redefinir senha',
       }[page]!,
     ),
@@ -841,50 +864,67 @@ class _PreviewState extends State<Preview> {
       },
     ),
   );
-  Widget library() => CScaffold.list(
-    const CScaffoldListData(
-      isBodyUnderAppBar: false,
-      isBodyUnderBottomBar: false,
-    ),
-    const CScaffoldParentStyle(
-      customListMainAxisAlignment: MainAxisAlignment.start,
-    ),
-    appBarBuilder: (_) => backHeader('Componentes originais'),
-    bodies: [
-      const CHeader.content(
-        CHeaderContentData('BOTÕES · CButton'),
-        CHeaderParentHomeStyle(),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(16),
-        child: CButton(
-          CButtonData.label('PRÓXIMO'),
-          const CButtonDefaultStyle(),
-          onTap: () => message('CButton original'),
+  Widget library() {
+    final component =
+        widget.component ?? Uri.base.queryParameters['component'] ?? 'CButton';
+    Widget sample() => switch (component) {
+      'CAppBarUser2' => CAppBarUser2(
+        CAppBarUser2Data(
+          greetings: 'Olá,',
+          name: fixture.guardian,
+          avatarData: avatar,
+          buttonData: CButtonData.icon(UIconsExtension.menu),
         ),
+        const CAppBarUser2DefaultStyle(),
+        onUserTap: () => message('Avatar do cabeçalho'),
+        onButtonTap: () => message('Menu do cabeçalho'),
       ),
-      const CHeader.content(
-        CHeaderContentData('BUSCA · CTextField'),
-        CHeaderParentHomeStyle(),
+      'CBottomBarUser' => bottom(),
+      'CCalendarWeekly' => agendaHeader(),
+      'CTextField' => CTextField(
+        CTextFieldData.search(hint: 'Buscar por paciente, sala...'),
+        const CTextFieldDefaultStyle(),
+        controller: search,
       ),
-      Padding(
-        padding: const EdgeInsets.all(16),
-        child: CTextField(
-          CTextFieldData.search(hint: 'Buscar por paciente, sala...'),
-          const CTextFieldDefaultStyle(),
+      'CContainerListInformation' => empty(false),
+      'CTileParentContent' =>
+        fixture.showContent
+            ? contentTile()
+            : const Text('Fixture sem conteúdo.'),
+      'CTileSettings' => CCardList(
+        const CCardListSettingsStyle(),
+        children: [
+          CTileSettings.checkbox(
+            CTileSettingsCheckboxData(
+              label: 'Notificações',
+              description: 'Permissão local de demonstração',
+              icon: UIcons.notificationOn,
+              isChecked: permissions[0],
+            ),
+            const CTileSettingsSettingsStyle(isFirst: true, isLast: true),
+            onChanged: (_) => setState(() => permissions[0] = !permissions[0]),
+          ),
+        ],
+      ),
+      _ => CButton(
+        CButtonData.label(
+          fixture.buttonLabel,
+          isEnabled: fixture.buttonEnabled,
         ),
+        const CButtonDefaultStyle(),
+        onTap: () => message('CButton original'),
       ),
-      const CHeader.content(
-        CHeaderContentData('VAZIO · CContainerListInformation'),
-        CHeaderParentHomeStyle(),
+    };
+    return CScaffold.list(
+      const CScaffoldListData(
+        isBodyUnderAppBar: false,
+        isBodyUnderBottomBar: false,
       ),
-      empty(false),
-      const CHeader.content(
-        CHeaderContentData('CONTEÚDO · CTileParentContent'),
-        CHeaderParentHomeStyle(),
+      const CScaffoldParentStyle(
+        customListMainAxisAlignment: MainAxisAlignment.start,
       ),
-      Padding(padding: const EdgeInsets.all(16), child: contentTile()),
-    ],
-    bottomBarBuilder: (_) => bottom(),
-  );
+      appBarBuilder: (_) => backHeader(component),
+      bodies: [Padding(padding: const EdgeInsets.all(16), child: sample())],
+    );
+  }
 }

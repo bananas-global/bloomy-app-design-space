@@ -1,3 +1,12 @@
+import { DimensionField } from "./DimensionField";
+import { FixtureEditor } from "./FixtureEditor";
+import {
+  initialFixture,
+  viewports,
+  dimension,
+  normalizeSearch,
+  type Fixture,
+} from "./workbench";
 import { useRef, useState, useEffect } from "react";
 import {
   Smartphone,
@@ -93,17 +102,85 @@ export default function App() {
   const [notes, setNotes] = useState<Note[]>(initialNotes);
   const [draft, setDraft] = useState("");
   const [panel, setPanel] = useState("context");
-  const [focus, setFocus] = useState("CAppBarUser2");
+  const [focus, setFocus] = useState(
+    components.some((c) => c[0] === params.get("component"))
+      ? params.get("component")!
+      : "CAppBarUser2",
+  );
+  const [query, setQuery] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
+  const previewArea = useRef<HTMLDivElement>(null);
+  const [fixture, setFixture] = useState(() => initialFixture(params));
+  const [vp, setVp] = useState(params.get("viewport") || "mobile");
+  const [width, setWidth] = useState(
+    dimension(params.get("w"), viewports[vp]?.width || 402, 320, 1920),
+  );
+  const [height, setHeight] = useState(
+    dimension(params.get("h"), viewports[vp]?.height || 874, 480, 1600),
+  );
+  const [zoom, setZoom] = useState(dimension(params.get("zoom"), 100, 25, 150));
+  const [safe, setSafe] = useState(params.get("safe") !== "0");
+  const fixtureQuery = new URLSearchParams({
+    screen: view === "library" ? "library" : screen,
+    component: view === "library" ? focus : "",
+    data: JSON.stringify(fixture.data),
+    safe: safe ? "1" : "0",
+  });
+  const previewUrl = "/flutter/index.html?" + fixtureQuery;
+  const matches = (...texts: string[]) =>
+    normalizeSearch(texts.join(" ")).includes(normalizeSearch(query));
+  function applyFixture(id: string, data: Fixture) {
+    setScreen(activeScreen);
+    setFixture({ id, data, error: "" });
+    setRevision((r) => r + 1);
+  }
+  function openComponent(id: string) {
+    setFocus(id);
+    setView("library");
+    setPanel("context");
+    setQuery("");
+  }
+  useEffect(() => {
+    const key = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        searchRef.current?.focus();
+      }
+    };
+    addEventListener("keydown", key);
+    return () => removeEventListener("keydown", key);
+  }, []);
   const [exportText, setExportText] = useState("");
   const [status, setStatus] = useState("");
   const frame = useRef<HTMLIFrameElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     const u = new URL(location.href);
-    u.searchParams.set("screen", screen);
+    u.searchParams.set("screen", activeScreen);
     u.searchParams.set("view", view);
+    u.searchParams.set("component", focus);
+    u.searchParams.set("fixture", fixture.id);
+    if (fixture.id === "custom")
+      u.searchParams.set("data", JSON.stringify(fixture.data));
+    else u.searchParams.delete("data");
+    u.searchParams.set("viewport", vp);
+    u.searchParams.set("w", String(width));
+    u.searchParams.set("h", String(height));
+    u.searchParams.set("zoom", String(zoom));
+    u.searchParams.set("safe", safe ? "1" : "0");
     history.replaceState({}, "", u);
-  }, [screen, view]);
+  }, [
+    screen,
+    activeScreen,
+    view,
+    focus,
+    fixture,
+    vp,
+    width,
+    height,
+    zoom,
+    safe,
+  ]);
   useEffect(() => {
     if (exportText) dialog.current?.showModal();
     else dialog.current?.close();
@@ -144,7 +221,7 @@ export default function App() {
   }
   function exportReview() {
     setExportText(
-      `# Revisão — Bloomy Flutter\n\nStatus: candidata, sem aprovação humana.\nPacote: components_bloomy 6.39.0.\nFonte do app: a61a468.\n\n## Comentários\n${notes.map((n) => `- [${n.done ? "x" : " "}] ${n.screen}: ${n.text}`).join("\n")}\n\n## Limites\nDados e avatares sintéticos. Sem autenticação, envio de arquivos ou backend. Gravação mostra app 1.10.3+89; código consultado é 1.11.3+94. Paridade avaliada visualmente, não certificada pixel a pixel. Contratos, vídeo e integrações ainda fora do recorte.\n\nVersão exata e diferenças: npm run handoff -- baseline\n`,
+      `# Revisão — Bloomy Flutter\n\nContexto: ${location.href}\n\nStatus: candidata, sem aprovação humana.\nPacote: components_bloomy 6.39.0.\nFonte do app: a61a468.\n\n## Comentários\n${notes.map((n) => `- [${n.done ? "x" : " "}] ${n.screen}: ${n.text}`).join("\n")}\n\n## Limites\nDados e avatares sintéticos. Sem autenticação, envio de arquivos ou backend. Gravação mostra app 1.10.3+89; código consultado é 1.11.3+94. Paridade avaliada visualmente, não certificada pixel a pixel. Contratos, vídeo e integrações ainda fora do recorte.\n\nVersão exata e diferenças: npm run handoff -- baseline\n`,
     );
   }
   const c = components.find((c) => c[0] === focus)!;
@@ -157,6 +234,17 @@ export default function App() {
             bloomy<small>DESIGN SPACE</small>
           </div>
         </a>
+        <label className="ds-search">
+          <span>Buscar telas e componentes</span>
+          <input
+            ref={searchRef}
+            type="search"
+            placeholder="Buscar… ⌘K"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            aria-keyshortcuts="Meta+K Control+K"
+          />
+        </label>
         <p className="ds-label">APP DOS RESPONSÁVEIS</p>
         <nav>
           {[
@@ -176,23 +264,47 @@ export default function App() {
         </nav>
         <div className="ds-pages">
           <p className="ds-label">TELAS DO APP REAL</p>
-          {screens.map(([id, label]) => (
-            <button
-              key={id}
-              className={
-                activeScreen === id && view === "canvas" ? "selected" : ""
-              }
-              onClick={() => {
-                setScreen(id);
-                setActiveScreen(id);
-                setRevision((r) => r + 1);
-                setView("canvas");
-              }}
-            >
-              <span className="ds-dot" />
-              {label}
-            </button>
-          ))}
+          {screens
+            .filter(([id, label]) => matches(id, label))
+            .map(([id, label]) => (
+              <button
+                key={id}
+                className={
+                  activeScreen === id && view === "canvas" ? "selected" : ""
+                }
+                onClick={() => {
+                  setScreen(id);
+                  setActiveScreen(id);
+                  setRevision((r) => r + 1);
+                  setView("canvas");
+                }}
+              >
+                <span className="ds-dot" />
+                {label}
+              </button>
+            ))}
+        </div>
+        <div className="ds-component-nav">
+          <p className="ds-label">COMPONENTES</p>
+          {components
+            .filter((c) => matches(...c))
+            .map((c) => (
+              <button
+                key={c[0]}
+                className={
+                  view === "library" && focus === c[0] ? "selected" : ""
+                }
+                onClick={() => openComponent(c[0])}
+              >
+                <strong>{c[0]}</strong>
+                <small>{c[1]}</small>
+              </button>
+            ))}
+          {query &&
+            !components.some((c) => matches(...c)) &&
+            !screens.some((s) => matches(...s)) && (
+              <p role="status">Nenhum resultado.</p>
+            )}
         </div>
         <footer>
           <span className="ds-dot live" />
@@ -299,7 +411,10 @@ export default function App() {
               </div>
               <button
                 className="ds-text-button"
-                onClick={() => setRevision((r) => r + 1)}
+                onClick={() => {
+                  setScreen(activeScreen);
+                  setRevision((r) => r + 1);
+                }}
               >
                 <RotateCcw size={15} />
                 Reiniciar prévia
@@ -336,9 +451,29 @@ export default function App() {
                       )}
                     </select>
                   </label>
-                  <span>402 × 874 · iPhone</span>
+                  <label>
+                    Viewport
+                    <select
+                      aria-label="Preset de viewport"
+                      value={vp}
+                      onChange={(e) => {
+                        setVp(e.target.value);
+                        if (viewports[e.target.value]) {
+                          setWidth(viewports[e.target.value].width);
+                          setHeight(viewports[e.target.value].height);
+                        }
+                      }}
+                    >
+                      {Object.entries(viewports).map(([id, v]) => (
+                        <option key={id} value={id}>
+                          {v.label}
+                        </option>
+                      ))}
+                      <option value="custom">Personalizado</option>
+                    </select>
+                  </label>
                   <a
-                    href={`/flutter/index.html?screen=${view === "library" ? "library" : screen}`}
+                    href={previewUrl}
                     target="_blank"
                     rel="noreferrer"
                     aria-label="Abrir prévia Flutter isolada"
@@ -346,19 +481,152 @@ export default function App() {
                     <ArrowUpRight size={16} />
                   </a>
                 </div>
-                <div className="ds-device">
-                  <iframe
-                    ref={frame}
-                    key={`${screen}-${view}-${revision}`}
-                    src={`/flutter/index.html?screen=${view === "library" ? "library" : screen}`}
-                    title="App Bloomy em Flutter"
-                  />
-                  <div className="ds-ios" aria-hidden="true">
-                    <span>13:05</span>
-                    <i />
-                    <span>▮▮▮ ▰</span>
+                <div className="ds-viewport-controls">
+                  <label>
+                    Largura
+                    <DimensionField
+                      label="Largura da tela"
+                      value={width}
+                      min={320}
+                      max={1920}
+                      onChange={(v) => {
+                        setVp("custom");
+                        setWidth(v);
+                      }}
+                    />
+                  </label>
+                  <span>×</span>
+                  <label>
+                    Altura
+                    <DimensionField
+                      label="Altura da tela"
+                      value={height}
+                      min={480}
+                      max={1600}
+                      onChange={(v) => {
+                        setVp("custom");
+                        setHeight(v);
+                      }}
+                    />
+                  </label>
+                  <button
+                    className="ds-text-button"
+                    onClick={() => {
+                      setVp("custom");
+                      setWidth(Math.max(320, Math.min(1920, height)));
+                      setHeight(Math.max(480, Math.min(1600, width)));
+                    }}
+                  >
+                    Girar
+                  </button>
+                  <label>
+                    Zoom
+                    <select
+                      aria-label="Zoom da prévia"
+                      value={zoom}
+                      onChange={(e) => setZoom(Number(e.target.value))}
+                    >
+                      {[...new Set([25, 50, 75, 100, 125, 150, zoom])]
+                        .sort((a, b) => a - b)
+                        .map((z) => (
+                          <option key={z} value={z}>
+                            {z}%
+                          </option>
+                        ))}
+                    </select>
+                  </label>
+                  <button
+                    className="ds-text-button"
+                    onClick={() => {
+                      const area = previewArea.current?.getBoundingClientRect();
+                      if (area)
+                        setZoom(
+                          Math.max(
+                            25,
+                            Math.min(
+                              100,
+                              Math.floor(
+                                Math.min(
+                                  (area.width - 40) / width,
+                                  (window.innerHeight -
+                                    Math.max(0, area.top) -
+                                    24) /
+                                    height,
+                                ) * 100,
+                              ),
+                            ),
+                          ),
+                        );
+                    }}
+                  >
+                    Ajustar à área
+                  </button>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={safe}
+                      onChange={(e) => {
+                        setScreen(activeScreen);
+                        setSafe(e.target.checked);
+                      }}
+                    />
+                    Moldura iPhone
+                  </label>
+                  <button
+                    className="ds-text-button"
+                    onClick={async () => {
+                      try {
+                        await navigator.clipboard.writeText(location.href);
+                        setStatus("Link do ambiente copiado.");
+                      } catch {
+                        setStatus(
+                          "Copie o endereço do navegador para compartilhar.",
+                        );
+                      }
+                    }}
+                  >
+                    Copiar link
+                  </button>
+                </div>
+                <div className="ds-preview-scroll" ref={previewArea}>
+                  <div
+                    className="ds-preview-size"
+                    style={{
+                      width: (width * zoom) / 100,
+                      height: (height * zoom) / 100,
+                    }}
+                  >
+                    <div
+                      className="ds-device"
+                      style={{
+                        width,
+                        height,
+                        transform: `scale(${zoom / 100})`,
+                        transformOrigin: "top left",
+                        borderRadius: safe ? 35 : 0,
+                      }}
+                    >
+                      <iframe
+                        ref={frame}
+                        key={`${screen}-${view}-${revision}`}
+                        src={previewUrl}
+                        title="App Bloomy em Flutter"
+                      />
+                      {safe && (
+                        <>
+                          <div className="ds-ios" aria-hidden="true">
+                            <span>13:05</span>
+                            <i />
+                            <span>▮▮▮ ▰</span>
+                          </div>
+                          <div
+                            className="ds-home-indicator"
+                            aria-hidden="true"
+                          />
+                        </>
+                      )}
+                    </div>
                   </div>
-                  <div className="ds-home-indicator" aria-hidden="true" />
                 </div>
                 <p className="ds-caption">
                   Flutter real · sem conexão com dados clínicos
@@ -379,7 +647,29 @@ export default function App() {
                     Comentários ({notes.length})
                   </button>
                 </div>
-                {panel === "notes" ? (
+                <button
+                  className="ds-fixture-tab"
+                  onClick={() => setPanel("fixtures")}
+                >
+                  Fixtures ·{" "}
+                  {fixture.id === "custom"
+                    ? "Personalizada"
+                    : fixture.id === "reference"
+                      ? "Referência"
+                      : fixture.id === "empty"
+                        ? "Sem conteúdos"
+                        : fixture.id === "long"
+                          ? "Textos longos"
+                          : "Desabilitado"}
+                </button>
+                {fixture.error && <p role="alert">{fixture.error}</p>}
+                {panel === "fixtures" ? (
+                  <FixtureEditor
+                    id={fixture.id}
+                    data={fixture.data}
+                    onApply={applyFixture}
+                  />
+                ) : panel === "notes" ? (
                   <>
                     <h2>
                       Revisar {screens.find((s) => s[0] === activeScreen)?.[1]}
@@ -461,7 +751,7 @@ export default function App() {
                     <select
                       id="native-component"
                       value={focus}
-                      onChange={(e) => setFocus(e.target.value)}
+                      onChange={(e) => openComponent(e.target.value)}
                     >
                       {components.map((c) => (
                         <option key={c[0]}>{c[0]}</option>

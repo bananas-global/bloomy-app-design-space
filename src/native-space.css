@@ -630,3 +630,169 @@ textarea:focus-visible {
     font-size: 21px;
   }
 }
+/* Workbench controls surround the real Flutter viewport; zoom never changes its layout width. */
+.ds-sidebar {
+  overflow-y: auto;
+}
+.ds-brand {
+  margin-bottom: 22px;
+}
+.ds-search {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 22px;
+  font-size: 10px;
+  font-weight: 800;
+}
+.ds-search input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dcdde8;
+  border-radius: 8px;
+  background: #f7f8fb;
+}
+.ds-component-nav {
+  margin-top: 22px;
+}
+.ds-component-nav button {
+  display: grid;
+  text-align: left;
+  width: 100%;
+  padding: 9px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  font-size: 11px;
+}
+.ds-component-nav button.selected {
+  background: #eaf4f8;
+  color: #3983a5;
+}
+.ds-component-nav small {
+  color: #857c95;
+  margin-top: 3px;
+  font-size: 10px;
+}
+.ds-component-nav > p:not(.ds-label) {
+  font-size: 12px;
+}
+.ds-pages {
+  margin-top: 20px;
+  padding-top: 20px;
+}
+.ds-canvas {
+  grid-template-columns: minmax(0, 1fr) 310px;
+}
+.ds-stage {
+  min-width: 0;
+}
+.ds-toolbar {
+  height: auto;
+  min-height: 64px;
+  flex-wrap: wrap;
+  padding: 14px 20px;
+}
+.ds-viewport-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 0 20px 18px;
+  font-size: 10px;
+}
+.ds-viewport-controls label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.ds-viewport-controls input[type="number"] {
+  width: 65px;
+}
+.ds-viewport-controls input,
+.ds-viewport-controls select {
+  border: 1px solid #d9dce5;
+  padding: 6px;
+  border-radius: 5px;
+  background: white;
+}
+.ds-preview-scroll {
+  width: 100%;
+  overflow: auto;
+  padding: 3px 20px 20px;
+}
+.ds-preview-size {
+  position: relative;
+  margin: auto;
+  flex-shrink: 0;
+}
+.ds-device {
+  flex-shrink: 0;
+}
+.ds-fixture-tab {
+  background: #eef6f9;
+  border: 1px solid #d7e8ef;
+  border-radius: 6px;
+  padding: 8px 12px;
+  width: 100%;
+  text-align: left;
+  font-size: 11px;
+  color: #3983a5;
+  margin-bottom: 14px;
+}
+.ds-fixtures label {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  margin-bottom: 7px;
+}
+.ds-fixtures textarea {
+  width: 100%;
+  height: 310px;
+  resize: vertical;
+  border: 1px solid #dddce7;
+  border-radius: 7px;
+  font: 11px/1.6 monospace;
+  padding: 10px;
+}
+.ds-fixtures .ds-error {
+  color: #a9243d;
+}
+.ds-fixture-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.ds-fixtures .ds-fixture-help {
+  font-size: 10px;
+  line-height: 1.5;
+}
+.ds-panel-tabs {
+  gap: 12px;
+}
+.ds-sidebar footer {
+  margin-top: 20px;
+}
+.ds-search input:focus-visible,
+.ds-viewport-controls input:focus-visible {
+  outline: 3px solid #58bada;
+  outline-offset: 2px;
+}
+@media (max-width: 880px) {
+  .ds-canvas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ds-component-nav {
+    display: none;
+  }
+  .ds-search span {
+    display: none;
+  }
+  .ds-search input {
+    padding: 8px 3px;
+    font-size: 10px;
+  }
+  .ds-search {
+    margin-bottom: 12px;
+  }
+}
