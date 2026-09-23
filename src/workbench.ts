@@ -6,11 +6,27 @@ export type Fixture = {
   showContent: boolean;
   buttonLabel: string;
   buttonEnabled: boolean;
+  state: string;
+  calendarMode: string;
+  loginStep: string;
+  permissions: string;
+  searchText: string;
+  fieldError: boolean;
+  navigation: string;
+  contentType: string;
 };
 export const fixtures: Record<string, { label: string; data: Fixture }> = {
   reference: {
     label: "Referência da gravação",
     data: {
+      state: "ready",
+      calendarMode: "month",
+      loginStep: "cpf",
+      permissions: "reference",
+      searchText: "",
+      fieldError: false,
+      navigation: "home",
+      contentType: "video",
       guardian: "Teste",
       patient: "Teste Maria",
       contentTitle: "Teste v1",
@@ -23,6 +39,14 @@ export const fixtures: Record<string, { label: string; data: Fixture }> = {
   empty: {
     label: "Sem conteúdos",
     data: {
+      state: "ready",
+      calendarMode: "month",
+      loginStep: "cpf",
+      permissions: "reference",
+      searchText: "",
+      fieldError: false,
+      navigation: "home",
+      contentType: "video",
       guardian: "Teste",
       patient: "Teste Maria",
       contentTitle: "Teste v1",
@@ -35,6 +59,14 @@ export const fixtures: Record<string, { label: string; data: Fixture }> = {
   long: {
     label: "Textos longos",
     data: {
+      state: "ready",
+      calendarMode: "month",
+      loginStep: "cpf",
+      permissions: "reference",
+      searchText: "",
+      fieldError: false,
+      navigation: "home",
+      contentType: "video",
       guardian: "Responsável de demonstração",
       patient: "Paciente de demonstração Maria",
       contentTitle: "Atividades de comunicação e cooperação",
@@ -48,6 +80,14 @@ export const fixtures: Record<string, { label: string; data: Fixture }> = {
   disabled: {
     label: "Botão desabilitado",
     data: {
+      state: "ready",
+      calendarMode: "month",
+      loginStep: "cpf",
+      permissions: "reference",
+      searchText: "",
+      fieldError: false,
+      navigation: "home",
+      contentType: "video",
       guardian: "Teste",
       patient: "Teste Maria",
       contentTitle: "Teste v1",
@@ -58,6 +98,49 @@ export const fixtures: Record<string, { label: string; data: Fixture }> = {
     },
   },
 };
+const extras = {
+  state: "ready",
+  calendarMode: "month",
+  loginStep: "cpf",
+  permissions: "reference",
+  searchText: "",
+  fieldError: false,
+  navigation: "home",
+  contentType: "video",
+};
+const add = (id: string, label: string, patch: Partial<Fixture>) => {
+  fixtures[id] = { label, data: { ...fixtures.reference.data, ...patch } };
+};
+add("loading", "Carregando", { state: "loading" });
+add("error", "Erro ao carregar", { state: "error" });
+add("week", "Calendário semanal", { calendarMode: "week" });
+add("password", "Etapa de senha", { loginStep: "password" });
+add("permissions-on", "Todas permitidas", { permissions: "on" });
+add("permissions-off", "Todas desativadas", { permissions: "off" });
+add("search-filled", "Busca preenchida", { searchText: "Teste" });
+add("field-error", "Campo com erro", { fieldError: true });
+add("nav-agenda", "Agenda selecionada", { navigation: "agenda" });
+add("document", "Conteúdo em documento", { contentType: "document" });
+export const variationIds: Record<string, string[]> = {
+  home: ["reference", "long", "loading", "error"],
+  agenda: ["reference", "week", "loading", "error"],
+  contents: ["reference", "empty", "long", "document", "loading", "error"],
+  metrics: ["reference", "long", "loading", "error"],
+  settings: ["reference", "permissions-on", "permissions-off"],
+  login: ["reference", "password"],
+  feed: ["reference", "loading", "error"],
+  notifications: ["reference", "loading", "error"],
+  CAppBarUser2: ["reference", "long"],
+  CBottomBarUser: ["reference", "nav-agenda"],
+  CCalendarWeekly: ["reference", "week"],
+  CTextField: ["reference", "search-filled", "field-error"],
+  CContainerListInformation: ["reference", "loading", "error"],
+  CTileParentContent: ["reference", "long", "document"],
+  CTileSettings: ["reference", "permissions-off"],
+  CButton: ["reference", "disabled", "long"],
+};
+export const variationsFor = (target: string) =>
+  variationIds[target] || ["reference"];
 export function parseFixture(raw: string): Fixture {
   let value;
   try {
@@ -67,6 +150,7 @@ export function parseFixture(raw: string): Fixture {
   }
   if (!value || Array.isArray(value) || typeof value !== "object")
     throw Error("Use um objeto JSON.");
+  value = { ...extras, ...value };
   for (const [key, base] of Object.entries(fixtures.reference.data)) {
     if (typeof value[key] !== typeof base)
       throw Error(
@@ -74,12 +158,22 @@ export function parseFixture(raw: string): Fixture {
       );
     if (
       typeof value[key] === "string" &&
-      (value[key].length > 300 || !value[key].trim())
+      (value[key].length > 300 || (!value[key].trim() && key !== "searchText"))
     )
       throw Error(`Campo ${key}: use entre 1 e 300 caracteres.`);
   }
   if (Object.keys(value).some((k) => !(k in fixtures.reference.data)))
     throw Error("O JSON contém campos desconhecidos.");
+  const enums: Record<string, string[]> = {
+    state: ["ready", "loading", "error"],
+    calendarMode: ["month", "week"],
+    loginStep: ["cpf", "password"],
+    permissions: ["reference", "on", "off"],
+    navigation: ["home", "contents", "metrics", "agenda"],
+    contentType: ["video", "document"],
+  };
+  for (const [key, values] of Object.entries(enums))
+    if (!values.includes(value[key])) throw Error(`Valor inválido em ${key}.`);
   return value as Fixture;
 }
 export function initialFixture(params: URLSearchParams): {

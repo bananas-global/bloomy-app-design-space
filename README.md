@@ -40,10 +40,20 @@ O redesign React anterior permanece no histórico Git; foi substituído pelo lab
 
 ## Ferramentas do ambiente
 
-- Busca unificada por telas, nomes de widgets e usos; aceita termos sem acento. Cmd/Ctrl+K foca a busca.
+- Busca por telas ou componentes na aba ativa, incluindo nomes e usos; aceita termos sem acento. Cmd/Ctrl+K foca a busca.
 - Biblioteca com oito amostras isoladas dos widgets reais e origem no pacote.
 - Viewports celular, tablet e desktop; girar, zoom 25–150% e moldura opcional. Os controles ficam em uma única barra, sem campos de largura/altura. O zoom altera só a visualização; largura/altura chegam ao Flutter.
 - Fixtures de referência, sem conteúdos, textos longos e botão desabilitado. Editor JSON validado, salvamento local, restauração e exportação. Os campos e seus usos aparecem no painel.
 - URL preserva tela/componente, fixture, dados personalizados, dimensões, zoom e moldura. Copiar link e exportar revisão preservam esse contexto. Dados personalizados ficam no endereço: use somente dados sintéticos.
 
 Essas ferramentas reproduzem as funções úteis do `bloomy-design-space` na moldura Flutter; não importam o motor de cenários de backoffice nem alteram aquele projeto.
+
+## Telas, componentes e variações
+
+A lateral esquerda tem duas abas, **Telas** e **Componentes**, com busca no catálogo ativo. Fluxos ainda não têm catálogo próprio. Revisão/handoff fica no topo.
+
+O painel direito abre em **Variações** e filtra as fixtures pelo item selecionado. **Informações** e **Comentários** são secundários. O JSON fica recolhido em **Editar dados**; salvar/carregar é separado por tela/componente. Links personalizados anteriores continuam aceitos com valores padrão para os campos novos.
+
+O catálogo está em `variationIds` e `fixtures` de `src/workbench.ts`. Existem 49 combinações para 8 telas e 8 componentes: referência, texto longo, vazio, carregamento/erro, mês/semana, CPF/senha, permissões, busca preenchida/erro, seleção de navegação, vídeo/documento e botão desabilitado, somente onde se aplicam. São estados sintéticos locais; carregamento e erro permanecem até trocar a variação.
+
+`npm run check` gera a matriz de fixtures e a exercita no Flutter. Não há novos atendimentos ou dados clínicos inventados; Agenda e Evolutivo mantêm suas amostras vazias. Modelar listas preenchidas é uma ampliação distinta.

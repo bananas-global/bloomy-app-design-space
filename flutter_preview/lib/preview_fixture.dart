@@ -3,6 +3,14 @@ import 'dart:convert';
 /// Synthetic, bounded data accepted by the local design environment.
 class PreviewFixture {
   const PreviewFixture({
+    this.state = 'ready',
+    this.calendarMode = 'month',
+    this.loginStep = 'cpf',
+    this.permissions = 'reference',
+    this.searchText = '',
+    this.fieldError = false,
+    this.navigation = 'home',
+    this.contentType = 'video',
     this.guardian = 'Teste',
     this.patient = 'Teste Maria',
     this.contentTitle = 'Teste v1',
@@ -13,6 +21,14 @@ class PreviewFixture {
   });
   final String guardian, patient, contentTitle, contentDescription, buttonLabel;
   final bool showContent, buttonEnabled;
+  final String state,
+      calendarMode,
+      loginStep,
+      permissions,
+      searchText,
+      navigation,
+      contentType;
+  final bool fieldError;
   factory PreviewFixture.fromJson(String? raw) {
     if (raw == null) return const PreviewFixture();
     try {
@@ -25,6 +41,14 @@ class PreviewFixture {
       }
 
       return PreviewFixture(
+        state: field('state', 'ready'),
+        calendarMode: field('calendarMode', 'month'),
+        loginStep: field('loginStep', 'cpf'),
+        permissions: field('permissions', 'reference'),
+        searchText: field('searchText', ''),
+        fieldError: data['fieldError'] == true,
+        navigation: field('navigation', 'home'),
+        contentType: field('contentType', 'video'),
         guardian: field('guardian', 'Teste'),
         patient: field('patient', 'Teste Maria'),
         contentTitle: field('contentTitle', 'Teste v1'),

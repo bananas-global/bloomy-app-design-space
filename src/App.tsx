@@ -1,5 +1,7 @@
 import { FixtureEditor } from "./FixtureEditor";
 import {
+  fixtures,
+  variationsFor,
   initialFixture,
   viewports,
   dimension,
@@ -7,14 +9,7 @@ import {
   type Fixture,
 } from "./workbench";
 import { useRef, useState, useEffect } from "react";
-import {
-  Smartphone,
-  Component,
-  GitBranch,
-  ArrowUpRight,
-  Download,
-  RotateCcw,
-} from "lucide-react";
+import { ArrowUpRight, Download, RotateCcw } from "lucide-react";
 import "./native-space.css";
 const screens = [
   ["home", "Início"],
@@ -100,7 +95,7 @@ export default function App() {
   const [revision, setRevision] = useState(0);
   const [notes, setNotes] = useState<Note[]>(initialNotes);
   const [draft, setDraft] = useState("");
-  const [panel, setPanel] = useState("context");
+  const [panel, setPanel] = useState("fixtures");
   const [focus, setFocus] = useState(
     components.some((c) => c[0] === params.get("component"))
       ? params.get("component")!
@@ -119,6 +114,16 @@ export default function App() {
   );
   const [zoom, setZoom] = useState(dimension(params.get("zoom"), 100, 25, 150));
   const [safe, setSafe] = useState(params.get("safe") !== "0");
+  const target = view === "library" ? focus : activeScreen;
+  useEffect(() => {
+    if (
+      fixture.id !== "custom" &&
+      !variationsFor(target).includes(fixture.id)
+    ) {
+      setScreen(activeScreen);
+      setFixture({ id: "reference", data: fixtures.reference.data, error: "" });
+    }
+  }, [target, fixture.id, activeScreen]);
   const fixtureQuery = new URLSearchParams({
     screen: view === "library" ? "library" : screen,
     component: view === "library" ? focus : "",
@@ -136,7 +141,7 @@ export default function App() {
   function openComponent(id: string) {
     setFocus(id);
     setView("library");
-    setPanel("context");
+    setPanel("fixtures");
     setQuery("");
   }
   useEffect(() => {
@@ -233,8 +238,34 @@ export default function App() {
             bloomy<small>DESIGN SPACE</small>
           </div>
         </a>
+        <nav className="ds-catalog-tabs" aria-label="Catálogo">
+          <button
+            aria-pressed={view !== "library"}
+            className={view !== "library" ? "active" : ""}
+            onClick={() => {
+              setView("canvas");
+              setQuery("");
+              setPanel("fixtures");
+            }}
+          >
+            Telas
+          </button>
+          <button
+            aria-pressed={view === "library"}
+            className={view === "library" ? "active" : ""}
+            onClick={() => {
+              setView("library");
+              setQuery("");
+              setPanel("fixtures");
+            }}
+          >
+            Componentes
+          </button>
+        </nav>
         <label className="ds-search">
-          <span>Buscar telas e componentes</span>
+          <span>
+            {view === "library" ? "Buscar componentes" : "Buscar telas"}
+          </span>
           <input
             ref={searchRef}
             type="search"
@@ -244,67 +275,56 @@ export default function App() {
             aria-keyshortcuts="Meta+K Control+K"
           />
         </label>
-        <p className="ds-label">APP DOS RESPONSÁVEIS</p>
-        <nav>
-          {[
-            ["canvas", "Área de criação", Smartphone],
-            ["library", "Biblioteca Flutter", Component],
-            ["handoff", "Revisão & handoff", GitBranch],
-          ].map(([id, label, Icon]) => (
-            <button
-              key={id as string}
-              className={view === id ? "active" : ""}
-              onClick={() => setView(id as string)}
-            >
-              {typeof Icon !== "string" && <Icon size={17} />}
-              <span>{label as string}</span>
-            </button>
-          ))}
-        </nav>
-        <div className="ds-pages">
-          <p className="ds-label">TELAS DO APP REAL</p>
-          {screens
-            .filter(([id, label]) => matches(id, label))
-            .map(([id, label]) => (
-              <button
-                key={id}
-                className={
-                  activeScreen === id && view === "canvas" ? "selected" : ""
-                }
-                onClick={() => {
-                  setScreen(id);
-                  setActiveScreen(id);
-                  setRevision((r) => r + 1);
-                  setView("canvas");
-                }}
-              >
-                <span className="ds-dot" />
-                {label}
-              </button>
-            ))}
-        </div>
-        <div className="ds-component-nav">
-          <p className="ds-label">COMPONENTES</p>
-          {components
-            .filter((c) => matches(...c))
-            .map((c) => (
-              <button
-                key={c[0]}
-                className={
-                  view === "library" && focus === c[0] ? "selected" : ""
-                }
-                onClick={() => openComponent(c[0])}
-              >
-                <strong>{c[0]}</strong>
-                <small>{c[1]}</small>
-              </button>
-            ))}
-          {query &&
-            !components.some((c) => matches(...c)) &&
-            !screens.some((s) => matches(...s)) && (
+        {view !== "library" && (
+          <div className="ds-pages">
+            <p className="ds-label">TELAS DO APP REAL</p>
+            {screens
+              .filter(([id, label]) => matches(id, label))
+              .map(([id, label]) => (
+                <button
+                  key={id}
+                  className={
+                    activeScreen === id && view === "canvas" ? "selected" : ""
+                  }
+                  onClick={() => {
+                    setScreen(id);
+                    setActiveScreen(id);
+                    setRevision((r) => r + 1);
+                    setView("canvas");
+                    setPanel("fixtures");
+                  }}
+                >
+                  <span className="ds-dot" />
+                  {label}
+                </button>
+              ))}
+            {query && !screens.some((s) => matches(...s)) && (
+              <p role="status">Nenhuma tela encontrada.</p>
+            )}
+          </div>
+        )}
+        {view === "library" && (
+          <div className="ds-component-nav">
+            <p className="ds-label">COMPONENTES</p>
+            {components
+              .filter((c) => matches(...c))
+              .map((c) => (
+                <button
+                  key={c[0]}
+                  className={
+                    view === "library" && focus === c[0] ? "selected" : ""
+                  }
+                  onClick={() => openComponent(c[0])}
+                >
+                  <strong>{c[0]}</strong>
+                  <small>{c[1]}</small>
+                </button>
+              ))}
+            {query && !components.some((c) => matches(...c)) && (
               <p role="status">Nenhum resultado.</p>
             )}
-        </div>
+          </div>
+        )}
         <footer>
           <span className="ds-dot live" />
           Flutter 3.44.9<p>components_bloomy 6.39.0</p>
@@ -319,10 +339,13 @@ export default function App() {
               {view === "canvas"
                 ? screens.find((s) => s[0] === activeScreen)?.[1] || screen
                 : view === "library"
-                  ? "Biblioteca original"
+                  ? focus
                   : "Revisão & handoff"}
             </strong>
           </div>
+          <button className="ds-text-button" onClick={() => setView("handoff")}>
+            Revisão & handoff
+          </button>
           <span className="ds-badge">Candidata · não aprovada</span>
           <button className="ds-button" onClick={exportReview}>
             <Download size={15} />
@@ -593,10 +616,16 @@ export default function App() {
               <aside className="ds-inspector">
                 <div className="ds-panel-tabs">
                   <button
+                    className={panel === "fixtures" ? "active" : ""}
+                    onClick={() => setPanel("fixtures")}
+                  >
+                    Variações
+                  </button>
+                  <button
                     className={panel === "context" ? "active" : ""}
                     onClick={() => setPanel("context")}
                   >
-                    Componentes
+                    Informações
                   </button>
                   <button
                     className={panel === "notes" ? "active" : ""}
@@ -605,24 +634,16 @@ export default function App() {
                     Comentários ({notes.length})
                   </button>
                 </div>
-                <button
-                  className="ds-fixture-tab"
-                  onClick={() => setPanel("fixtures")}
-                >
-                  Fixtures ·{" "}
-                  {fixture.id === "custom"
-                    ? "Personalizada"
-                    : fixture.id === "reference"
-                      ? "Referência"
-                      : fixture.id === "empty"
-                        ? "Sem conteúdos"
-                        : fixture.id === "long"
-                          ? "Textos longos"
-                          : "Desabilitado"}
-                </button>
                 {fixture.error && <p role="alert">{fixture.error}</p>}
                 {panel === "fixtures" ? (
                   <FixtureEditor
+                    target={target}
+                    label={
+                      view === "library"
+                        ? focus
+                        : screens.find((s) => s[0] === activeScreen)?.[1] ||
+                          activeScreen
+                    }
                     id={fixture.id}
                     data={fixture.data}
                     onApply={applyFixture}

@@ -6,10 +6,17 @@ const js = ts.transpileModule(
   readFileSync(new URL("../src/workbench.ts", import.meta.url), "utf8"),
   { compilerOptions: { module: ts.ModuleKind.ES2022 } },
 ).outputText;
-const { fixtures, parseFixture, initialFixture, dimension, normalizeSearch } =
-  await import(
-    `data:text/javascript;base64,${Buffer.from(js).toString("base64")}`
-  );
+const {
+  fixtures,
+  variationIds,
+  variationsFor,
+  parseFixture,
+  initialFixture,
+  dimension,
+  normalizeSearch,
+} = await import(
+  `data:text/javascript;base64,${Buffer.from(js).toString("base64")}`
+);
 test("custom fixture round trips through a shareable URL", () => {
   const data = {
     ...fixtures.reference.data,
@@ -47,3 +54,18 @@ test("search matches Portuguese names regardless of accents", () =>
       normalizeSearch("conteudos"),
     ),
   ));
+
+test("each screen and component exposes valid contextual presets", () => {
+  assert.equal(Object.keys(variationIds).length, 16);
+  for (const ids of Object.values(variationIds)) {
+    assert.ok(ids.length >= 2);
+    assert.equal(ids[0], "reference");
+    for (const id of ids)
+      assert.deepEqual(
+        parseFixture(JSON.stringify(fixtures[id].data)),
+        fixtures[id].data,
+      );
+  }
+  assert.ok(!variationsFor("agenda").includes("disabled"));
+  assert.ok(variationsFor("CButton").includes("disabled"));
+});

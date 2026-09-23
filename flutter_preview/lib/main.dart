@@ -79,12 +79,17 @@ class _PreviewState extends State<Preview> {
   late String page =
       widget.initialScreen ?? Uri.base.queryParameters['screen'] ?? 'home';
   final calendar = CalendarWeeklyController();
-  final search = TextEditingController();
+  late final search = TextEditingController(text: fixture.searchText);
   final cpf = TextEditingController();
   final password = TextEditingController();
   DateTime day = DateTime(2026, 9, 23);
-  bool passwordStep = false, keep = true;
-  final permissions = [true, false, false];
+  late bool passwordStep = fixture.loginStep == 'password';
+  bool keep = true;
+  late final permissions = fixture.permissions == 'on'
+      ? [true, true, true]
+      : fixture.permissions == 'off'
+      ? [false, false, false]
+      : [true, false, false];
   late final fixture =
       widget.fixture ??
       PreviewFixture.fromJson(Uri.base.queryParameters['data']);
@@ -186,7 +191,7 @@ class _PreviewState extends State<Preview> {
             baseUrl: '',
           ),
       ],
-      currentPath: page,
+      currentPath: page == 'library' ? fixture.navigation : page,
     ),
     const CBottomBarUserDefaultStyle(),
     onUserTap: selectPatient,
@@ -230,7 +235,7 @@ class _PreviewState extends State<Preview> {
           ),
       ],
       quitItemData: CDrawerItemData.button(icon: UIcons.quit, label: 'Sair'),
-      currentPath: page,
+      currentPath: page == 'library' ? fixture.navigation : page,
     ),
     const CDrawerDefaultStyle(),
     onUserTap: () {
@@ -287,6 +292,18 @@ class _PreviewState extends State<Preview> {
           )
         : null,
   );
+  Widget statePreview() => fixture.state == 'loading'
+      ? const Padding(
+          padding: EdgeInsets.all(32),
+          child: CLoading(CLoadingData(), CLoadingParentStyle()),
+        )
+      : CContainerListInformation(
+          CContainerListInformationData(
+            icon: UIconsExtension.contentError,
+            description: 'Não foi possível carregar os dados.',
+          ),
+          const CContainerListInformationNotFoundStyle(),
+        );
   Widget empty(bool feed) => CContainerListInformation(
     CContainerListInformationData(
       icon: feed ? UIconsExtension.contentEmpty : UIconsExtension.calendarEmpty,
@@ -331,6 +348,9 @@ class _PreviewState extends State<Preview> {
         const SizedBox(height: 16),
         CCalendarWeekly(
           CCalendarWeeklyData(
+            initialFormat: fixture.calendarMode == 'week'
+                ? CalendarFormat.weekly
+                : CalendarFormat.monthly,
             holidayData: HolidayDataCustom(
               statutoryHolidays: const [],
               floatingHolidays: [
@@ -423,7 +443,9 @@ class _PreviewState extends State<Preview> {
       ),
       title: fixture.contentTitle,
       description: fixture.contentDescription,
-      contentType: ContentType.video,
+      contentType: fixture.contentType == 'document'
+          ? ContentType.document
+          : ContentType.video,
       id: 'synthetic-content-1',
     ),
     const CTileParentContentDefaultStyle(),
@@ -615,24 +637,26 @@ class _PreviewState extends State<Preview> {
       appBarBuilder: (ctx) => ['feed', 'notifications'].contains(page)
           ? backHeader(labels[page]!)
           : header(ctx),
-      body: switch (page) {
-        'agenda' => agenda(),
-        'contents' => contents(),
-        'metrics' => metrics(),
-        'feed' => empty(true),
-        'notifications' => CListInfinite(
-          CListInfiniteData(
-            itemCount: 0,
-            isLoading: false,
-            hasError: false,
-            hasReachedMax: true,
-          ),
-          const CListInfiniteProfessionalStyle(),
-          onFetchData: () async {},
-          itemBuilder: (_, __) => const SizedBox.shrink(),
-        ),
-        _ => home(),
-      },
+      body: fixture.state != 'ready'
+          ? statePreview()
+          : switch (page) {
+              'agenda' => agenda(),
+              'contents' => contents(),
+              'metrics' => metrics(),
+              'feed' => empty(true),
+              'notifications' => CListInfinite(
+                CListInfiniteData(
+                  itemCount: 0,
+                  isLoading: false,
+                  hasError: false,
+                  hasReachedMax: true,
+                ),
+                const CListInfiniteProfessionalStyle(),
+                onFetchData: () async {},
+                itemBuilder: (_, __) => const SizedBox.shrink(),
+              ),
+              _ => home(),
+            },
       drawer: drawer(),
       bottomBarBuilder: (_) => bottom(),
     );
@@ -882,11 +906,17 @@ class _PreviewState extends State<Preview> {
       'CBottomBarUser' => bottom(),
       'CCalendarWeekly' => agendaHeader(),
       'CTextField' => CTextField(
-        CTextFieldData.search(hint: 'Buscar por paciente, sala...'),
+        fixture.fieldError
+            ? CTextFieldData(
+                hint: 'Buscar por paciente, sala...',
+                errorMessage: 'Revise o termo informado.',
+              )
+            : CTextFieldData.search(hint: 'Buscar por paciente, sala...'),
         const CTextFieldDefaultStyle(),
         controller: search,
       ),
-      'CContainerListInformation' => empty(false),
+      'CContainerListInformation' =>
+        fixture.state == 'ready' ? empty(false) : statePreview(),
       'CTileParentContent' =>
         fixture.showContent
             ? contentTile()

@@ -820,3 +820,99 @@ textarea:focus-visible {
 .ds-toolbar select {
   padding-right: 8px;
 }
+.ds-sidebar .ds-catalog-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid #e1deea;
+  margin-bottom: 18px;
+}
+.ds-sidebar .ds-catalog-tabs button {
+  flex: 1;
+  justify-content: center;
+  border-radius: 0;
+  padding: 12px 3px;
+  border-bottom: 2px solid transparent;
+}
+.ds-sidebar .ds-catalog-tabs button.active {
+  background: none;
+  border-color: #6144c5;
+  color: #6144c5;
+}
+.ds-pages {
+  border: 0;
+  margin-top: 0;
+  padding-top: 0;
+}
+.ds-component-nav {
+  margin-top: 0;
+}
+.ds-variation-list {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0 24px;
+}
+.ds-variation-list button {
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+  padding: 12px;
+  background: #f8f9fc;
+  border: 1px solid #e1deea;
+  border-radius: 7px;
+  font-size: 12px;
+}
+.ds-variation-list button.selected {
+  background: #eaf4f8;
+  border-color: #58bada;
+  color: #32799a;
+  font-weight: 800;
+}
+.ds-fixtures details {
+  border-top: 1px solid #e1deea;
+  padding-top: 16px;
+}
+.ds-fixtures summary {
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+.ds-permissions {
+  border: 1px solid #e1deea;
+  border-radius: 7px;
+  margin: 0 0 22px;
+  padding: 12px;
+  font-size: 11px;
+}
+.ds-permissions label {
+  line-height: 1.6;
+}
+.ds-panel-tabs {
+  gap: 14px;
+}
+.ds-panel-tabs button {
+  white-space: nowrap;
+}
+.ds-sidebar .ds-search {
+  margin-bottom: 20px;
+}
+@media (max-width: 880px) {
+  .ds-sidebar {
+    width: 180px;
+  }
+  .ds-main {
+    margin-left: 180px;
+  }
+  .ds-component-nav,
+  .ds-pages,
+  .ds-search span {
+    display: block;
+  }
+  .ds-sidebar .ds-catalog-tabs button {
+    font-size: 11px;
+  }
+  .ds-search input {
+    padding: 8px;
+    font-size: 11px;
+  }
+}

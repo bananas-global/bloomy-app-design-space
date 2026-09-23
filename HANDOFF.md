@@ -36,3 +36,7 @@ Após revisão humana, registrar aprovador, data, escopo e commit aprovado. Não
 Busca unificada, biblioteca de componentes isolados, viewport com presets e medidas livres, zoom e orientação, fixtures editáveis/salvas/exportáveis e links de contexto foram recuperados. O schema compartilhado do ambiente está em `src/workbench.ts`; o contrato correspondente no Flutter é `lib/preview_fixture.dart`. Os componentes e os dados continuam locais. O estado de busca e o JSON ainda não aplicado não entram no link; a fixture aplicada entra.
 
 A biblioteca agora mostra o componente selecionado em vez de uma lista fixa. Referência continua sendo o estado inicial; fixtures de textos longos são instrumentos para explorar limites do componente original, não um compromisso de layout de produção.
+
+## Organização por item
+
+As abas Telas/Componentes substituem Área de criação/Biblioteca Flutter. O painel Variações é contextual, e editar JSON é opcional. Há 49 combinações de estados sintéticos testadas nos widgets originais; estados de carregamento/erro ficam estáveis para revisão. Nenhum catálogo de fluxos foi criado, pois as entradas atuais são telas e componentes, não jornadas completas.

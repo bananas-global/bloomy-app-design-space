@@ -38,3 +38,10 @@ A moldura foi comparada com o contrato/README do @brucesantos/design-space usado
 ## Barra compacta — revisão do usuário
 
 Removido o cabeçalho promocional em telas e biblioteca. Controles reunidos na barra de seleção de tela/viewport, sem campos de largura e altura. Reiniciar prévia permanece como botão de ícone com rótulo acessível. Em larguras menores, a barra permite rolagem horizontal sem criar uma segunda linha. Links antigos com dimensões personalizadas continuam abrindo; novas dimensões são escolhidas pelos presets ou pela rotação.
+
+## Catálogo contextual de variações
+
+- Duas abas à esquerda: Telas e Componentes; busca limitada à aba ativa. Painel direito abre em Variações; JSON recolhido; metadados e comentários em abas secundárias.
+- 49 combinações geradas do catálogo TypeScript para testes Flutter. Todas verificam renderização em 402 × 874; assertions adicionais verificam carregamento, erro, calendário semanal, senha, campo preenchido/com erro, documento, seleção de navegação e permissões.
+- 68 testes Flutter e 5 testes Node no total. A fixture desabilitada não aparece na Agenda; ao trocar para um item incompatível, a referência é restaurada.
+- Navegador: erro de Conteúdos, botão desabilitado, alternância de abas, presets pertinentes ao cabeçalho, biblioteca e busca. Fixtures são estados de desenho, sem simulação de resposta de servidor.

@@ -11,3 +11,5 @@ Ambiente local de criação para o app Flutter dos responsáveis. Leia README.md
 - Antes de entregar execute npm run check e inspecione visualmente o fluxo alterado.
 - Preserve acessibilidade, comentários locais exportáveis e mudanças do usuário.
 - Git local autorizado. Não publique, faça push ou altere o app original sem autorização.
+- A navegação do ambiente separa Telas e Componentes; Variações é o painel principal. Não recrie um catálogo obrigatório de fluxos/cenários.
+- Cadastre fixtures em src/workbench.ts, associe apenas aos itens pertinentes e mantenha o contrato Flutter correspondente. A matriz de testes é gerada por scripts/generate-variation-cases.mjs.

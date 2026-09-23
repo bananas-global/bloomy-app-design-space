@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +20,11 @@ Future<void> open(
   await tester.pumpWidget(
     PreviewApp(initialScreen: page, fixture: fixture, component: component),
   );
-  await tester.pumpAndSettle();
+  if (fixture?.state == 'loading') {
+    await tester.pump(const Duration(milliseconds: 500));
+  } else {
+    await tester.pumpAndSettle();
+  }
 }
 
 void main() {
@@ -33,6 +39,71 @@ void main() {
       )..addFont(rootBundle.load('assets/fonts/${font.value}'))).load();
     }
   });
+  for (final entry
+      in jsonDecode(File('test/variation_cases.json').readAsStringSync())
+          as List) {
+    testWidgets('catalog ${entry['target']} / ${entry['id']}', (tester) async {
+      final target = entry['target'] as String;
+      await open(
+        tester,
+        target.startsWith('C') ? 'library' : target,
+        component: target.startsWith('C') ? target : null,
+        fixture: PreviewFixture.fromJson(jsonEncode(entry['data'])),
+      );
+      final id = entry['id'];
+      if (id == 'permissions-on' || id == 'permissions-off') {
+        final values = tester
+            .widgetList<CTileSettings>(find.byType(CTileSettings))
+            .map((w) => w.data)
+            .whereType<CTileSettingsCheckboxData>();
+        expect(values, isNotEmpty);
+        expect(
+          values.every((v) => v.isChecked == (id == 'permissions-on')),
+          isTrue,
+        );
+      }
+
+      if (id == 'loading') expect(find.byType(CLoading), findsOneWidget);
+      if (id == 'error')
+        expect(
+          find.text('Não foi possível carregar os dados.'),
+          findsOneWidget,
+        );
+      if (id == 'week')
+        expect(
+          tester
+              .widget<CCalendarWeekly>(find.byType(CCalendarWeekly))
+              .data
+              .initialFormat,
+          CalendarFormat.weekly,
+        );
+      if (id == 'password') expect(find.text('Senha'), findsOneWidget);
+      if (id == 'field-error')
+        expect(find.text('Revise o termo informado.'), findsOneWidget);
+      if (id == 'search-filled')
+        expect(
+          tester.widget<TextField>(find.byType(TextField)).controller!.text,
+          'Teste',
+        );
+      if (id == 'document')
+        expect(
+          tester
+              .widget<CTileParentContent>(find.byType(CTileParentContent))
+              .data
+              .contentType,
+          ContentType.document,
+        );
+      if (id == 'nav-agenda')
+        expect(
+          tester
+              .widget<CBottomBarUser>(find.byType(CBottomBarUser))
+              .data
+              .currentPath,
+          'agenda',
+        );
+      expect(tester.takeException(), isNull);
+    });
+  }
   testWidgets(
     'home navigates to agenda and preserves the empty reference state',
     (tester) async {
