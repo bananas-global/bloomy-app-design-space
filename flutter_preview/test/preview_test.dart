@@ -33,6 +33,23 @@ Future<void> open(
 }
 
 void main() {
+  testWidgets('avatar editor opens the real source sheet and dismisses on selection', (tester) async {
+    await open(tester, 'settings');
+    final updater = tester.widget<CAvatarUpdater>(find.byType(CAvatarUpdater));
+    updater.onAvatarTap!(updater.data.avatarUsersData.first);
+    await tester.pumpAndSettle();
+    expect(find.byType(CBottomSheetInternalScreen), findsOneWidget);
+    expect(find.text('SELECIONE'), findsOneWidget);
+    expect(find.text('GALERIA'), findsOneWidget);
+    expect(find.text('CAMERA'), findsOneWidget);
+    final bottomGap = tester.view.physicalSize.height / tester.view.devicePixelRatio - tester.getBottomRight(find.byType(CBottomSheetInternalScreen)).dy;
+    expect(bottomGap, greaterThanOrEqualTo(34));
+    await tester.tap(find.text('GALERIA'));
+    await tester.pumpAndSettle();
+    expect(find.byType(CBottomSheetInternalScreen), findsNothing);
+    expect(find.text('Galeria selecionada. A escolha de arquivo é simulada nesta prévia.'), findsOneWidget);
+  });
+
   test('fixture contracts accept separated data and legacy links', () {
     final fixture = PreviewFixture.fromJson(jsonEncode({
       'data': {'legalGuardianName': 'Mariana', 'patientName': 'Lucas', 'roomName': '', 'isEnabled': false},

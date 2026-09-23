@@ -342,7 +342,7 @@ packages:
     source: hosted
     version: "11.0.0"
   global_messages:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: global_messages
       sha256: "58fd197687ede7a0bb16e9edfb112156bd481fe1f7a2095f75ef5c953f9f105c"

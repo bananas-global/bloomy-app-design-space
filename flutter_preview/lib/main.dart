@@ -1,6 +1,7 @@
 import 'package:components_bloomy/components_bloomy.dart';
 import 'package:flutter_extension/flutter_extension.dart' hide context;
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:global_messages/global_messages.dart';
 import 'app_icons.dart';
 import 'preview_fixture.dart';
 import 'preview_bridge.dart';
@@ -38,6 +39,7 @@ class _PreviewAppState extends State<PreviewApp> {
     controller: controller,
     builder: (context, mode, light, dark, locale, delegates, locales) =>
         MaterialApp(
+          navigatorKey: GlobalMessages.navigatorKey,
           debugShowCheckedModeBanner: false,
           theme: light,
           darkTheme: dark,
@@ -249,6 +251,42 @@ class _PreviewState extends State<Preview> {
     onUserTap: selectPatient,
     onItemTap: (id) => go(id as String),
   );
+  Future<void> selectAvatarSource() async {
+    final source = await showBottomSheetScreen<String>(
+      const BottomSheetScreenData(isLimitedHeightByRatio: true),
+      const BottomSheetScreenDefaultStyle(),
+      parentContext: context,
+      builder: (sheetContext) => Padding(
+        // The web preview supplies the simulated device inset explicitly.
+        padding: EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom),
+        child: CBottomSheetInternalScreen(
+        CBottomSheetInternalScreenData(
+          fixSpaceInIOS: false,
+          appBarTitleData: CAppBarTitleBottomSheetData(title: 'SELECIONE', showDivider: false),
+        ),
+        const CBottomSheetInternalScreenDefaultStyle(),
+        onCloseTap: () => Navigator.of(sheetContext).pop(),
+        body: const SizedBox.shrink(),
+        bottomBar: CBottomBarButtons.horizontal(
+          CBottomBarButtonsHorizontalData(
+            leftButtonData: CButton2LabelAndIconData('GALERIA', UIcons.gallery),
+            rightButtonData: CButton2LabelAndIconData('CAMERA', UIcons.camera),
+          ),
+          const CBottomBarButtonsBottomSheetStyle(),
+          onLeftButtonTap: () => Navigator.of(sheetContext).pop('gallery'),
+          onRightButtonTap: () => Navigator.of(sheetContext).pop('camera'),
+        ),
+      ),
+      ),
+    );
+    if (!mounted || source == null) return;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(source == 'gallery'
+          ? 'Galeria selecionada. A escolha de arquivo é simulada nesta prévia.'
+          : 'Câmera selecionada. A captura é simulada nesta prévia.'),
+    ));
+  }
+
   void selectPatient() => showModalBottomSheet<void>(
     context: context,
     builder: (c) => SafeArea(
@@ -725,8 +763,7 @@ class _PreviewState extends State<Preview> {
       ),
       const CAvatarUpdaterDefaultStyle(),
       key: ValueKey(fixture.settingsProfileCount),
-      onAvatarTap: (_) =>
-          message('Troca de foto simulada. Nenhuma imagem será enviada.'),
+      onAvatarTap: (_) => selectAvatarSource(),
     ),
     const CHeader.content(
       CHeaderContentData('SEGURANÇA'),
