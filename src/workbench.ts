@@ -1,4 +1,6 @@
 export type Fixture = {
+  showFeed: boolean;
+  showSchedules: boolean;
   guardian: string;
   patient: string;
   contentTitle: string;
@@ -19,6 +21,8 @@ export const fixtures: Record<string, { label: string; data: Fixture }> = {
   reference: {
     label: "Referência da gravação",
     data: {
+      showFeed: false,
+      showSchedules: false,
       state: "ready",
       calendarMode: "month",
       loginStep: "cpf",
@@ -39,6 +43,8 @@ export const fixtures: Record<string, { label: string; data: Fixture }> = {
   empty: {
     label: "Sem conteúdos",
     data: {
+      showFeed: false,
+      showSchedules: false,
       state: "ready",
       calendarMode: "month",
       loginStep: "cpf",
@@ -59,6 +65,8 @@ export const fixtures: Record<string, { label: string; data: Fixture }> = {
   long: {
     label: "Textos longos",
     data: {
+      showFeed: false,
+      showSchedules: false,
       state: "ready",
       calendarMode: "month",
       loginStep: "cpf",
@@ -80,6 +88,8 @@ export const fixtures: Record<string, { label: string; data: Fixture }> = {
   disabled: {
     label: "Botão desabilitado",
     data: {
+      showFeed: false,
+      showSchedules: false,
       state: "ready",
       calendarMode: "month",
       loginStep: "cpf",
@@ -99,6 +109,8 @@ export const fixtures: Record<string, { label: string; data: Fixture }> = {
   },
 };
 const extras = {
+  showFeed: false,
+  showSchedules: false,
   state: "ready",
   calendarMode: "month",
   loginStep: "cpf",
@@ -111,6 +123,22 @@ const extras = {
 const add = (id: string, label: string, patch: Partial<Fixture>) => {
   fixtures[id] = { label, data: { ...fixtures.reference.data, ...patch } };
 };
+add("populated", "Feed e atendimentos preenchidos", {
+  showFeed: true,
+  showSchedules: true,
+  guardian: "Marina",
+  patient: "Lucas Santos",
+});
+add("feed-only", "Somente feed", {
+  showFeed: true,
+  guardian: "Marina",
+  patient: "Lucas Santos",
+});
+add("appointments-only", "Somente atendimentos", {
+  showSchedules: true,
+  guardian: "Marina",
+  patient: "Lucas Santos",
+});
 add("loading", "Carregando", { state: "loading" });
 add("error", "Erro ao carregar", { state: "error" });
 add("week", "Calendário semanal", { calendarMode: "week" });
@@ -122,13 +150,21 @@ add("field-error", "Campo com erro", { fieldError: true });
 add("nav-agenda", "Agenda selecionada", { navigation: "agenda" });
 add("document", "Conteúdo em documento", { contentType: "document" });
 export const variationIds: Record<string, string[]> = {
-  home: ["reference", "long", "loading", "error"],
-  agenda: ["reference", "week", "loading", "error"],
+  home: [
+    "reference",
+    "populated",
+    "feed-only",
+    "appointments-only",
+    "long",
+    "loading",
+    "error",
+  ],
+  agenda: ["reference", "populated", "week", "loading", "error"],
   contents: ["reference", "empty", "long", "document", "loading", "error"],
   metrics: ["reference", "long", "loading", "error"],
   settings: ["reference", "permissions-on", "permissions-off"],
   login: ["reference", "password"],
-  feed: ["reference", "loading", "error"],
+  feed: ["reference", "populated", "loading", "error"],
   notifications: ["reference", "loading", "error"],
   CAppBarUser2: ["reference", "long"],
   CBottomBarUser: ["reference", "nav-agenda"],

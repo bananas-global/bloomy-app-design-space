@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'image_client.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ Future<void> open(
   tester.view.devicePixelRatio = 1;
   addTearDown(tester.view.resetPhysicalSize);
   addTearDown(tester.view.resetDevicePixelRatio);
+  debugNetworkImageHttpClientProvider = () => FixtureImageClient();
   await tester.pumpWidget(
     PreviewApp(initialScreen: page, fixture: fixture, component: component),
   );
@@ -25,6 +27,7 @@ Future<void> open(
   } else {
     await tester.pumpAndSettle();
   }
+  debugNetworkImageHttpClientProvider = null;
 }
 
 void main() {
@@ -51,6 +54,19 @@ void main() {
         fixture: PreviewFixture.fromJson(jsonEncode(entry['data'])),
       );
       final id = entry['id'];
+      if (id == 'populated') {
+        if (target == 'home' || target == 'feed') {
+          expect(find.byType(CCardFeed), findsWidgets);
+        }
+        if (target == 'home' || target == 'agenda') {
+          expect(find.byType(CTileScheduleParent), findsNWidgets(2));
+          final tiles = tester.widgetList<CTileScheduleParent>(
+            find.byType(CTileScheduleParent),
+          );
+          expect(tiles.first.data.patientName, 'Lucas Santos');
+          expect(tiles.first.data.startDateTime, DateTime(2026, 9, 23, 14));
+        }
+      }
       if (id == 'permissions-on' || id == 'permissions-off') {
         final values = tester
             .widgetList<CTileSettings>(find.byType(CTileSettings))

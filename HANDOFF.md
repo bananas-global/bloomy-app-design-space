@@ -23,7 +23,7 @@ Composição editável em `flutter_preview/lib/main.dart`. O cartão de conteúd
 
 A paridade foi conferida visualmente; não é certificação pixel a pixel. Há diferenças de rasterização web/iOS, avatares, barra de sistema simulada, teclado nativo, versão do pacote e dados. O menu de seleção de paciente é uma demonstração simplificada. O calendário pode identificar o dia real do sistema além da seleção inicial fixa.
 
-Não há backend, envio de arquivo, autenticação, alteração real de senha, permissão do sistema ou conteúdo clínico. Documentos legais e vídeo são recipientes explícitos, não cópias completas. Sobre é uma identificação simples. Não foram validados atendimentos preenchidos, devolutivas, erros de rede e estados ausentes dos vídeos. Feed, Notificações e redefinição de senha foram confrontados com o código, não certificados contra vídeo.
+Não há backend, envio de arquivo, autenticação, alteração real de senha, permissão do sistema ou conteúdo clínico. Documentos legais e vídeo são recipientes explícitos, não cópias completas. Sobre é uma identificação simples. Atendimentos preenchidos usam amostras sintéticas e o card original; não foram certificados contra gravações. Devolutivas e estados ausentes dos vídeos seguem fora da validação de paridade. Feed, Notificações e redefinição de senha foram confrontados com o código, não certificados contra vídeo.
 
 ## Entrega
 
@@ -39,4 +39,4 @@ A biblioteca agora mostra o componente selecionado em vez de uma lista fixa. Ref
 
 ## Organização por item
 
-As abas Telas/Componentes substituem Área de criação/Biblioteca Flutter. O painel Variações é contextual, e editar JSON é opcional. Há 49 combinações de estados sintéticos testadas nos widgets originais; estados de carregamento/erro ficam estáveis para revisão. Nenhum catálogo de fluxos foi criado, pois as entradas atuais são telas e componentes, não jornadas completas.
+As abas Telas/Componentes substituem Área de criação/Biblioteca Flutter. O painel Variações é contextual, e editar JSON é opcional. Há 54 combinações de estados sintéticos testadas nos widgets originais; estados de carregamento/erro ficam estáveis para revisão. Nenhum catálogo de fluxos foi criado, pois as entradas atuais são telas e componentes, não jornadas completas.

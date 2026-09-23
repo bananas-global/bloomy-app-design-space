@@ -372,40 +372,129 @@ class _PreviewState extends State<Preview> {
       ],
     ),
   );
-  Widget home() => Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      CHeader.content(
-        const CHeaderContentData(
-          'FEED',
-          buttonData: CButton2LabelData('Acesse o feed completo'),
+  Widget feedCard(int index) => Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+    child: CCardFeed(
+      CCardFeedData(
+        name: Name(fixture.patient),
+        avatarUrl: Url(''),
+        url: Url(
+          Uri.base
+              .resolve('assets/assets/images/login_background_for_light2.png')
+              .toString(),
         ),
-        const CHeaderDefaultStyle(isTop: true),
-        onTap: () => go('feed'),
+        thumbnailUrl: Url(''),
+        type: FeedType.image,
+        duration: 0,
+        description: index == 0
+            ? 'Registro de demonstração: atividades de comunicação e brincadeiras em grupo. Imagem ilustrativa.'
+            : 'Registro de demonstração: explorando cores e formas durante a atividade de hoje. Imagem ilustrativa.',
+        postedAt: DateTime(2026, 9, 23 - index, 11, 30),
+        baseUrl: ['http', 'https'].contains(Uri.base.scheme)
+            ? Uri.base.origin
+            : 'http://localhost',
       ),
-      empty(true),
-      CHeader.content(
-        const CHeaderContentData(
-          'PRÓXIMOS ATENDIMENTOS',
-          buttonData: CButton2LabelData('Ver Tudo'),
-        ),
-        const CHeaderDefaultStyle(),
-        onTap: () => go('agenda'),
+      const CCardFeedDefaultStyle(),
+      onShareTap: (_, _) => message(
+        'Compartilhamento disponível no aplicativo. Este registro é fictício.',
       ),
-      empty(false),
-    ],
+      onMidiaOpened: (_, _) => message('Imagem ilustrativa da amostra local.'),
+    ),
   );
-  Widget agenda() => Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      const SizedBox(height: 16),
-      CHeader.content(
-        CHeaderContentData(day.toStringFormatted('dd "de" Month, yyyy')),
-        const CHeaderDateTimeStyle(isHoliday: false),
+  CAvatarData sampleAvatar(String name) => CAvatarData(
+    imageUrl: '',
+    defaultAbbreviationName: name,
+    defaultPriority: DefaultPriority.abbreviation,
+  );
+  Widget appointment(int index) => Padding(
+    padding: const EdgeInsets.fromLTRB(24, 0, 24, 8),
+    child: CTileScheduleParent(
+      CTileScheduleParentData(
+        id: 'sample-$index',
+        patientName: fixture.patient,
+        patientService: index == 0 ? 'Fonoaudiologia' : 'Terapia ocupacional',
+        patientAvatarData: sampleAvatar(fixture.patient),
+        hasProfessional: true,
+        professionalName: index == 0 ? 'Ana Lima' : 'Paula Costa',
+        professionalSpecialty: index == 0
+            ? 'Fonoaudióloga'
+            : 'Terapeuta ocupacional',
+        professionalAvatarData: sampleAvatar(
+          index == 0 ? 'Ana Lima' : 'Paula Costa',
+        ),
+        legalGuardianName: fixture.guardian,
+        legalGuardianAvatarData: sampleAvatar(fixture.guardian),
+        hasSupervisor: false,
+        type: ScheduleType.patient,
+        status: ScheduleStatus.scheduled,
+        sessionType: SessionType.none,
+        sessionLocation: SessionLocation.inClinic,
+        startDateTime: DateTime(2026, 9, 23, 14 + index),
+        endDateTime: DateTime(2026, 9, 23, 14 + index, 50),
+        unitName: 'Unidade Jardim',
+        roomName: 'Sala ${index + 1}',
       ),
-      const SizedBox(height: 16),
-      empty(false),
-    ],
+      CTileScheduleParentDefaultStyle(status: ScheduleStatus.scheduled),
+      onTap: () => message(
+        'Atendimento fictício de ${fixture.patient}, às ${14 + index}h, na Unidade Jardim, sala ${index + 1}.',
+      ),
+    ),
+  );
+  Widget home() => SingleChildScrollView(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        CHeader.content(
+          const CHeaderContentData(
+            'FEED',
+            buttonData: CButton2LabelData('Acesse o feed completo'),
+          ),
+          const CHeaderDefaultStyle(isTop: true),
+          onTap: () => go('feed'),
+        ),
+        if (fixture.showFeed) feedCard(0) else empty(true),
+        CHeader.content(
+          const CHeaderContentData(
+            'PRÓXIMOS ATENDIMENTOS',
+            buttonData: CButton2LabelData('Ver Tudo'),
+          ),
+          const CHeaderDefaultStyle(),
+          onTap: () => go('agenda'),
+        ),
+        if (fixture.showSchedules) ...[
+          const SizedBox(height: 12),
+          appointment(0),
+          appointment(1),
+        ] else
+          empty(false),
+        const SizedBox(height: 16),
+      ],
+    ),
+  );
+  Widget feed() => fixture.showFeed
+      ? ListView(children: [feedCard(0), feedCard(1)])
+      : empty(true);
+  Widget agenda() => SingleChildScrollView(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const SizedBox(height: 16),
+        CHeader.content(
+          CHeaderContentData(day.toStringFormatted('dd "de" Month, yyyy')),
+          const CHeaderDateTimeStyle(isHoliday: false),
+        ),
+        const SizedBox(height: 16),
+        if (fixture.showSchedules &&
+            day == DateTime(2026, 9, 23) &&
+            '${fixture.patient} Unidade Jardim Sala 1 Sala 2'
+                .toLowerCase()
+                .contains(search.text.toLowerCase())) ...[
+          appointment(0),
+          appointment(1),
+        ] else
+          empty(false),
+      ],
+    ),
   );
   Widget contents() => SingleChildScrollView(
     padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -643,7 +732,7 @@ class _PreviewState extends State<Preview> {
               'agenda' => agenda(),
               'contents' => contents(),
               'metrics' => metrics(),
-              'feed' => empty(true),
+              'feed' => feed(),
               'notifications' => CListInfinite(
                 CListInfiniteData(
                   itemCount: 0,

@@ -3,6 +3,8 @@ import 'dart:convert';
 /// Synthetic, bounded data accepted by the local design environment.
 class PreviewFixture {
   const PreviewFixture({
+    this.showFeed = false,
+    this.showSchedules = false,
     this.state = 'ready',
     this.calendarMode = 'month',
     this.loginStep = 'cpf',
@@ -20,7 +22,7 @@ class PreviewFixture {
     this.buttonEnabled = true,
   });
   final String guardian, patient, contentTitle, contentDescription, buttonLabel;
-  final bool showContent, buttonEnabled;
+  final bool showContent, buttonEnabled, showFeed, showSchedules;
   final String state,
       calendarMode,
       loginStep,
@@ -41,6 +43,8 @@ class PreviewFixture {
       }
 
       return PreviewFixture(
+        showFeed: data['showFeed'] == true,
+        showSchedules: data['showSchedules'] == true,
         state: field('state', 'ready'),
         calendarMode: field('calendarMode', 'month'),
         loginStep: field('loginStep', 'cpf'),
