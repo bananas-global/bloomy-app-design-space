@@ -46,3 +46,23 @@ Home, Feed, Agenda e suas peças isoladas compartilham controles por componente.
 ## Revisão do ambiente
 
 Laterais redimensionáveis, controles de viewport no cabeçalho, Handoff com cópia de link e texto, painel contextual de informações e variações para os 20 itens do catálogo. O índice de uso dos componentes é gerado pelos testes Flutter. As amostras respeitam o posicionamento estrutural de cabeçalho e navegação inferior. O modo sem hover simula toques e usa um cursor circular. Os posts usam a foto ilustrativa fornecida pelo usuário.
+
+
+## Dados dos componentes e controles da prévia
+
+Links, JSON editável/exportado e mensagens para Flutter separam `data` de `preview`.
+`data` usa nomes de propriedades da biblioteca; `preview` contém os seletores exclusivos do Design Space (fotos de exemplo, quantidades, estados de carregamento, plataforma e simulações).
+Este objeto é uma fixture compartilhada de apresentação, não um DTO da API. O adaptador em `flutter_preview/lib/main.dart` constrói os objetos reais da biblioteca:
+
+| Dado da fixture | Propriedade real utilizada |
+| --- | --- |
+| `legalGuardianName` | `CTileScheduleParentData.legalGuardianName`; no cabeçalho, `CAppBarUser2Data.name`; em perfis, `AvatarUserData.title` |
+| `patientName` | `CTileScheduleParentData.patientName`, `CTileParentContentData.patientName`; no feed, `CCardFeedData.name` recebe `Name(patientName)`; em perfis, `AvatarUserData.title` |
+| `title`, `description`, `contentType` | `CTileParentContentData` com os mesmos nomes; tipo convertido para o enum da biblioteca |
+| `label`, `isEnabled` | `CButtonData` com os mesmos nomes |
+| `status` | `CTileScheduleParentData.status`, convertido para `ScheduleStatus` |
+| `roomName`, `unitName`, `hasProfessional`, `hasSupervisor` | `CTileScheduleParentData` com os mesmos nomes |
+
+A estrutura interna plana do editor combina esses dois grupos somente para renderizar controles. A serialização os separa; não copie controles de `preview` para contratos do app. Seletores como `scheduleTime` geram datas sintéticas e `postText` gera um texto de amostra; fotos de amostra são convertidas em `CAvatarData.imageUrl`. Ações simuladas devem ser conectadas aos fluxos já existentes no app.
+
+O leitor mantém compatibilidade com fixtures planas antigas e nomes antigos (`guardian`, `patient`, `contentTitle`, `contentDescription`, `buttonLabel`, `buttonEnabled`, `scheduleStatus`, `scheduleRoom`, `scheduleUnit`). Novos links e exportações usam o formato separado. Não há mudança nos contratos do app original.

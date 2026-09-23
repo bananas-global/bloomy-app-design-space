@@ -93,7 +93,7 @@ class _PreviewState extends State<Preview> {
   late PreviewFixture fixture =
       widget.fixture ??
       PreviewFixture.fromJson(Uri.base.queryParameters['data']);
-  late String patient = fixture.patient;
+  late String patient = fixture.patientName;
   String avatarPhoto(String role) =>
       (['http', 'https'].contains(Uri.base.scheme)
               ? Uri.base
@@ -119,7 +119,7 @@ class _PreviewState extends State<Preview> {
 
   void updateFixture(PreviewFixture next) {
     setState(() {
-      if (next.patient != fixture.patient) patient = next.patient;
+      if (next.patientName != fixture.patientName) patient = next.patientName;
       if (next.searchText != fixture.searchText) search.text = next.searchText;
       if (next.loginStep != fixture.loginStep)
         passwordStep = next.loginStep == 'password';
@@ -259,7 +259,7 @@ class _PreviewState extends State<Preview> {
             padding: EdgeInsets.all(20),
             child: Text('Selecionar pacientes'),
           ),
-          for (final name in ['Todos', fixture.patient, 'Teste João'])
+          for (final name in ['Todos', fixture.patientName, 'Teste João'])
             ListTile(
               title: Text(name),
               trailing: patient == name ? const Icon(Icons.check) : null,
@@ -274,7 +274,7 @@ class _PreviewState extends State<Preview> {
   );
   Widget drawer() => CDrawer(
     CDrawerData(
-      name: Name(fixture.guardian),
+      name: Name(fixture.legalGuardianName),
       email: Email('responsavel@example.invalid'),
       avatarData: avatar,
       itemsData: [
@@ -306,7 +306,7 @@ class _PreviewState extends State<Preview> {
   IAppBar header(BuildContext ctx) => CAppBarUser2(
     CAppBarUser2Data(
       greetings: 'Olá,',
-      name: fixture.guardian,
+      name: fixture.legalGuardianName,
       avatarData: avatar,
       buttonData: CButtonData.icon(UIconsExtension.menu),
     ),
@@ -331,12 +331,12 @@ class _PreviewState extends State<Preview> {
               CDropdownData<String>(
                 items: [
                   CDropdownItemData(
-                    label: fixture.patient,
-                    value: fixture.patient,
+                    label: fixture.patientName,
+                    value: fixture.patientName,
                   ),
                   CDropdownItemData(label: 'Teste João', value: 'Teste João'),
                 ],
-                valueSelected: patient == 'Todos' ? fixture.patient : patient,
+                valueSelected: patient == 'Todos' ? fixture.patientName : patient,
               ),
               const CDropdownDefaultStyle(),
               onSelect: (v) => setState(() => patient = v),
@@ -425,7 +425,7 @@ class _PreviewState extends State<Preview> {
     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
     child: CCardFeed(
       CCardFeedData(
-        name: Name(fixture.patient),
+        name: Name(fixture.patientName),
         avatarUrl: Url(fixture.postAvatarPhoto ? avatarPhoto('lucas') : ''),
         url: Url(sampleMedia),
         thumbnailUrl: Url(sampleMedia),
@@ -462,11 +462,11 @@ class _PreviewState extends State<Preview> {
   CTileScheduleParent appointmentCard(int index) => CTileScheduleParent(
       CTileScheduleParentData(
         id: 'sample-$index',
-        patientName: fixture.patient,
+        patientName: fixture.patientName,
         patientService: index == 0 ? 'Fonoaudiologia' : 'Terapia ocupacional',
         patientAvatarData: CAvatarData(
           imageUrl: (fixture.schedulePatientPhoto == 'inherit' ? fixture.postAvatarPhoto : fixture.schedulePatientPhoto == 'true') ? avatarPhoto('lucas') : '',
-          defaultAbbreviationName: fixture.patient,
+          defaultAbbreviationName: fixture.patientName,
           defaultPriority: DefaultPriority.abbreviation,
         ),
         hasProfessional: fixture.hasProfessional,
@@ -481,26 +481,26 @@ class _PreviewState extends State<Preview> {
           defaultAbbreviationName: index == 0 ? 'Ana Lima' : 'Paula Costa',
           defaultPriority: DefaultPriority.abbreviation,
         ),
-        legalGuardianName: fixture.guardian,
+        legalGuardianName: fixture.legalGuardianName,
         legalGuardianAvatarData: avatar,
         hasSupervisor: fixture.hasSupervisor,
         supervisorName: "Bia Luz",
         supervisorSpecialty: "SUPERVISOR",
         supervisorAvatarData: CAvatarData(imageUrl: "", defaultAbbreviationName: "Bia Luz", defaultPriority: fixture.supervisorInitials ? DefaultPriority.abbreviation : DefaultPriority.defaultImage),
         type: ScheduleType.patient,
-        status: ScheduleStatus.fromString(fixture.scheduleStatus),
+        status: ScheduleStatus.fromString(fixture.status),
         sessionType: SessionType.none,
         sessionLocation: SessionLocation.inClinic,
         startDateTime: fixture.scheduleTime == 'none' ? null : DateTime(2026, 9, 23, fixture.scheduleTime == '09:30' ? 9 : 14 + index, fixture.scheduleTime == '09:30' ? 30 : 0),
         endDateTime: DateTime(2026, 9, 23, 14 + index, 50),
-        unitName: fixture.scheduleUnit,
-        roomName: fixture.scheduleRoom == 'none' ? '' : fixture.scheduleRoom == 'Sala 1' ? 'Sala ${index + 1}' : fixture.scheduleRoom,
+        unitName: fixture.unitName,
+        roomName: fixture.roomName == 'Sala 1' ? 'Sala ${index + 1}' : fixture.roomName,
       ),
       CTileScheduleParentDefaultStyle(
-        status: ScheduleStatus.fromString(fixture.scheduleStatus),
+        status: ScheduleStatus.fromString(fixture.status),
       ),
       onTap: () => message(
-        'Atendimento fictício de ${fixture.patient}, às ${14 + index}h, na Unidade Jardim, sala ${index + 1}.',
+        'Atendimento fictício de ${fixture.patientName}, às ${14 + index}h, na Unidade Jardim, sala ${index + 1}.',
       ),
     );
   Widget homeSectionState(bool feed) =>
@@ -590,11 +590,11 @@ class _PreviewState extends State<Preview> {
         else if (fixture.resolvedScheduleState == 'ready' &&
             day == DateTime(2026, 9, 23)) ...[
           for (var i = 0; i < fixture.appointmentCount; i++)
-            if ('${fixture.patient} Unidade Jardim Sala ${i + 1}'
+            if ('${fixture.patientName} Unidade Jardim Sala ${i + 1}'
                 .toLowerCase()
                 .contains(search.text.toLowerCase()))
               appointment(i),
-          if (!'${fixture.patient} Unidade Jardim ${List.generate(fixture.appointmentCount, (i) => 'Sala ${i + 1}').join(' ')}'
+          if (!'${fixture.patientName} Unidade Jardim ${List.generate(fixture.appointmentCount, (i) => 'Sala ${i + 1}').join(' ')}'
               .toLowerCase()
               .contains(search.text.toLowerCase()))
             empty(false),
@@ -616,7 +616,7 @@ class _PreviewState extends State<Preview> {
         ),
         if (fixture.showContent &&
             (search.text.isEmpty ||
-                '${fixture.contentTitle} ${fixture.contentDescription}'
+                '${fixture.title} ${fixture.description}'
                     .toLowerCase()
                     .contains(search.text.toLowerCase())))
           Padding(padding: EdgeInsets.zero, child: contentTile())
@@ -630,15 +630,15 @@ class _PreviewState extends State<Preview> {
   );
   Widget contentTile() => CTileParentContent(
     CTileParentContentData(
-      patientName: patient == 'Todos' ? fixture.patient : patient,
+      patientName: patient == 'Todos' ? fixture.patientName : patient,
       updatedAt: DateTime(2025, 10, 1, 17, 21),
       patientAvatarData: const CAvatarData(
         imageUrl: "",
         defaultAbbreviationName: 'TM',
         defaultPriority: DefaultPriority.abbreviation,
       ),
-      title: fixture.contentTitle,
-      description: fixture.contentDescription,
+      title: fixture.title,
+      description: fixture.description,
       contentType: fixture.contentType == 'document'
           ? ContentType.document
           : ContentType.video,
@@ -712,12 +712,12 @@ class _PreviewState extends State<Preview> {
         avatarUsersData: [
           AvatarUserData(
             id: 'guardian',
-            title: fixture.guardian,
+            title: fixture.legalGuardianName,
             avatarUrl: Url(fixture.settingsGuardianPhoto ? avatarPhoto('mother') : ''),
           ),
           if (fixture.settingsProfileCount != '1') AvatarUserData(
             id: 'patient',
-            title: fixture.patient,
+            title: fixture.patientName,
             avatarUrl: Url(fixture.settingsPatientPhoto ? avatarPhoto('lucas') : ''),
           ),
           if (fixture.settingsProfileCount == '4') ...[AvatarUserData(id: 'patient-2', title: 'Sofia Santos', avatarUrl: Url('')), AvatarUserData(id: 'patient-3', title: 'Pedro Santos', avatarUrl: Url(''))],
@@ -910,7 +910,7 @@ class _PreviewState extends State<Preview> {
         'consent': 'Termo de Ciência',
         'contracts': 'Contrato de Adesão',
         'about': 'Sobre',
-        'content': fixture.contentTitle,
+        'content': fixture.title,
         'password': 'Redefinir senha',
       }[page]!,
     ),
@@ -1094,7 +1094,7 @@ class _PreviewState extends State<Preview> {
     final cardData = card.data;
     final cardStyle = card.style;
     Widget sample() => switch (component) {
-      'CAvatar' => Align(alignment: Alignment.topLeft, child: CAvatar(switch(fixture.avatarRole) { 'guardian' => CAvatarData(imageUrl: fixture.settingsGuardianPhoto ? avatarPhoto('mother') : '', defaultAbbreviationName: fixture.guardian), 'professional' => cardData.professionalAvatarData, 'supervisor' => cardData.supervisorAvatarData!, _ => cardData.patientAvatarData }, cardStyle.avatarStyle(context))),
+      'CAvatar' => Align(alignment: Alignment.topLeft, child: CAvatar(switch(fixture.avatarRole) { 'guardian' => CAvatarData(imageUrl: fixture.settingsGuardianPhoto ? avatarPhoto('mother') : '', defaultAbbreviationName: fixture.legalGuardianName), 'professional' => cardData.professionalAvatarData, 'supervisor' => cardData.supervisorAvatarData!, _ => cardData.patientAvatarData }, cardStyle.avatarStyle(context))),
       'CDivider' => CDivider(cardStyle.dividerStyle(context)),
       'CChip' => Align(alignment: Alignment.topLeft, child: CChip(switch(fixture.chipRole) {
         'time' => CChipData.iconAndLabel(cardData.timeIcon, fixture.scheduleTime == 'none' ? '--:--' : fixture.scheduleTime),
@@ -1115,7 +1115,7 @@ class _PreviewState extends State<Preview> {
       'CAppBarUser2' => CAppBarUser2(
         CAppBarUser2Data(
           greetings: 'Olá,',
-          name: fixture.guardian,
+          name: fixture.legalGuardianName,
           avatarData: avatar,
           buttonData: CButtonData.icon(UIconsExtension.menu),
         ),
@@ -1148,8 +1148,8 @@ class _PreviewState extends State<Preview> {
       ]),
       _ => CButton(
         CButtonData.label(
-          fixture.buttonLabel,
-          isEnabled: fixture.buttonEnabled,
+          fixture.label,
+          isEnabled: fixture.isEnabled,
         ),
         const CButtonDefaultStyle(),
         onTap: () => message('CButton original'),

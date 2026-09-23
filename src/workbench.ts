@@ -10,8 +10,8 @@ export const componentDefaults = {
   schedulePatientPhoto: "inherit",
   supervisorInitials: true,
   scheduleTime: "14:00",
-  scheduleRoom: "Sala 1",
-  scheduleUnit: "Unidade Jardim",
+  roomName: "Sala 1",
+  unitName: "Unidade Jardim",
   headerPhoto: false,
   feedState: "inherit",
   feedCount: "1",
@@ -20,7 +20,7 @@ export const componentDefaults = {
   postMedia: "image",
   scheduleState: "inherit",
   scheduleCount: "2",
-  scheduleStatus: "scheduled",
+  status: "scheduled",
   hasProfessional: true,
   hasSupervisor: false,
   professionalPhoto: false,
@@ -28,13 +28,13 @@ export const componentDefaults = {
 export type Fixture = typeof componentDefaults & {
   showFeed: boolean;
   showSchedules: boolean;
-  guardian: string;
-  patient: string;
-  contentTitle: string;
-  contentDescription: string;
+  legalGuardianName: string;
+  patientName: string;
+  title: string;
+  description: string;
   showContent: boolean;
-  buttonLabel: string;
-  buttonEnabled: boolean;
+  label: string;
+  isEnabled: boolean;
   state: string;
   calendarMode: string;
   loginStep: string;
@@ -59,13 +59,13 @@ export const fixtures: Record<string, { label: string; data: Fixture }> = {
       fieldError: false,
       navigation: "home",
       contentType: "video",
-      guardian: "Teste",
-      patient: "Teste Maria",
-      contentTitle: "Teste v1",
-      contentDescription: "Teste vídeo de coelho.",
+      legalGuardianName: "Teste",
+      patientName: "Teste Maria",
+      title: "Teste v1",
+      description: "Teste vídeo de coelho.",
       showContent: true,
-      buttonLabel: "PRÓXIMO",
-      buttonEnabled: true,
+      label: "PRÓXIMO",
+      isEnabled: true,
     },
   },
   empty: {
@@ -82,13 +82,13 @@ export const fixtures: Record<string, { label: string; data: Fixture }> = {
       fieldError: false,
       navigation: "home",
       contentType: "video",
-      guardian: "Teste",
-      patient: "Teste Maria",
-      contentTitle: "Teste v1",
-      contentDescription: "Teste vídeo de coelho.",
+      legalGuardianName: "Teste",
+      patientName: "Teste Maria",
+      title: "Teste v1",
+      description: "Teste vídeo de coelho.",
       showContent: false,
-      buttonLabel: "PRÓXIMO",
-      buttonEnabled: true,
+      label: "PRÓXIMO",
+      isEnabled: true,
     },
   },
   long: {
@@ -105,14 +105,14 @@ export const fixtures: Record<string, { label: string; data: Fixture }> = {
       fieldError: false,
       navigation: "home",
       contentType: "video",
-      guardian: "Responsável de demonstração",
-      patient: "Paciente de demonstração Maria",
-      contentTitle: "Atividades de comunicação e cooperação",
-      contentDescription:
+      legalGuardianName: "Responsável de demonstração",
+      patientName: "Paciente de demonstração Maria",
+      title: "Atividades de comunicação e cooperação",
+      description:
         "Orientações sintéticas para explorar a leitura de descrições longas no aplicativo.",
       showContent: true,
-      buttonLabel: "CONTINUAR PARA A PRÓXIMA ETAPA",
-      buttonEnabled: true,
+      label: "CONTINUAR PARA A PRÓXIMA ETAPA",
+      isEnabled: true,
     },
   },
   disabled: {
@@ -129,13 +129,13 @@ export const fixtures: Record<string, { label: string; data: Fixture }> = {
       fieldError: false,
       navigation: "home",
       contentType: "video",
-      guardian: "Teste",
-      patient: "Teste Maria",
-      contentTitle: "Teste v1",
-      contentDescription: "Teste vídeo de coelho.",
+      legalGuardianName: "Teste",
+      patientName: "Teste Maria",
+      title: "Teste v1",
+      description: "Teste vídeo de coelho.",
       showContent: true,
-      buttonLabel: "PRÓXIMO",
-      buttonEnabled: false,
+      label: "PRÓXIMO",
+      isEnabled: false,
     },
   },
 };
@@ -158,18 +158,18 @@ const add = (id: string, label: string, patch: Partial<Fixture>) => {
 add("populated", "Feed e atendimentos preenchidos", {
   showFeed: true,
   showSchedules: true,
-  guardian: "Marina",
-  patient: "Lucas Santos",
+  legalGuardianName: "Marina",
+  patientName: "Lucas Santos",
 });
 add("feed-only", "Somente feed", {
   showFeed: true,
-  guardian: "Marina",
-  patient: "Lucas Santos",
+  legalGuardianName: "Marina",
+  patientName: "Lucas Santos",
 });
 add("appointments-only", "Somente atendimentos", {
   showSchedules: true,
-  guardian: "Marina",
-  patient: "Lucas Santos",
+  legalGuardianName: "Marina",
+  patientName: "Lucas Santos",
 });
 add("loading", "Carregando", { state: "loading" });
 add("error", "Erro ao carregar", { state: "error" });
@@ -194,7 +194,7 @@ add("photo", "Avatar com foto", {
 add("post-long", "Descrição longa", { postText: "long" });
 add("post-video", "Mídia em vídeo", { postMedia: "video" });
 add("supervised", "Com supervisor", { hasSupervisor: true });
-add("cancelled", "Cancelado", { scheduleStatus: "cancelled" });
+add("cancelled", "Cancelado", { status: "cancelled" });
 export const variationIds: Record<string, string[]> = {
   home: [
     "default",
@@ -237,6 +237,17 @@ export const variationIds: Record<string, string[]> = {
 };
 export const variationsFor = (target: string) =>
   variationIds[target] || ["default"];
+// Real widget property names. Preview-only selectors never belong to app DTOs.
+export const fixtureDataFields = ["legalGuardianName", "patientName", "title", "description", "label", "isEnabled", "status", "roomName", "unitName", "contentType", "hasProfessional", "hasSupervisor"] as const;
+const legacyFixtureFields: Record<string, string> = {guardian: "legalGuardianName", patient: "patientName", contentTitle: "title", contentDescription: "description", buttonLabel: "label", buttonEnabled: "isEnabled", scheduleStatus: "status", scheduleRoom: "roomName", scheduleUnit: "unitName"};
+export function serializeFixture(fixture: Fixture) {
+  const data: Record<string, string | boolean> = {};
+  const preview: Record<string, string | boolean> = {};
+  for (const [key, value] of Object.entries(fixture)) {
+    (fixtureDataFields.includes(key as typeof fixtureDataFields[number]) ? data : preview)[key] = value;
+  }
+  return { data, preview };
+}
 export function parseFixture(raw: string): Fixture {
   let value;
   try {
@@ -246,6 +257,24 @@ export function parseFixture(raw: string): Fixture {
   }
   if (!value || Array.isArray(value) || typeof value !== "object")
     throw Error("Use um objeto JSON.");
+  if ("data" in value || "preview" in value) {
+    if (Object.keys(value).some(k => !["data", "preview"].includes(k))) throw Error("O JSON contém campos desconhecidos.");
+    for (const group of ["data", "preview"]) {
+      if (!value[group] || typeof value[group] !== "object" || Array.isArray(value[group])) throw Error(`Grupo ${group}: esperado objeto.`);
+      for (const key of Object.keys(value[group])) {
+        const isData = fixtureDataFields.includes(key as typeof fixtureDataFields[number]);
+        if ((group === "data") !== isData) throw Error(`Campo ${key} pertence ao grupo ${isData ? "data" : "preview"}.`);
+      }
+    }
+    value = { ...value.preview, ...value.data };
+  }
+  for (const [oldName, realName] of Object.entries(legacyFixtureFields)) {
+    if (oldName in value) {
+      if (!(realName in value)) value[realName] = value[oldName];
+      delete value[oldName];
+    }
+  }
+  if (value.roomName === "none") value.roomName = "";
   value = { ...extras, ...value };
   for (const [key, base] of Object.entries(fixtures.default.data)) {
     if (typeof value[key] !== typeof base)
@@ -254,7 +283,7 @@ export function parseFixture(raw: string): Fixture {
       );
     if (
       typeof value[key] === "string" &&
-      (value[key].length > 300 || (!value[key].trim() && key !== "searchText"))
+      (value[key].length > 300 || (!value[key].trim() && !["searchText", "roomName"].includes(key)))
     )
       throw Error(`Campo ${key}: use entre 1 e 300 caracteres.`);
   }
@@ -267,7 +296,7 @@ export function parseFixture(raw: string): Fixture {
     scheduleCount: ["1", "2", "3"],
     postText: ["short", "medium", "long"],
     postMedia: ["image", "video"],
-    scheduleStatus: ["scheduled", "ongoing", "finished", "cancelled"],
+    status: ["scheduled", "ongoing", "finished", "cancelled"],
     state: ["ready", "loading", "error"],
     calendarMode: ["month", "week"],
     loginStep: ["cpf", "password"],
@@ -382,7 +411,7 @@ const headerControls: ControlGroup = {
   controls: [
     { field: "headerPhoto", label: "Avatar do responsável", options: yesNo },
     {
-      field: "guardian",
+      field: "legalGuardianName",
       label: "Nome do responsável",
       options: [
         ["Mariana", "Mariana"],
@@ -444,7 +473,7 @@ const appointmentControls: ControlGroup = {
   title: "Atendimento · CTileScheduleParent",
   controls: [
     {
-      field: "scheduleStatus",
+      field: "status",
       label: "Status do atendimento",
       options: [
         ["scheduled", "Agendado"],
@@ -483,15 +512,15 @@ const calendarControls = group("CCalendarWeekly", "Calendário · CCalendarWeekl
 const searchControls = group("CTextField", "Busca · CTextField", [searchControl]);
 const contentControls = group("CTileParentContent", "Conteúdo · CTileParentContent", [
   { field: "contentType", label: "Tipo de conteúdo", options: [["video", "Vídeo"], ["document", "Documento"]] },
-  { field: "contentTitle", label: "Título do conteúdo", options: [["Teste v1", "Teste v1"], ["Atividades de comunicação e cooperação", "Atividades de comunicação e cooperação"]] },
-  { field: "contentDescription", label: "Descrição do conteúdo", options: [["Teste vídeo de coelho.", "Descrição curta"], ["Orientações para explorar a comunicação, a cooperação e a participação nas atividades do dia a dia com a família.", "Descrição longa"]] },
+  { field: "title", label: "Título do conteúdo", options: [["Teste v1", "Teste v1"], ["Atividades de comunicação e cooperação", "Atividades de comunicação e cooperação"]] },
+  { field: "description", label: "Descrição do conteúdo", options: [["Teste vídeo de coelho.", "Descrição curta"], ["Orientações para explorar a comunicação, a cooperação e a participação nas atividades do dia a dia com a família.", "Descrição longa"]] },
 ]);
 const platformControl: Control = {field: "settingsPlatform", label: "Plataforma das permissões", options: [["ios", "iOS · com instruções"], ["android", "Android · sem instruções"]]};
 const profileControls = group("CAvatarUpdater", "Perfis · CAvatarUpdater", [
  {field: "settingsGuardianPhoto", label: "Foto do responsável", options: [["true", "Responsável com foto"], ["false", "Responsável sem foto"]]},
- {field: "guardian", label: "Nome do responsável", options: [["Mariana", "Mariana"], ["Mariana de Albuquerque Santos", "Mariana de Albuquerque Santos"]]},
+ {field: "legalGuardianName", label: "Nome do responsável", options: [["Mariana", "Mariana"], ["Mariana de Albuquerque Santos", "Mariana de Albuquerque Santos"]]},
  {field: "settingsPatientPhoto", label: "Foto do paciente", options: [["true", "Paciente com foto"], ["false", "Paciente sem foto"]]},
- {field: "patient", label: "Nome do paciente", options: [["Lucas Santos", "Lucas Santos"], ["Lucas de Albuquerque Santos", "Lucas de Albuquerque Santos"]]},
+ {field: "patientName", label: "Nome do paciente", options: [["Lucas Santos", "Lucas Santos"], ["Lucas de Albuquerque Santos", "Lucas de Albuquerque Santos"]]},
  {field: "settingsProfileCount", label: "Quantidade de perfis", options: [["1", "Somente responsável"], ["2", "Responsável e 1 paciente"], ["4", "Responsável e 3 pacientes"]]},
 ]);
 const sectionControl: Control = {field: "settingsSection", label: "Seção de configurações", options: [["security", "Segurança"], ["permissions", "Permissões"], ["information", "Informações"]]};
@@ -528,8 +557,8 @@ export function componentGroupsFor(target: string): ControlGroup[] {
       { component: "CAvatar", previewData: { avatarRole: "professional" }, nested: true, title: "Profissional · CAvatar", controls: [appointmentControls.controls[2]] },
       { component: "CAvatar", previewData: { avatarRole: "supervisor" }, nested: true, title: "Supervisor · CAvatar", controls: [{field: "supervisorInitials", label: "Avatar do supervisor", options: [["true", "Iniciais"], ["false", "Ícone padrão"]]}] },
       { component: "CChip", previewData: { chipRole: "time" }, nested: true, title: "Horário · CChip", controls: [{field: "scheduleTime", label: "Horário", options: [["14:00", "14:00"], ["09:30", "09:30"], ["none", "Sem horário"]]}] },
-      { component: "CChip", previewData: { chipRole: "room" }, nested: true, title: "Sala · CChip", controls: [{field: "scheduleRoom", label: "Sala", options: [["Sala 1", "Sala 1"], ["Sala de atendimento infantil", "Sala de atendimento infantil"], ["none", "Sem sala"]]}] },
-      { component: "CChip", previewData: { chipRole: "unit" }, nested: true, title: "Unidade · CChip", controls: [{field: "scheduleUnit", label: "Unidade", options: [["Unidade Jardim", "Unidade Jardim"], ["Unidade Vila Mariana", "Unidade Vila Mariana"]]}] },
+      { component: "CChip", previewData: { chipRole: "room" }, nested: true, title: "Sala · CChip", controls: [{field: "roomName", label: "Sala", options: [["Sala 1", "Sala 1"], ["Sala de atendimento infantil", "Sala de atendimento infantil"], ["", "Sem sala"]]}] },
+      { component: "CChip", previewData: { chipRole: "unit" }, nested: true, title: "Unidade · CChip", controls: [{field: "unitName", label: "Unidade", options: [["Unidade Jardim", "Unidade Jardim"], ["Unidade Vila Mariana", "Unidade Vila Mariana"]]}] },
     ];
     case "CCalendarWeekly": return [calendarControls, searchControls];
     case "CTextField": return [group("CTextField", "Campo · CTextField", [searchControl, { field: "fieldError", label: "Validação do campo", options: [["false", "Sem erro"], ["true", "Com erro"]] }])];
@@ -547,7 +576,7 @@ export function componentGroupsFor(target: string): ControlGroup[] {
     case "CAvatar": return [group("", "Avatar · CAvatar", [{field: "avatarRole", label: "Pessoa do avatar", options: [["patient", "Paciente"], ["guardian", "Responsável"], ["professional", "Profissional"], ["supervisor", "Supervisor"]]}, {field: "settingsGuardianPhoto", label: "Foto do responsável", options: [["true", "Responsável com foto"], ["false", "Responsável sem foto"]]}, ...componentGroupsFor("CTileScheduleParent").filter(g => g.component === "CAvatar").flatMap(g => g.controls)])];
     case "CChip": return [group("", "Chip · CChip", [{field: "chipRole", label: "Tipo de chip", options: [["status", "Status"], ["time", "Horário"], ["room", "Sala"], ["unit", "Unidade"]]}, ...componentGroupsFor("CTileScheduleParent").filter(g => g.component === "CChip").flatMap(g => g.controls)])];
     case "CDivider": return [{component: "", title: "Divisória · CDivider", controls: [], note: "Estilo usado no card de atendimento. A largura acompanha o espaço disponível."}];
-    case "CButton": return [group("CButton", "Botão · CButton", [{ field: "buttonEnabled", label: "Disponibilidade", options: [["true", "Habilitado"], ["false", "Desabilitado"]] }, { field: "buttonLabel", label: "Texto do botão", options: [["PRÓXIMO", "PRÓXIMO"], ["CONTINUAR PARA A PRÓXIMA ETAPA", "CONTINUAR PARA A PRÓXIMA ETAPA"]] }])];
+    case "CButton": return [group("CButton", "Botão · CButton", [{ field: "isEnabled", label: "Disponibilidade", options: [["true", "Habilitado"], ["false", "Desabilitado"]] }, { field: "label", label: "Texto do botão", options: [["PRÓXIMO", "PRÓXIMO"], ["CONTINUAR PARA A PRÓXIMA ETAPA", "CONTINUAR PARA A PRÓXIMA ETAPA"]] }])];
     default: return [];
   }
 }
@@ -612,11 +641,11 @@ export const componentPositioning: Record<string, string> = {
 
 /** Returns the reason a visible variation cannot affect the current preview. */
 export function controlDisabledReason(target: string, component: string, field: keyof Fixture, data: Fixture): string | undefined {
-  if (["settings", "CAvatarUpdater"].includes(target) && data.settingsProfileCount === "1" && ["settingsPatientPhoto", "patient"].includes(field)) return "Disponível quando há paciente.";
+  if (["settings", "CAvatarUpdater"].includes(target) && data.settingsProfileCount === "1" && ["settingsPatientPhoto", "patientName"].includes(field)) return "Disponível quando há paciente.";
   if (target === "CTileSettings" && field === "settingsPlatform" && !["notifications", "camera", "gallery"].includes(data.settingsItem)) return "Disponível nos itens de permissão.";
   if (target === "CCardList" && field === "settingsPlatform" && data.settingsSection !== "permissions") return "Disponível na seção de permissões.";
   if (target === "CAvatar" && ({settingsGuardianPhoto: "guardian", schedulePatientPhoto: "patient", professionalPhoto: "professional", supervisorInitials: "supervisor"} as Record<string,string>)[field] && ({settingsGuardianPhoto: "guardian", schedulePatientPhoto: "patient", professionalPhoto: "professional", supervisorInitials: "supervisor"} as Record<string,string>)[field] !== data.avatarRole) return "Selecione a pessoa correspondente.";
-  if (target === "CChip" && ({scheduleStatus: "status", scheduleTime: "time", scheduleRoom: "room", scheduleUnit: "unit"} as Record<string,string>)[field] && ({scheduleStatus: "status", scheduleTime: "time", scheduleRoom: "room", scheduleUnit: "unit"} as Record<string,string>)[field] !== data.chipRole) return "Selecione o tipo correspondente.";
+  if (target === "CChip" && ({status: "status", scheduleTime: "time", roomName: "room", unitName: "unit"} as Record<string,string>)[field] && ({status: "status", scheduleTime: "time", roomName: "room", unitName: "unit"} as Record<string,string>)[field] !== data.chipRole) return "Selecione o tipo correspondente.";
   if (target === "CTileScheduleParent" && field === "professionalPhoto" && !data.hasProfessional)
     return "Disponível quando há profissional.";
   if (target === "CTileScheduleParent" && field === "supervisorInitials" && (!data.hasProfessional || !data.hasSupervisor))

@@ -1,3 +1,4 @@
+import { serializeFixture } from "./workbench";
 import componentUsage from "./component-usage.generated.json";
 import { FixtureEditor } from "./FixtureEditor";
 import {
@@ -230,7 +231,7 @@ export default function App() {
   const fixtureQuery = new URLSearchParams({
     screen: view === "library" ? "library" : screen,
     component: view === "library" ? focus : "",
-    data: JSON.stringify(fixture.data),
+    data: JSON.stringify(serializeFixture(fixture.data)),
     safe: safe ? "1" : "0",
     hover: hoverEnabled ? "1" : "0",
   });
@@ -241,7 +242,7 @@ export default function App() {
   latestFixture.current = fixture.data;
   function sendFixture() {
     frame.current?.contentWindow?.postMessage(
-      JSON.stringify({ type: "bloomy-fixture", data: latestFixture.current }),
+      JSON.stringify({ type: "bloomy-fixture", data: serializeFixture(latestFixture.current) }),
       location.origin,
     );
   }
@@ -287,7 +288,7 @@ export default function App() {
     u.searchParams.set("component", focus);
     u.searchParams.set("fixture", fixture.id);
     if (fixture.id === "custom")
-      u.searchParams.set("data", JSON.stringify(fixture.data));
+      u.searchParams.set("data", JSON.stringify(serializeFixture(fixture.data)));
     else u.searchParams.delete("data");
     u.searchParams.set("viewport", vp);
     u.searchParams.set("w", String(width));

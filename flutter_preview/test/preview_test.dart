@@ -33,6 +33,24 @@ Future<void> open(
 }
 
 void main() {
+  test('fixture contracts accept separated data and legacy links', () {
+    final fixture = PreviewFixture.fromJson(jsonEncode({
+      'data': {'legalGuardianName': 'Mariana', 'patientName': 'Lucas', 'roomName': '', 'isEnabled': false},
+      'preview': {'headerPhoto': true, 'feedCount': '3'},
+    }));
+    expect(fixture.legalGuardianName, 'Mariana');
+    expect(fixture.patientName, 'Lucas');
+    expect(fixture.roomName, '');
+    expect(fixture.isEnabled, false);
+    expect(fixture.headerPhoto, true);
+    expect(fixture.postCount, 3);
+    final legacy = PreviewFixture.fromJson(jsonEncode({'guardian': 'Mariana', 'patient': 'Lucas', 'buttonEnabled': false, 'scheduleRoom': 'none'}));
+    expect(legacy.legalGuardianName, fixture.legalGuardianName);
+    expect(legacy.patientName, fixture.patientName);
+    expect(legacy.isEnabled, fixture.isEnabled);
+    expect(legacy.roomName, fixture.roomName);
+  });
+
   TestWidgetsFlutterBinding.ensureInitialized();
   final componentUsage = <String, Set<String>>{};
   tearDownAll(() {
@@ -97,7 +115,7 @@ void main() {
       const PreviewApp(
         initialScreen: 'home',
         fixture: PreviewFixture(
-          guardian: 'Marina',
+          legalGuardianName: 'Marina',
           feedState: 'loading',
           scheduleState: 'ready',
           scheduleCount: '3',
@@ -285,7 +303,7 @@ void main() {
         scheduleCount: '3',
         hasSupervisor: true,
         professionalPhoto: true,
-        scheduleStatus: 'cancelled',
+        status: 'cancelled',
       ),
     );
     expect(find.byType(CLoading), findsOneWidget);
@@ -355,8 +373,8 @@ void main() {
         tester,
         'contents',
         fixture: const PreviewFixture(
-          patient: 'Paciente Exemplo',
-          contentTitle: 'Exemplo editado',
+          patientName: 'Paciente Exemplo',
+          title: 'Exemplo editado',
         ),
       );
       expect(find.text('Paciente Exemplo'), findsOneWidget);
@@ -379,8 +397,8 @@ void main() {
       'library',
       component: 'CButton',
       fixture: const PreviewFixture(
-        buttonEnabled: false,
-        buttonLabel: 'INDISPONÍVEL',
+        isEnabled: false,
+        label: 'INDISPONÍVEL',
       ),
     );
     expect(

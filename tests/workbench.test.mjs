@@ -15,6 +15,7 @@ const {
   variationIds,
   variationsFor,
   parseFixture,
+  serializeFixture,
   initialFixture,
   dimension,
   normalizeSearch,
@@ -24,7 +25,7 @@ const {
 test("custom fixture round trips through a shareable URL", () => {
   const data = {
     ...fixtures.default.data,
-    patient: "Amostra Silva",
+    patientName: "Amostra Silva",
     showContent: false,
   };
   const p = new URLSearchParams({
@@ -41,7 +42,7 @@ test("invalid fixture data falls back explicitly", () => {
     null,
     [],
     { ...fixtures.default.data, showContent: "false" },
-    { ...fixtures.default.data, patient: "x".repeat(301) },
+    { ...fixtures.default.data, patientName: "x".repeat(301) },
     { ...fixtures.default.data, extra: 1 },
   ])
     assert.throws(() => parseFixture(JSON.stringify(value)));
@@ -139,12 +140,12 @@ test("every catalog item has contextual controls with valid values", () => {
      const data = { ...base, feedState: state, scheduleState: state };
      assert.ok(controlDisabledReason("home", "FeedSection", "feedCount", data));
      assert.ok(controlDisabledReason("FeedSection", "CCardFeed", "postText", data));
-     assert.ok(controlDisabledReason("agenda", "CTileScheduleParent", "scheduleStatus", data));
+     assert.ok(controlDisabledReason("agenda", "CTileScheduleParent", "status", data));
      assert.equal(controlDisabledReason("CCardFeed", "CCardFeed", "postText", data), undefined);
-     assert.equal(controlDisabledReason("CTileScheduleParent", "CTileScheduleParent", "scheduleStatus", data), undefined);
+     assert.equal(controlDisabledReason("CTileScheduleParent", "CTileScheduleParent", "status", data), undefined);
      assert.equal(controlDisabledReason("home", "FeedSection", "feedState", data), undefined);
    }
-   assert.ok(controlDisabledReason("contents", "CTileParentContent", "contentTitle", { ...base, state: "loading" }));
+   assert.ok(controlDisabledReason("contents", "CTileParentContent", "title", { ...base, state: "loading" }));
    assert.ok(controlDisabledReason("CTileParentContent", "CTileParentContent", "contentType", { ...base, showContent: false }));
    assert.equal(controlDisabledReason("CTileParentContent", "CTileParentContent", "showContent", { ...base, showContent: false }), undefined);
  });
@@ -160,11 +161,30 @@ test("nested component links retain the selected instance", () => {
   const data = {...fixtures.populated.data, avatarRole: "supervisor", chipRole: "room"};
   assert.ok(controlDisabledReason("CAvatar", "", "professionalPhoto", data));
   assert.equal(controlDisabledReason("CAvatar", "", "supervisorInitials", data), undefined);
-  assert.ok(controlDisabledReason("CChip", "", "scheduleStatus", data));
-  assert.equal(controlDisabledReason("CChip", "", "scheduleRoom", data), undefined);
+  assert.ok(controlDisabledReason("CChip", "", "status", data));
+  assert.equal(controlDisabledReason("CChip", "", "roomName", data), undefined);
 });
 
 test("home does not expose a feed count override", () => {
   assert.ok(!componentGroupsFor("home").flatMap(g => g.controls).some(c => c.field === "feedCount"));
   assert.ok(componentGroupsFor("feed").flatMap(g => g.controls).some(c => c.field === "feedCount"));
+});
+
+test("widget data and preview selectors are separated and round trip", () => {
+ const source = {...fixtures.populated.data, roomName: ""};
+ const payload = serializeFixture(source);
+ assert.equal(payload.data.patientName, source.patientName);
+ assert.equal(payload.preview.headerPhoto, source.headerPhoto);
+ assert.equal(payload.data.headerPhoto, undefined);
+ assert.deepEqual(parseFixture(JSON.stringify(payload)), source);
+ assert.throws(() => parseFixture(JSON.stringify({...payload, data: {...payload.data, headerPhoto: true}})));
+});
+test("legacy links migrate equivalent fields without losing preview settings", () => {
+ const old = {...fixtures.populated.data, guardian: "Mariana antiga", patient: "Lucas antigo", scheduleRoom: "none"};
+ delete old.legalGuardianName; delete old.patientName; delete old.roomName;
+ const result = parseFixture(JSON.stringify(old));
+ assert.equal(result.legalGuardianName, "Mariana antiga");
+ assert.equal(result.patientName, "Lucas antigo");
+ assert.equal(result.roomName, "");
+ assert.equal(result.feedCount, old.feedCount);
 });

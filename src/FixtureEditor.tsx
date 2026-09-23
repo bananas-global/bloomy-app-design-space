@@ -1,3 +1,4 @@
+import { serializeFixture } from "./workbench";
 import { ArrowUpRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import {
@@ -25,11 +26,11 @@ export function FixtureEditor({
   data: Fixture;
   onApply: (id: string, data: Fixture) => void;
 }) {
-  const [draft, setDraft] = useState(JSON.stringify(data, null, 2));
+  const [draft, setDraft] = useState(JSON.stringify(serializeFixture(data), null, 2));
   const [error, setError] = useState("");
   const [saved, setSaved] = useState("");
   useEffect(() => {
-    setDraft(JSON.stringify(data, null, 2));
+    setDraft(JSON.stringify(serializeFixture(data), null, 2));
     setError("");
   }, [data]);
   function apply() {
@@ -39,7 +40,7 @@ export function FixtureEditor({
       try {
         localStorage.setItem(
           `bloomy-custom-fixture-v2:${target}`,
-          JSON.stringify(parsed),
+          JSON.stringify(serializeFixture(parsed)),
         );
         setSaved("Fixture aplicada e salva neste navegador.");
       } catch {
@@ -160,7 +161,7 @@ export function FixtureEditor({
             className="ds-text-button"
             onClick={() => {
               const url = URL.createObjectURL(
-                new Blob([JSON.stringify(data, null, 2)], {
+                new Blob([JSON.stringify(serializeFixture(data), null, 2)], {
                   type: "application/json",
                 }),
               );
