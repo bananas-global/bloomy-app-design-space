@@ -1375,3 +1375,47 @@ h1 {
     gap: 8px;
   }
 }
+
+.card-date {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64775c;
+  margin-top: 9px;
+}
+
+.export-dialog {
+  width: min(640px, calc(100vw - 32px));
+  border: 1px solid #dce5d7;
+  border-radius: 18px;
+  padding: 25px;
+  color: #263b3b;
+}
+.export-dialog::backdrop {
+  background: #263b3b65;
+}
+.export-dialog h2 {
+  font-size: 21px;
+}
+.export-dialog p {
+  font-size: 12px;
+  line-height: 1.7;
+  margin: 12px 0;
+}
+.export-dialog textarea {
+  width: 100%;
+  height: 300px;
+  resize: vertical;
+  border: 1px solid #dce5d7;
+  border-radius: 8px;
+  padding: 12px;
+  font: 12px/1.7 monospace;
+}
+.export-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.export-actions a {
+  text-decoration: none;
+}

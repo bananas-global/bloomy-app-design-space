@@ -42,3 +42,7 @@ Logo do clone atual do app; Nunito do checkout local do mesmo app. Nenhum dado c
 `npm run handoff -- baseline` gera commit, base de comparação, patch binário, resumo de diferenças e código ZIP em `handoff/<commit>/`. Exige árvore limpa para que a entrega corresponda exatamente ao Git. Exporte também os comentários pelo ambiente.
 
 Após aprovação humana, registrar aqui aprovador, data, escopo e commit aprovado. Criar tag anotada `approved/<nome>` apontando para esse commit. Tag candidata ou baseline não é aprovação. Nunca rotular automaticamente como aprovado.
+
+## Diferença demonstrada contra baseline
+
+A data foi acrescentada uma vez em ScheduleCard e apareceu em Início, Agenda e Biblioteca. A versão baseline preserva o cartão sem essa data; a candidata acrescenta também ajustes de revisão/exportação e acessibilidade. Evidências e limites dos checks em docs/VALIDATION.md.

@@ -166,7 +166,10 @@ export function FamilyApp({
             </div>
             <div className="section-title">
               <h3>{day} de setembro</h3>
-              <span className="count">{items.length} atendimentos</span>
+              <span className="count">
+                {items.length}{" "}
+                {items.length === 1 ? "atendimento" : "atendimentos"}
+              </span>
             </div>
           </>
         )}
@@ -229,6 +232,7 @@ export function FamilyApp({
       </nav>
       <dialog
         ref={dialog}
+        aria-labelledby="detail-title"
         onCancel={() => setDetail(null)}
         onClick={(e) => {
           if (e.target === e.currentTarget) setDetail(null);
@@ -237,7 +241,7 @@ export function FamilyApp({
         {detail && (
           <>
             <div className="dialog-heading">
-              <span>
+              <span id="detail-title">
                 {detail.status === "Finalizado"
                   ? "Devolutiva"
                   : "Detalhes do atendimento"}
@@ -287,7 +291,7 @@ export function FamilyApp({
                 variant="secondary"
                 onClick={() => setDetail(null)}
               >
-                Voltar à agenda
+                Fechar atendimento
               </Button>
             </div>
           </>

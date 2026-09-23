@@ -70,6 +70,7 @@ export function ScheduleCard({
         </span>
         <Status status={s.status} />
       </div>
+      <p className="card-date">{s.day} de setembro</p>
       <div className="card-person">
         <Avatar patientId={s.patientId} />
         <div>

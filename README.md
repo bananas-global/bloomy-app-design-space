@@ -30,7 +30,7 @@ Peça ao agente: “Abra o fluxo Acompanhar atendimentos e torne o horário mais
 - `src/components/ui.tsx`: peças comuns; não duplicar por tela.
 - `src/data/fixtures.ts`: dados sintéticos compartilhados.
 - `src/style.css`: aparência e tokens.
-- `src/main.tsx`: ambiente, inspeção, biblioteca e revisão.
+- `src/App.tsx`: ambiente, inspeção, biblioteca e revisão.
 
 Não precisa escrever cenários, modelar backend nem preencher matrizes para criar uma tela. Acrescente somente dados e componentes que a proposta precisa. Anote decisões relevantes e lacunas em HANDOFF.md.
 
