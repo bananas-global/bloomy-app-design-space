@@ -1,13 +1,13 @@
 # Bloomy App Design Space
 
-Ambiente de criação para o app Flutter dos responsáveis legais, não o backoffice.
-Leia README.md e HANDOFF.md. Não publique nem altere o app de origem sem autorização.
+Ambiente local de criação para o app Flutter dos responsáveis. Leia README.md e HANDOFF.md.
 
-- Componha telas com src/components/ui.tsx. Adicione peças à biblioteca quando houver uso real.
-- Dados fictícios e determinísticos em src/data/fixtures.ts. Nunca dados de pacientes reais.
-- Não exigir catálogo de cenários, matriz de permissões nem cópia das regras do backend para desenhar.
-- Registre somente decisões relevantes e pendências de engenharia em HANDOFF.md.
-- Esta biblioteca é React; não declare que usa o pacote Flutter privado components_bloomy.
-- Preserve rótulos, foco visível e navegação por teclado.
-- Antes de entregar: npm run check e confira o fluxo alterado no navegador.
-- Git local é autorizado. Push, remoto e deploy exigem autorização específica.
+- Telas e amostras usam os widgets reais de components_bloomy em flutter_preview/lib/main.dart.
+- React é apenas a moldura, navegação do ambiente e revisão. Não recrie o app em CSS.
+- Preserve dados sintéticos e ausência de chamadas ao backend clínico.
+- Referências visuais: gravações 1.10.3+89; fonte consultada 1.11.3+94. Documente diferenças de versão.
+- Dependências privadas usam GITEA_PUB_TOKEN no .env local, ignorado no Git. Nunca compile credenciais via dart-define/VITE_*.
+- npm run build:native recompila Dart; npm run dev inicia tudo. npm run dev:host só atualiza a moldura.
+- Antes de entregar execute npm run check e inspecione visualmente o fluxo alterado.
+- Preserve acessibilidade, comentários locais exportáveis e mudanças do usuário.
+- Git local autorizado. Não publique, faça push ou altere o app original sem autorização.

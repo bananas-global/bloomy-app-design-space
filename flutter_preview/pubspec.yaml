@@ -1,0 +1,33 @@
+name: bloomy_design_preview
+publish_to: none
+version: 0.2.0+1
+environment:
+  sdk: ">=3.12.2 <4.0.0"
+  flutter: "3.44.9"
+dependencies:
+  flutter:
+    sdk: flutter
+  components_bloomy:
+    hosted: https://gitea.sidedoor.tech/api/packages/bloomy/pub
+    version: 6.39.0
+  flutter_extension:
+    hosted: https://gitea.sidedoor.tech/api/packages/bloomy/pub
+    version: 6.2.0
+  cupertino_icons: ^1.0.8
+  flutter_svg: 2.3.0
+  web: ^1.1.1
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/translations/
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: assets/fonts/Nunito-VariableFont_wght.ttf
+    - family: Nunito Sans
+      fonts:
+        - asset: assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf

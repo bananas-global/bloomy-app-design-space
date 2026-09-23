@@ -1,59 +1,39 @@
-# bloomy-app-design-space
+# Bloomy App Design Space
 
-Primeira versão local de um espaço para criar, experimentar, revisar e fazer handoff do app Bloomy dos responsáveis legais.
+Laboratório local para desenhar o app dos responsáveis com **Flutter e os widgets originais de components_bloomy 6.39.0**. React/Vite fornece apenas a moldura e a revisão.
 
 ## Abrir
 
-Requer Node 22+.
+Requer Node, Flutter 3.44.9 e acesso de leitura ao registro privado.
 
 ```sh
 npm ci
+# Configure uma vez; o valor do token fica somente no .env local:
+dart pub token add https://gitea.sidedoor.tech/api/packages/bloomy/pub --env-var GITEA_PUB_TOKEN
 npm run dev
 ```
 
-Abra http://127.0.0.1:5217. Para verificar: `npm run check`.
+URL: http://127.0.0.1:5217/?view=canvas&screen=home
 
-## Experimente em dois minutos
+O script lê `GITEA_PUB_TOKEN` do `.env` apenas para baixar dependências; não o injeta no JavaScript/Dart. `.env` é ignorado no Git e no pacote de entrega. Copie `.env.example` e preencha localmente em outra máquina.
 
-1. No Início, abra um atendimento. Feche e escolha **Ver tudo**.
-2. Na Agenda, selecione Lia e busque **Sala 03**. Os dados são os mesmos do Início.
-3. Limpe a busca e selecione **22 de setembro**. Abra a sessão finalizada para ler a devolutiva fictícia.
-4. Ative **Inspecionar** e clique num cartão: o painel mostra a peça, arquivo e equivalente Flutter.
-5. Ative **Botões arredondados** e visite a Biblioteca: a mesma mudança aparece nos usos do Button. É uma experiência temporária, não salva no código.
-6. Deixe um comentário, resolva/reabra e exporte a revisão. Comentários ficam só neste navegador.
+## Editar
 
-## Criar e editar
+- `flutter_preview/lib/main.dart`: composição das telas, estados locais e amostras da biblioteca.
+- `flutter_preview/lib/app_icons.dart`: mapeamento de ícones do app original.
+- `flutter_preview/pubspec.lock`: versões reproduzíveis das dependências privadas.
+- `src/App.tsx` e `src/native-space.css`: ambiente, comentários e exportação.
+- `npm run build:native`: recompilar depois de editar Dart; atualize a prévia no navegador.
+- `npm run dev:host`: iniciar somente a moldura quando Flutter já está compilado.
+- `npm run check`: análise Dart, testes de widgets, compilação Flutter e TypeScript/Vite.
+- `npm run handoff -- baseline`: gerar fontes e patch ligados ao commit exato; exige Git limpo.
 
-Peça ao agente: “Abra o fluxo Acompanhar atendimentos e torne o horário mais visível no ScheduleCard. Confira Início, Agenda e Biblioteca.”
+O build mantém todas as fontes de ícones. Tree shaking removeu glifos usados por getters da biblioteca privada nos testes visuais; não reative sem conferir as telas.
 
-- `src/screens/FamilyApp.tsx`: composição do fluxo.
-- `src/components/ui.tsx`: peças comuns; não duplicar por tela.
-- `src/data/fixtures.ts`: dados sintéticos compartilhados.
-- `src/style.css`: aparência e tokens.
-- `src/App.tsx`: ambiente, inspeção, biblioteca e revisão.
+## Recorte
 
-Não precisa escrever cenários, modelar backend nem preencher matrizes para criar uma tela. Acrescente somente dados e componentes que a proposta precisa. Anote decisões relevantes e lacunas em HANDOFF.md.
+Início, Agenda, Conteúdos, Evolutivo, Configurações, Login, menu e biblioteca. Feed, Notificações e redefinição de senha têm composição baseada no código original, mas não foram mostrados integralmente nas gravações. Textos legais completos e reprodução de vídeo continuam fora do recorte.
 
-## Histórico, comparação e recuperação
+A prévia não acessa backend clínico. Nomes e avatares são sintéticos. Login, permissões e troca de foto demonstram estados locais. Veja `HANDOFF.md` e `docs/VALIDATION.md` para evidências, oito rodadas e diferenças conhecidas.
 
-```sh
-git log --oneline
-git diff baseline..HEAD
-git switch -c experimento/nova-ideia
-# Após conferir as alterações:
-git add src HANDOFF.md
-git commit -m "Melhora a leitura dos horários"
-npm run handoff -- baseline
-```
-
-Para consultar uma versão anterior sem sobrescrever o trabalho: `git worktree add ../bloomy-app-design-space-revisao <commit>`.
-Para desfazer um commit preservando o histórico: `git revert <commit>` (com árvore limpa e após revisar o escopo).
-A aprovação é humana, com commit explícito; consulte HANDOFF.md. O script de entrega não aprova nem publica.
-
-## Escolha e limites
-
-O app real é Flutter, não React nem Phoenix. A biblioteca privada components_bloomy não estava acessível. Esta versão usa React/Vite para uma experiência web leve, com reuso real dentro do Design Space e mapeamento para Flutter. Há adaptação de engenharia entre os dois; não é uma exportação direta de produção.
-
-O motor antigo não é dependência. Neste recorte, seu catálogo obrigatório e regras executáveis adicionariam trabalho sem ajudar a criação. Git, componentes comuns e uma nota de entrega bastam. O custo desta escolha é manter um pequeno ambiente próprio; não há ainda colaboração em tempo real, revisão visual de commits lado a lado nem aprovação integrada.
-
-Nenhum remoto, publicação ou deploy foi criado. Para aparecer como projeto salvo no Codex, adicione esta pasta pela interface do app; a ferramenta desta sessão não registra projetos existentes.
+O redesign React anterior permanece no histórico Git; foi substituído pelo laboratório Flutter. Nenhum push ou deploy foi feito.
