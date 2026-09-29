@@ -6,7 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:bloomy_design_preview/main.dart';
 import 'package:bloomy_design_preview/preview_fixture.dart';
-import 'package:components_bloomy/components_bloomy.dart';
+import 'package:components_bloomy/components_bloomy.dart' hide CAvatarUpdater;
+import 'package:bloomy_design_preview/avatar_updater_candidate.dart';
 
 Future<void> open(
   WidgetTester tester,
@@ -33,10 +34,33 @@ Future<void> open(
 }
 
 void main() {
+  testWidgets('profile avatars use each person name as initials fallback', (tester) async {
+    await open(tester, 'settings', fixture: const PreviewFixture(settingsGuardianPhoto: false, settingsPatientPhoto: false, legalGuardianName: 'Mariana Santos', patientName: 'Lucas Santos'));
+    final avatars = tester.widgetList<CAvatar>(find.descendant(of: find.byType(CAvatarUpdater), matching: find.byType(CAvatar))).toList();
+    expect(avatars.map((avatar) => avatar.data.defaultAbbreviationName), containsAll(['MS', 'LS']));
+    expect(avatars.every((avatar) => avatar.data.defaultPriority == DefaultPriority.abbreviation), isTrue);
+  });
+
+  testWidgets('profile row aligns portraits and editing follows the selected person', (tester) async {
+    await open(tester, 'settings', fixture: const PreviewFixture(settingsProfileCount: '4', legalGuardianName: 'Mariana Santos', patientName: 'Lucas Santos'));
+    final avatars = find.descendant(of: find.byType(CAvatarUpdater), matching: find.byType(CAvatar));
+    expect(avatars, findsNWidgets(4));
+    final rects = List.generate(4, (i) => tester.getRect(avatars.at(i)));
+    expect(rects.first.size, const Size(124, 124));
+    for (final rect in rects.skip(1)) {
+      expect(rect.size, const Size(52, 52));
+      expect(rect.bottom, closeTo(rects.first.bottom, .01));
+    }
+    await tester.tap(find.bySemanticsLabel('Trocar perfil'));
+    await tester.pumpAndSettle();
+    expect(find.bySemanticsLabel('Editar foto de Lucas Santos'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('avatar editor opens the real source sheet and dismisses on selection', (tester) async {
     await open(tester, 'settings');
     final updater = tester.widget<CAvatarUpdater>(find.byType(CAvatarUpdater));
-    updater.onAvatarTap!(updater.data.avatarUsersData.first);
+    await tester.tap(find.bySemanticsLabel('Editar foto de ${updater.data.avatarUsersData.first.title}'));
     await tester.pumpAndSettle();
     expect(find.byType(CBottomSheetInternalScreen), findsOneWidget);
     expect(find.text('SELECIONE'), findsOneWidget);
