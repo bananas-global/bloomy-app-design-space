@@ -1,4 +1,5 @@
-import 'package:components_bloomy/components_bloomy.dart';
+import 'package:components_bloomy/components_bloomy.dart' hide CAvatarUpdater;
+import 'package:bloomy_design_preview/avatar_updater_candidate.dart';
 import 'package:flutter_extension/flutter_extension.dart' hide context;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:global_messages/global_messages.dart';

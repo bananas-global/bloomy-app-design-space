@@ -555,7 +555,8 @@
     "home"
   ],
   "FittedBox": [
-    "login"
+    "login",
+    "settings"
   ],
   "Flex": [
     "metrics"
@@ -713,7 +714,8 @@
     "settings"
   ],
   "LayoutBuilder": [
-    "metrics"
+    "metrics",
+    "settings"
   ],
   "LayoutId": [
     "agenda",
@@ -1670,6 +1672,9 @@
     "login",
     "metrics",
     "notifications",
+    "settings"
+  ],
+  "_ProfileOutline": [
     "settings"
   ],
   "_RawPictureVectorGraphicWidget": [

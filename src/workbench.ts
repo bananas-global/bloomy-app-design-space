@@ -414,7 +414,7 @@ const headerControls: ControlGroup = {
       field: "legalGuardianName",
       label: "Nome do responsável",
       options: [
-        ["Mariana", "Mariana"],
+        ["Mariana Santos", "Mariana Santos"],
         ["Mariana de Albuquerque Santos", "Mariana de Albuquerque Santos"],
       ],
     },
@@ -518,7 +518,7 @@ const contentControls = group("CTileParentContent", "Conteúdo · CTileParentCon
 const platformControl: Control = {field: "settingsPlatform", label: "Plataforma das permissões", options: [["ios", "iOS · com instruções"], ["android", "Android · sem instruções"]]};
 const profileControls = group("CAvatarUpdater", "Perfis · CAvatarUpdater", [
  {field: "settingsGuardianPhoto", label: "Foto do responsável", options: [["true", "Responsável com foto"], ["false", "Responsável sem foto"]]},
- {field: "legalGuardianName", label: "Nome do responsável", options: [["Mariana", "Mariana"], ["Mariana de Albuquerque Santos", "Mariana de Albuquerque Santos"]]},
+ {field: "legalGuardianName", label: "Nome do responsável", options: [["Mariana Santos", "Mariana Santos"], ["Mariana de Albuquerque Santos", "Mariana de Albuquerque Santos"]]},
  {field: "settingsPatientPhoto", label: "Foto do paciente", options: [["true", "Paciente com foto"], ["false", "Paciente sem foto"]]},
  {field: "patientName", label: "Nome do paciente", options: [["Lucas Santos", "Lucas Santos"], ["Lucas de Albuquerque Santos", "Lucas de Albuquerque Santos"]]},
  {field: "settingsProfileCount", label: "Quantidade de perfis", options: [["1", "Somente responsável"], ["2", "Responsável e 1 paciente"], ["4", "Responsável e 3 pacientes"]]},
@@ -566,7 +566,7 @@ export function componentGroupsFor(target: string): ControlGroup[] {
     case "CContainerListInformation": return [group("CContainerListInformation", "Estado da lista", [{ ...stateControl, options: [["ready", "Vazio"], ["loading", "Carregando"], ["error", "Erro"]] }])];
     case "CTileParentContent": return [{ ...contentControls, controls: [{ field: "showContent", label: "Conteúdo disponível", options: [["true", "Com conteúdo"], ["false", "Sem conteúdo"]] }, ...contentControls.controls] }];
     case "CTileSettings": return [group("", "Item · CTileSettings", [itemControl, platformControl])];
-    case "CAvatarUpdater": return [profileControls, {component: "CAvatar", title: "Avatar do responsável", previewData: {avatarRole: "guardian"}, controls: []}, {component: "CButton", title: "Botão de edição", controls: [], note: "O seletor de perfis usa o botão da biblioteca para editar a foto."}];
+    case "CAvatarUpdater": return [profileControls, {component: "CAvatar", title: "Avatar do responsável", previewData: {avatarRole: "guardian"}, controls: []}];
     case "CAppBarRow": return [group("CText", "Título · CText", []), group("CButtonBack", "Voltar · CButtonBack", [])];
     case "CButtonBack": return [group("", "Botão de voltar", [])];
     case "CText": return [group("", "Título de Configurações", [])];
@@ -601,7 +601,7 @@ export const itemDetails: Record<string, string> = {
   CContainerListInformation: "Mensagem ilustrada de lista vazia. Carregamento e erro substituem essa mensagem pelos estados correspondentes da prévia.",
   CTileParentContent: "Cartão de conteúdo educativo com paciente, título, descrição, data e etiquetas. Diferencia vídeo e documento e permite avaliar textos mais longos.",
   CTileSettings: "Item de configuração com controle de permissão. As variações escolhem o tipo de item e a plataforma; os toggles são operados diretamente na amostra.",
-  CAvatarUpdater: "Organiza os perfis do responsável e pacientes, com seleção e botão de edição. Usa CAvatar e CButton.",
+  CAvatarUpdater: "Organiza os perfis do responsável e pacientes. Nesta proposta, toda a foto abre a edição; o pequeno lápis no canto superior é apenas indicativo. Usa CAvatar. Implementação candidata em flutter_preview/lib/avatar_updater_candidate.dart, preservando os contratos da biblioteca.",
   CAppBarRow: "Cabeçalho superior com título central e botão de voltar.",
   CButtonBack: "Botão de retorno usado no cabeçalho. A amostra simula a ação localmente.",
   CText: "Texto do título com o estilo de detalhes do app.",

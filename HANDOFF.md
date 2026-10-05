@@ -66,3 +66,18 @@ Este objeto é uma fixture compartilhada de apresentação, não um DTO da API. 
 A estrutura interna plana do editor combina esses dois grupos somente para renderizar controles. A serialização os separa; não copie controles de `preview` para contratos do app. Seletores como `scheduleTime` geram datas sintéticas e `postText` gera um texto de amostra; fotos de amostra são convertidas em `CAvatarData.imageUrl`. Ações simuladas devem ser conectadas aos fluxos já existentes no app.
 
 O leitor mantém compatibilidade com fixtures planas antigas e nomes antigos (`guardian`, `patient`, `contentTitle`, `contentDescription`, `buttonLabel`, `buttonEnabled`, `scheduleStatus`, `scheduleRoom`, `scheduleUnit`). Novos links e exportações usam o formato separado. Não há mudança nos contratos do app original.
+
+
+## Proposta: edição pelo avatar
+
+A implementação candidata está em `flutter_preview/lib/avatar_updater_candidate.dart`, baseada em `CAvatarUpdater` de components_bloomy 6.39.0. Preserva `CAvatarUpdaterData`, `IAvatarUpdaterStyle`, o callback `onAvatarTap` e a seleção de perfis. O app usa esta classe local no lugar da classe exportada pela biblioteca; a biblioteca instalada não foi alterada.
+
+Referências Figma: [com foto](https://www.figma.com/design/SJGEgCu6BDmmhUfWGQ3N13/App-dos-Pais?node-id=2339-4997) e [com iniciais](https://www.figma.com/design/SJGEgCu6BDmmhUfWGQ3N13/App-dos-Pais?node-id=2339-5002).
+
+A foto inteira abre a edição. O indicador mantém o ícone original, agora com 16 px em um círculo de 32 px no canto superior direito. O avatar principal mede 124 px, incluindo o contorno de 2 px. Os perfis secundários medem 52 px, avançam 26 px por item e ficam alinhados pela base da foto principal, com um aro externo de 3 px na cor do fundo. São exibidos até três perfis secundários; listas maiores mantêm o indicador de quantidade. A navegação entre perfis continua cíclica. Em larguras estreitas, somente o grupo secundário reduz para não sobrepor o avatar principal.
+
+O nome fica centralizado abaixo de toda a linha, separado por 8 px, em Nunito Sans Black 20 px; nomes extensos podem quebrar em linhas. As iniciais usam a regra real `Name(title).abbreviation`, em Nunito Sans Black, 48 px no principal e 20 px nos secundários. As fotos continuam recebidas pelos dados de cada perfil, sem embutir as imagens demonstrativas do Figma no componente.
+
+Mapeamento de cores para `BloomyColors`: nome `text.main`; contorno principal e indicador `text.op20`; ícone `primary.main`; fundo sem foto `primary.light`; iniciais `primary.dark`; indicador `background.light`; aro de separação `background.main`. O fundo usa o token existente do app (ligeiramente diferente do valor literal do Figma).
+
+Aceite: tocar em qualquer ponto da foto abre o seletor Galeria/Câmera; teclado e leitor de tela identificam a ação como editar foto da pessoa selecionada; o estado desabilitado impede a edição; trocar de perfil mantém o nome, a foto e o destinatário da edição correspondentes. Na integração, transportar a composição e os estilos locais para a biblioteca, preservando o callback real de edição do aplicativo. Nenhuma alteração foi feita no app original ou no pacote instalado.
