@@ -8,3 +8,4 @@ handoff/
 !.env.example
 
 public/flutter/
+.vercel/

@@ -1,6 +1,7 @@
 {
   "AbsorbPointer": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -11,6 +12,7 @@
   ],
   "Actions": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -18,6 +20,9 @@
     "metrics",
     "notifications",
     "settings"
+  ],
+  "AgreementsPreview": [
+    "agreements"
   ],
   "Align": [
     "agenda",
@@ -31,6 +36,7 @@
   ],
   "AnimatedBuilder": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -41,6 +47,7 @@
   ],
   "AnimatedDefaultTextStyle": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -56,6 +63,7 @@
   ],
   "AnimatedPhysicalModel": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -66,6 +74,7 @@
   ],
   "AnimatedTheme": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -76,6 +85,7 @@
   ],
   "AnnotatedRegion<SystemUiOverlayStyle>": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -104,6 +114,7 @@
   ],
   "BlockSemantics": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -114,6 +125,7 @@
   ],
   "Builder": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -130,6 +142,9 @@
     "login",
     "notifications",
     "settings"
+  ],
+  "CAppBarTitle": [
+    "agreements"
   ],
   "CAppBarUser2": [
     "agenda",
@@ -150,6 +165,9 @@
   ],
   "CBottomBarButton": [
     "login"
+  ],
+  "CBottomBarButtons": [
+    "agreements"
   ],
   "CBottomBarUser": [
     "agenda",
@@ -180,6 +198,7 @@
     "settings"
   ],
   "CButton2": [
+    "agreements",
     "home"
   ],
   "CButtonBack<void>": [
@@ -195,6 +214,7 @@
     "agenda"
   ],
   "CCard": [
+    "agreements",
     "feed",
     "home",
     "metrics"
@@ -224,6 +244,7 @@
   ],
   "CDivider": [
     "agenda",
+    "agreements",
     "contents",
     "home",
     "settings"
@@ -240,6 +261,7 @@
   ],
   "CIcon": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -267,6 +289,7 @@
   ],
   "CScaffold": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -279,6 +302,7 @@
     "settings"
   ],
   "CText": [
+    "agreements",
     "feed",
     "login",
     "notifications",
@@ -288,6 +312,9 @@
     "agenda",
     "contents",
     "login"
+  ],
+  "CTileAgreement": [
+    "agreements"
   ],
   "CTileParentContent": [
     "contents"
@@ -308,6 +335,7 @@
   ],
   "Center": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -334,6 +362,7 @@
   ],
   "ClipRect": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -344,6 +373,7 @@
   ],
   "ColoredBox": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -354,6 +384,7 @@
   ],
   "Column": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -370,6 +401,7 @@
   ],
   "ConstrainedBox": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -380,6 +412,7 @@
   ],
   "Container": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -390,6 +423,7 @@
   ],
   "CupertinoTheme": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -400,6 +434,7 @@
   ],
   "CustomMultiChildLayout": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -410,6 +445,7 @@
   ],
   "CustomPaint": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -423,6 +459,7 @@
   ],
   "DecoratedBox": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -433,6 +470,7 @@
   ],
   "DefaultSelectionStyle": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -443,6 +481,7 @@
   ],
   "DefaultTextEditingShortcuts": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -453,6 +492,7 @@
   ],
   "DefaultTextStyle": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -463,6 +503,7 @@
   ],
   "DesignSystemBuilder": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -473,6 +514,7 @@
   ],
   "Directionality": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -483,6 +525,7 @@
   ],
   "Divider": [
     "agenda",
+    "agreements",
     "contents",
     "home",
     "settings"
@@ -497,6 +540,7 @@
   ],
   "DualTransitionBuilder": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -512,6 +556,7 @@
   ],
   "ExcludeSemantics": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -522,6 +567,7 @@
   ],
   "Expanded": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -532,6 +578,7 @@
   ],
   "FaIcon": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -542,6 +589,7 @@
   ],
   "FadeTransition": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -555,7 +603,8 @@
     "home"
   ],
   "FittedBox": [
-    "login"
+    "login",
+    "settings"
   ],
   "Flex": [
     "metrics"
@@ -572,6 +621,7 @@
   ],
   "Focus": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -582,6 +632,7 @@
   ],
   "FocusScope": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -592,6 +643,7 @@
   ],
   "FocusTraversalGroup": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -602,6 +654,7 @@
   ],
   "FractionalTranslation": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -612,6 +665,7 @@
   ],
   "GestureDetector": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -625,6 +679,7 @@
   ],
   "HeroControllerScope": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -643,6 +698,7 @@
   ],
   "IconTheme": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -653,6 +709,7 @@
   ],
   "IgnorePointer": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -676,6 +733,7 @@
   ],
   "InheritedCupertinoTheme": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -686,6 +744,7 @@
   ],
   "InkWell": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -704,6 +763,7 @@
   ],
   "KeyedSubtree": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -713,10 +773,12 @@
     "settings"
   ],
   "LayoutBuilder": [
-    "metrics"
+    "metrics",
+    "settings"
   ],
   "LayoutId": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -727,6 +789,7 @@
   ],
   "LimitedBox": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -745,6 +808,7 @@
   ],
   "ListenableBuilder": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -755,6 +819,7 @@
   ],
   "Listener": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -765,6 +830,7 @@
   ],
   "Localizations": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -775,6 +841,7 @@
   ],
   "Material": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -785,6 +852,7 @@
   ],
   "MaterialApp": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -795,6 +863,7 @@
   ],
   "MediaQuery": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -808,6 +877,7 @@
   ],
   "ModalBarrier": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -818,6 +888,7 @@
   ],
   "MouseRegion": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -828,6 +899,7 @@
   ],
   "Navigator": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -841,6 +913,7 @@
   ],
   "NotificationListener<LayoutChangedNotification>": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -851,6 +924,7 @@
   ],
   "NotificationListener<NavigationNotification>": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -864,6 +938,7 @@
   ],
   "NotificationListener<ScrollMetricsNotification>": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -874,6 +949,7 @@
   ],
   "NotificationListener<ScrollNotification>": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -884,6 +960,7 @@
   ],
   "Offstage": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -900,6 +977,7 @@
   ],
   "Overlay": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -910,6 +988,7 @@
   ],
   "Padding": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -920,6 +999,7 @@
   ],
   "PageStorage": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -933,6 +1013,7 @@
   ],
   "PhysicalModel": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -943,6 +1024,7 @@
   ],
   "PhysicalShape": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -959,6 +1041,7 @@
   ],
   "Positioned": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -969,6 +1052,7 @@
   ],
   "Preview": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -979,6 +1063,7 @@
   ],
   "PreviewApp": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -989,6 +1074,7 @@
   ],
   "PrimaryScrollController": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -999,6 +1085,7 @@
   ],
   "RawGestureDetector": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1019,6 +1106,7 @@
   ],
   "RawView": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1029,6 +1117,7 @@
   ],
   "RepaintBoundary": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1039,6 +1128,7 @@
   ],
   "RestorationScope": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1049,6 +1139,7 @@
   ],
   "RichText": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1059,6 +1150,7 @@
   ],
   "RootRestorationScope": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1072,6 +1164,7 @@
   ],
   "RotationTransition": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1082,6 +1175,7 @@
   ],
   "Row": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1092,6 +1186,7 @@
   ],
   "Scaffold": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1102,6 +1197,7 @@
   ],
   "ScaffoldMessenger": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1112,6 +1208,7 @@
   ],
   "ScaleTransition": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1122,6 +1219,7 @@
   ],
   "ScrollConfiguration": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1132,6 +1230,7 @@
   ],
   "ScrollNotificationObserver": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1142,6 +1241,7 @@
   ],
   "Scrollable": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1152,6 +1252,7 @@
   ],
   "Semantics": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1162,6 +1263,7 @@
   ],
   "SharedAppData": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1172,6 +1274,7 @@
   ],
   "ShortcutRegistrar": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1182,6 +1285,7 @@
   ],
   "Shortcuts": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1198,6 +1302,7 @@
   ],
   "SingleChildScrollView": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1213,6 +1318,7 @@
   ],
   "SizedBox": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1223,6 +1329,7 @@
   ],
   "SlideTransition": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1242,6 +1349,7 @@
   ],
   "Stack": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1252,6 +1360,7 @@
   ],
   "StretchEffect": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1262,6 +1371,7 @@
   ],
   "StretchingOverscrollIndicator": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1278,6 +1388,7 @@
   ],
   "TapRegionSurface": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1288,6 +1399,7 @@
   ],
   "Text": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1313,6 +1425,7 @@
   ],
   "Theme": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1323,6 +1436,7 @@
   ],
   "TickerMode": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1333,6 +1447,7 @@
   ],
   "Title": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1343,6 +1458,7 @@
   ],
   "Transform": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1358,6 +1474,7 @@
   ],
   "UnmanagedRestorationScope": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1368,6 +1485,7 @@
   ],
   "ValueListenableBuilder<bool>": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1381,6 +1499,7 @@
   ],
   "View": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1395,6 +1514,7 @@
   ],
   "WidgetsApp": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1409,6 +1529,7 @@
   ],
   "_ActionsScope": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1419,6 +1540,7 @@
   ],
   "_BodyBuilder": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1444,6 +1566,7 @@
   ],
   "_DesignSystemBuilder": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1454,6 +1577,7 @@
   ],
   "_DesignSystemProvider": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1469,6 +1593,7 @@
   ],
   "_EffectiveTickerMode": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1479,6 +1604,7 @@
   ],
   "_FadeForwardsPageTransition": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1489,6 +1615,7 @@
   ],
   "_FloatingActionButtonTransition": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1499,6 +1626,7 @@
   ],
   "_FocusInheritedScope": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1509,6 +1637,7 @@
   ],
   "_FocusScopeWithExternalFocusNode": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1519,6 +1648,7 @@
   ],
   "_GestureSemantics": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1534,6 +1664,7 @@
   ],
   "_InheritedTheme": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1544,6 +1675,7 @@
   ],
   "_InkFeatures": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1554,6 +1686,7 @@
   ],
   "_InkResponseStateWidget": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1564,6 +1697,7 @@
   ],
   "_LocalizationsScope": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1574,6 +1708,7 @@
   ],
   "_MaterialInterior": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1584,6 +1719,7 @@
   ],
   "_MediaQueryFromView": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1594,6 +1730,7 @@
   ],
   "_ModalBarrierGestureDetector": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1604,6 +1741,7 @@
   ],
   "_ModalScope<dynamic>": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1614,6 +1752,7 @@
   ],
   "_ModalScopeStatus": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1624,6 +1763,7 @@
   ],
   "_OverlayEntryWidget": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1634,6 +1774,7 @@
   ],
   "_PageTransitionsThemeTransitions<dynamic>": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1644,6 +1785,7 @@
   ],
   "_ParentInkResponseProvider": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1654,6 +1796,7 @@
   ],
   "_PipelineOwnerScope": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1664,6 +1807,7 @@
   ],
   "_PredictiveBackGestureDetector": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1672,11 +1816,15 @@
     "notifications",
     "settings"
   ],
+  "_ProfileOutline": [
+    "settings"
+  ],
   "_RawPictureVectorGraphicWidget": [
     "login"
   ],
   "_RawViewInternal": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1687,6 +1835,7 @@
   ],
   "_RenderTheaterMarker": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1697,6 +1846,7 @@
   ],
   "_ScaffoldMessengerScope": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1707,6 +1857,7 @@
   ],
   "_ScaffoldScope": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1722,6 +1873,7 @@
   ],
   "_ScrollNotificationObserverScope": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1732,6 +1884,7 @@
   ],
   "_ScrollSemantics": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1742,6 +1895,7 @@
   ],
   "_ScrollableScope": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1755,6 +1909,7 @@
   ],
   "_ShapeBorderPaint": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1765,6 +1920,7 @@
   ],
   "_SharedAppModel": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1775,6 +1931,7 @@
   ],
   "_ShortcutRegistrarScope": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1785,6 +1942,7 @@
   ],
   "_SingleChildViewport": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1801,6 +1959,7 @@
   ],
   "_Theater": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",
@@ -1811,6 +1970,7 @@
   ],
   "_ViewScope": [
     "agenda",
+    "agreements",
     "contents",
     "feed",
     "home",

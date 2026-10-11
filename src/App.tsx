@@ -21,6 +21,7 @@ const screens = [
   ["metrics", "Evolutivo"],
   ["settings", "Configurações"],
   ["login", "Login"],
+  ["agreements", "Aceite de termos"],
   ["feed", "Feed"],
   ["notifications", "Notificações"],
 ] as const;
@@ -30,6 +31,7 @@ const screenDescriptions: Record<string, string> = {
   contents: "Conteúdos e orientações para acompanhar o desenvolvimento do paciente.",
   metrics: "Acompanhamento da evolução do paciente ao longo dos atendimentos.",
   settings: "Dados do perfil e preferências de uso do aplicativo.",
+  agreements: "Leitura, aceite dos termos e contratos e assinatura digital local.",
   login: "Acesso do responsável ao aplicativo por CPF e senha.",
   feed: "Registros de atividades do paciente, com fotos, vídeos e descrições.",
   notifications: "Avisos e atualizações para o responsável.",

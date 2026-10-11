@@ -1,8 +1,10 @@
-import 'package:components_bloomy/components_bloomy.dart';
+import 'package:components_bloomy/components_bloomy.dart' hide CAvatarUpdater;
+import 'package:bloomy_design_preview/avatar_updater_candidate.dart';
 import 'package:flutter_extension/flutter_extension.dart' hide context;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:global_messages/global_messages.dart';
 import 'app_icons.dart';
+import 'agreements_preview.dart';
 import 'preview_fixture.dart';
 import 'preview_bridge.dart';
 
@@ -840,6 +842,7 @@ class _PreviewState extends State<Preview> {
   ];
   @override
   Widget build(BuildContext context) {
+    if (page == 'agreements') return AgreementsPreview(initialState: fixture.agreementState, onComplete: () { go('home'); message('Assinatura demonstrativa concluída. Nenhum documento foi enviado.'); });
     if (page == 'login') return login();
     if (page == 'library') return library();
     if (page == 'password') return changePassword();

@@ -61,7 +61,7 @@ test("search matches Portuguese names regardless of accents", () =>
   ));
 
 test("each screen and component exposes valid contextual presets", () => {
-  assert.equal(Object.keys(variationIds).length, 30);
+  assert.equal(Object.keys(variationIds).length, 31);
   for (const [target, ids] of Object.entries(variationIds)) {
     assert.ok(ids.length >= (target === "settings" ? 1 : 2));
     assert.equal(ids[0], "default");
