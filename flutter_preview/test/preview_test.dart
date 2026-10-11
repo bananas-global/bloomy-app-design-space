@@ -34,6 +34,31 @@ Future<void> open(
 }
 
 void main() {
+  testWidgets('agreements require each acceptance and signature can be cleared', (tester) async {
+    await open(tester, 'agreements');
+    CBottomBarButtonsOnlyData footer() => tester.widget<CBottomBarButtons>(find.byType(CBottomBarButtons).last).data as CBottomBarButtonsOnlyData;
+    expect(footer().button1Data.isEnabled, isFalse);
+    for (var i = 0; i < 2; i++) {
+      tester.widget<CTileAgreement>(find.byType(CTileAgreement).at(i)).onShowAgreeementButtonTap!();
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('ACEITAR'));
+      await tester.pumpAndSettle();
+      expect(footer().button1Data.isEnabled, i == 1);
+    }
+    await tester.tap(find.text('ASSINAR DOCUMENTOS'));
+    await tester.pumpAndSettle();
+    expect(find.byType(CSignature), findsOneWidget);
+    expect(tester.takeException(), isNull);
+    final signature = tester.widget<CSignature>(find.byType(CSignature));
+    expect(signature.controller!.isEmpty, isTrue);
+    await tester.drag(find.byType(CSignature), const Offset(30, 20));
+    await tester.pumpAndSettle();
+    expect(signature.controller!.isNotEmpty, isTrue);
+    await tester.tap(find.text('REFAZER'));
+    await tester.pumpAndSettle();
+    expect(signature.controller!.isEmpty, isTrue);
+  });
+
   testWidgets('profile avatars use each person name as initials fallback', (tester) async {
     await open(tester, 'settings', fixture: const PreviewFixture(settingsGuardianPhoto: false, settingsPatientPhoto: false, legalGuardianName: 'Mariana Santos', patientName: 'Lucas Santos'));
     final avatars = tester.widgetList<CAvatar>(find.descendant(of: find.byType(CAvatarUpdater), matching: find.byType(CAvatar))).toList();

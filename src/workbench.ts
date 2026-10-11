@@ -1,4 +1,5 @@
 export const componentDefaults = {
+  agreementState: "pending",
   settingsGuardianPhoto: true,
   settingsPatientPhoto: true,
   settingsProfileCount: "2",
@@ -174,6 +175,8 @@ add("appointments-only", "Somente atendimentos", {
 add("loading", "Carregando", { state: "loading" });
 add("error", "Erro ao carregar", { state: "error" });
 add("week", "Calendário semanal", { calendarMode: "week" });
+add("agreements-partial", "Um documento aceito", { agreementState: "partial" });
+add("agreements-accepted", "Todos aceitos", { agreementState: "accepted" });
 add("password", "Etapa de senha", { loginStep: "password" });
 add("permissions-on", "Todas permitidas", { permissions: "on" });
 add("permissions-off", "Todas desativadas", { permissions: "off" });
@@ -210,6 +213,7 @@ export const variationIds: Record<string, string[]> = {
   metrics: ["default", "long", "loading", "error"],
   settings: ["default"],
   login: ["default", "password"],
+  agreements: ["default", "agreements-partial", "agreements-accepted"],
   feed: ["default", "populated", "loading", "error"],
   notifications: ["default", "loading", "error"],
   CAppBarUser2: ["default", "long", "photo"],
@@ -299,6 +303,7 @@ export function parseFixture(raw: string): Fixture {
     status: ["scheduled", "ongoing", "finished", "cancelled"],
     state: ["ready", "loading", "error"],
     calendarMode: ["month", "week"],
+    agreementState: ["pending", "partial", "accepted"],
     loginStep: ["cpf", "password"],
     permissions: ["reference", "on", "off"],
     navigation: ["home", "contents", "metrics", "agenda"],
@@ -544,6 +549,7 @@ export function componentGroupsFor(target: string): ControlGroup[] {
  group("CBottomBarUser", "Navegação · CBottomBarUser", []),
  group("CScaffold", "Estrutura da tela · CScaffold", []),
  ];
+    case "agreements": return [group("", "Aceite dos documentos", [{ field: "agreementState", label: "Documentos aceitos", options: [["pending", "Nenhum"], ["partial", "Um documento"], ["accepted", "Todos"]] }])];
     case "login": return [group("", "Acesso", [{ field: "loginStep", label: "Etapa de acesso", options: [["cpf", "CPF"], ["password", "Senha"]] }])];
     case "notifications": return [group("", "Notificações", [stateControl])];
     case "CAppBarUser2": return [headerControls];
@@ -587,6 +593,7 @@ export const itemDetails: Record<string, string> = {
   contents: "A lista mostra conteúdos educativos em vídeo ou documento. A busca considera o título e a descrição; cada cartão abre seus detalhes.",
   metrics: "Apresenta áreas e fases de evolução. A amostra atual tem valores zerados; as variações permitem conferir carregamento e erro.",
   settings: "Reúne o perfil do responsável e as preferências do aplicativo. As permissões são simuladas localmente e podem ser alteradas na prévia.",
+  agreements: "Fluxo do app 1.11.3+94: leitura de cada documento, aceite e assinatura. Documentos sintéticos; assinatura descartada ao fechar, sem validade ou envio. O app exige cadastro prévio na clínica.",
   login: "O acesso tem uma etapa de CPF e outra de senha. Os campos são interativos, mas não autenticam em um serviço real.",
   feed: "Reúne os registros de atividades do paciente. O estado e a quantidade de posts são configuráveis; as opções do cartão se aplicam aos posts da amostra.",
   notifications: "Lista de avisos do responsável. A amostra atual é vazia; também permite avaliar carregamento e erro.",

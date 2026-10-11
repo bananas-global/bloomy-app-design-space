@@ -33,6 +33,7 @@ class PreviewFixture {
     this.showSchedules = false,
     this.state = 'ready',
     this.calendarMode = 'month',
+    this.agreementState = 'pending',
     this.loginStep = 'cpf',
     this.permissions = 'reference',
     this.searchText = '',
@@ -47,6 +48,7 @@ class PreviewFixture {
     this.label = 'PRÓXIMO',
     this.isEnabled = true,
   });
+  final String agreementState;
   final bool settingsGuardianPhoto, settingsPatientPhoto;
   final String settingsProfileCount, settingsPlatform, settingsSection, settingsItem;
   final String avatarRole, chipRole;
@@ -154,6 +156,7 @@ class PreviewFixture {
         showSchedules: data['showSchedules'] == true,
         state: field('state', 'ready'),
         calendarMode: field('calendarMode', 'month'),
+        agreementState: field('agreementState', 'pending'),
         loginStep: field('loginStep', 'cpf'),
         permissions: field('permissions', 'reference'),
         searchText: field('searchText', ''),

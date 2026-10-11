@@ -81,3 +81,13 @@ O nome fica centralizado abaixo de toda a linha, separado por 8 px, em Nunito Sa
 Mapeamento de cores para `BloomyColors`: nome `text.main`; contorno principal e indicador `text.op20`; ícone `primary.main`; fundo sem foto `primary.light`; iniciais `primary.dark`; indicador `background.light`; aro de separação `background.main`. O fundo usa o token existente do app (ligeiramente diferente do valor literal do Figma).
 
 Aceite: tocar em qualquer ponto da foto abre o seletor Galeria/Câmera; teclado e leitor de tela identificam a ação como editar foto da pessoa selecionada; o estado desabilitado impede a edição; trocar de perfil mantém o nome, a foto e o destinatário da edição correspondentes. Na integração, transportar a composição e os estilos locais para a biblioteca, preservando o callback real de edição do aplicativo. Nenhuma alteração foi feita no app original ou no pacote instalado.
+
+## Aceite dos termos e contratos
+
+Tela `agreements` adicionada ao catálogo a partir de `modules/intro/accept_agreements_screen.dart`, `agreement_details_screen.dart` e `modules/signature/signature_bottom_sheet.dart` do app 1.11.3+94, commit `a61a468a3339d1f64c64cc5fbd02e0e786f8600f`. Não consta das gravações 1.10.3+89; referência de código, sem certificação visual por vídeo.
+
+A composição usa CTileAgreement, CBottomBarButtons, CAppBarTitle e CSignature reais. Variações: nenhum documento aceito, um aceito e todos aceitos. A leitura marca apenas o documento aberto; assinar exige todos aceitos e um traço. Refazer limpa a assinatura. Fechar descarta os traços. A prévia não exporta assinatura nem registra aceite. Ao concluir, demonstra retorno ao Início com aviso local; o app real segue para Welcome, ainda fora deste recorte.
+
+Títulos e textos legais são sintéticos: o app recebe documentos do backend. A leitura usa texto local com tipografia da tela original em vez do renderizador HTML remoto. A assinatura mantém o painel girado e os componentes originais. Adaptação em `flutter_preview/lib/agreements_preview.dart` e `local_signature.dart`, montada em `main.dart`.
+
+Não foi encontrada tela de cadastro livre no app. Login informa que o responsável precisa estar previamente cadastrado na clínica. Quando não há senha cadastrada, encaminha para PasswordRecoveryScreen (Envio de Link / Definir Senha); a criação da senha acontece pelo link enviado. Essa constatação não autoriza criar um formulário de cadastro inexistente.

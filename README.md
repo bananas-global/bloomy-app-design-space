@@ -65,3 +65,7 @@ Alterações de fixtures são enviadas ao Flutter por uma ponte local com valida
 ### Uso dos componentes
 
 `npm run check` gera `src/component-usage.generated.json` a partir dos widgets montados pelos testes das telas e suas fixtures. O painel Informações usa esse índice para criar links às telas. Não edite o JSON manualmente. Novas telas e estados precisam fazer parte do catálogo de fixtures para serem incluídos; widgets de fluxos ainda não cobertos pelos testes não entram no índice. As seções compostas são identificadas pelas suas `ValueKey`s.
+
+### Aceite de termos
+
+Em **Telas → Aceite de termos**, abra cada documento, toque em ACEITAR e depois em ASSINAR DOCUMENTOS. O painel Variações permite iniciar sem aceites, com um aceite ou com todos. A assinatura pode ser desenhada e refeita, mas é descartada; não há envio nem aceite jurídico real. Fonte: app 1.11.3+94 (não mostrado nas gravações 1.10.3+89). Textos legais demonstrativos. O app não possui cadastro livre: exige cadastro prévio na clínica e envia link para definição de senha no primeiro acesso.
