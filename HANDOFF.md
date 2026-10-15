@@ -10,7 +10,7 @@ A prévia é Flutter 3.44.9 com imports reais de components_bloomy 6.41.2, flutt
 
 Em 15/10/2026 as dependências privadas passaram de components_bloomy 6.39.0, flutter_extension 6.2.0 e global_messages 6.1.1 para as versões atuais. A 6.41.2 exige essas versões exatas. As mudanças que alcançam a prévia são estas:
 - O `CButton2` ganhou `isIgnorePointer` e deixou o `InkWell` fora da árvore de semântica.
-- O `CTileScheduleParent` ganhou `showFullStartDate`, que vem desligado por padrão e ainda não é exposto nas variações.
+- O `CTileScheduleParent` ganhou `showFullStartDate`, que vem desligado por padrão. Ligado, o chip de horário mostra `dd mon HH:mm` em vez de `HH:mm`. O controle “Horário com data” expõe a opção nas variações do card, de Próximos atendimentos, do Início e da Agenda.
 - O `CBottomBarCheckbox` foi removido. A prévia não o usava.
 - O `flutter_extension` removeu o ícone vazio, que estava depreciado, e renomeou `EquatableMixin` para `Equatable`. Nenhum dos dois era usado aqui.
 
@@ -67,7 +67,7 @@ Este objeto é uma fixture compartilhada de apresentação, não um DTO da API. 
 | `title`, `description`, `contentType` | `CTileParentContentData` com os mesmos nomes; tipo convertido para o enum da biblioteca |
 | `label`, `isEnabled` | `CButtonData` com os mesmos nomes |
 | `status` | `CTileScheduleParentData.status`, convertido para `ScheduleStatus` |
-| `roomName`, `unitName`, `hasProfessional`, `hasSupervisor` | `CTileScheduleParentData` com os mesmos nomes |
+| `roomName`, `unitName`, `hasProfessional`, `hasSupervisor`, `showFullStartDate` | `CTileScheduleParentData` com os mesmos nomes |
 
 A estrutura interna plana do editor combina esses dois grupos somente para renderizar controles. A serialização os separa; não copie controles de `preview` para contratos do app. Seletores como `scheduleTime` geram datas sintéticas e `postText` gera um texto de amostra; fotos de amostra são convertidas em `CAvatarData.imageUrl`. Ações simuladas devem ser conectadas aos fluxos já existentes no app.
 

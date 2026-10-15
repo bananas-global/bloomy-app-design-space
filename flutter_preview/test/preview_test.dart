@@ -382,6 +382,28 @@ void main() {
     expect(appointment.data.status, ScheduleStatus.cancelled);
     expect(tester.takeException(), isNull);
   });
+  testWidgets('appointment time chip shows the full start date when enabled', (
+    tester,
+  ) async {
+    await open(tester, 'library', component: 'CTileScheduleParent');
+    expect(find.text('14:00'), findsOneWidget);
+    await tester.pumpWidget(const SizedBox.shrink());
+    await open(
+      tester,
+      'library',
+      component: 'CTileScheduleParent',
+      fixture: PreviewFixture.fromJson(jsonEncode({
+        'data': {'showFullStartDate': true},
+        'preview': <String, dynamic>{},
+      })),
+    );
+    final appointment = tester.widget<CTileScheduleParent>(
+      find.byType(CTileScheduleParent),
+    );
+    expect(appointment.data.showFullStartDate, isTrue);
+    expect(find.text('23 set 14:00'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
   for (final count in ['1', '2', '3']) {
     testWidgets('home limits feed count $count to one post', (tester) async {
       final fixture = PreviewFixture(

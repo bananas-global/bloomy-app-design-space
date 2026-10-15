@@ -28,6 +28,7 @@ class PreviewFixture {
     this.hasProfessional = true,
     this.hasSupervisor = false,
     this.professionalPhoto = false,
+    this.showFullStartDate = false,
 
     this.showFeed = false,
     this.showSchedules = false,
@@ -66,6 +67,7 @@ class PreviewFixture {
   final bool hasProfessional;
   final bool hasSupervisor;
   final bool professionalPhoto;
+  final bool showFullStartDate;
   String get resolvedFeedState => feedState != "inherit"
       ? feedState
       : state != "ready"
@@ -151,6 +153,7 @@ class PreviewFixture {
         professionalPhoto: data['professionalPhoto'] is bool
             ? data['professionalPhoto']
             : false,
+        showFullStartDate: data['showFullStartDate'] == true,
 
         showFeed: data['showFeed'] == true,
         showSchedules: data['showSchedules'] == true,
