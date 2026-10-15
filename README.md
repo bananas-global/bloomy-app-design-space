@@ -1,6 +1,6 @@
 # Bloomy App Design Space
 
-Laboratório local para desenhar o app dos responsáveis com **Flutter e os widgets originais de components_bloomy 6.39.0**. React/Vite fornece apenas a moldura e a revisão.
+Laboratório local para desenhar o app dos responsáveis com **Flutter e os widgets originais de components_bloomy 6.41.2**. React/Vite fornece apenas a moldura e a revisão.
 
 ## Abrir
 
