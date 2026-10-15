@@ -1,4 +1,6 @@
 {
+  "installCommand": "git clone --depth 1 --branch 3.44.9 https://github.com/flutter/flutter.git /tmp/bloomy-flutter && pnpm install --frozen-lockfile",
+  "buildCommand": "export PATH=\"/tmp/bloomy-flutter/bin:$PATH\"; flutter config --no-analytics && dart pub token add https://gitea.sidedoor.tech/api/packages/bloomy/pub --env-var GITEA_PUB_TOKEN && pnpm run build",
   "git": {
     "deploymentEnabled": {
       "main": true,
