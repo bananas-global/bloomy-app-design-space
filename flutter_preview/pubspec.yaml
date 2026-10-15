@@ -9,13 +9,13 @@ dependencies:
     sdk: flutter
   components_bloomy:
     hosted: https://gitea.sidedoor.tech/api/packages/bloomy/pub
-    version: 6.39.0
+    version: 6.41.2
   flutter_extension:
     hosted: https://gitea.sidedoor.tech/api/packages/bloomy/pub
-    version: 6.2.0
+    version: 6.4.0
   global_messages:
     hosted: https://gitea.sidedoor.tech/api/packages/bloomy/pub
-    version: 6.1.1
+    version: 6.1.4
   cupertino_icons: ^1.0.8
   flutter_svg: 2.3.0
   web: ^1.1.1

@@ -69,18 +69,10 @@ packages:
     dependency: "direct main"
     description:
       name: components_bloomy
-      sha256: "327069af8f9dc3b3957125ccd067b47ea232216cec7a17728bd8e4c753cad85e"
+      sha256: "0f41fa8d4c23a1f862962e408043503b5347273319315e2bf56d922e461610d8"
       url: "https://gitea.sidedoor.tech/api/packages/bloomy/pub/"
     source: hosted
-    version: "6.39.0"
-  const_date_time:
-    dependency: transitive
-    description:
-      name: const_date_time
-      sha256: a2c0a8e5980ead8c96f28c93a542a1486356adb8b0b14c27fed8f901d0ac789f
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.1"
+    version: "6.41.2"
   cross_file:
     dependency: transitive
     description:
@@ -117,10 +109,10 @@ packages:
     dependency: transitive
     description:
       name: custom_refresh_indicator
-      sha256: c34dd1dfb1f6b9ee2db9c5972586dba5e4445d79f8431f6ab098a6e963ccd39c
+      sha256: "4b570ec0b526631b49de22c861a129e04572bbd76c24f0772dbd703a0822b4f3"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.1"
+    version: "4.0.2"
   dart_quill_delta:
     dependency: transitive
     description:
@@ -157,10 +149,10 @@ packages:
     dependency: transitive
     description:
       name: equatable
-      sha256: "3e0141505477fd8ad55d6eb4e7776d3fe8430be8e497ccb1521370c3f21a3e2b"
+      sha256: ea36e500cbf0ec18361deabca755434f73e42fe53c5130021c7e2d6b5ebe1702
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.8"
+    version: "3.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -228,10 +220,11 @@ packages:
   fl_chart:
     dependency: transitive
     description:
-      name: fl_chart
-      sha256: b938f77d042cbcd822936a7a359a7235bad8bd72070de1f827efc2cc297ac888
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: da8a2d1c9bf8be25379895ca1faf229777dc6c67
+      url: "https://github.com/imaNNeo/fl_chart.git"
+    source: git
     version: "1.2.0"
   flutter:
     dependency: "direct main"
@@ -250,10 +243,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_extension
-      sha256: a92ccc26b55749299119e9d8c3795fe8dd196dece10accd4d00e42a294db3ccc
+      sha256: ad2ab86686890f6587143a4db88e2b5b377e9ef58925a183d3b617c37c72b48e
       url: "https://gitea.sidedoor.tech/api/packages/bloomy/pub/"
     source: hosted
-    version: "6.2.0"
+    version: "6.4.0"
   flutter_keyboard_visibility_linux:
     dependency: transitive
     description:
@@ -303,10 +296,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_quill
-      sha256: "3ee7125b2dd3f3bce3ebdaac722a72f0c8aff3db9aa19053a9d777db12d71c98"
+      sha256: "1f773f5f75e2628d80361c2c840c592791a0a157ebd587c9e37cf2cb8b8519b7"
       url: "https://pub.dev"
     source: hosted
-    version: "11.5.1"
+    version: "11.6.0"
   flutter_quill_delta_from_html:
     dependency: transitive
     description:
@@ -345,10 +338,10 @@ packages:
     dependency: "direct main"
     description:
       name: global_messages
-      sha256: "58fd197687ede7a0bb16e9edfb112156bd481fe1f7a2095f75ef5c953f9f105c"
+      sha256: "1ca6710d77b2df1f93ba4cb678158c7253b71fec6e4002d8e886cb19068978e6"
       url: "https://gitea.sidedoor.tech/api/packages/bloomy/pub/"
     source: hosted
-    version: "6.1.1"
+    version: "6.1.4"
   hooks:
     dependency: transitive
     description:
@@ -545,10 +538,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider
-      sha256: "50c5dd5b6e1aaf6fb3a78b33f6aa3afca52bf903a8a5298f53101fdaee55bbcd"
+      sha256: a7f4874f987173da295a61c181b8ee71dab59b332a486b391babf26a1b884825
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.5"
+    version: "2.1.6"
   path_provider_android:
     dependency: transitive
     description:
@@ -761,10 +754,10 @@ packages:
     dependency: transitive
     description:
       name: signature
-      sha256: f3d14bd6dae46d3b4802c6a091d6d39c9c6080d999e8c5380581d3725c30e360
+      sha256: e6b6a3629f5faa95055a24eba470abe3133d6fafecb5baedd1f7dbda78cdfb4c
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.0"
+    version: "6.4.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -902,10 +895,10 @@ packages:
     dependency: transitive
     description:
       name: uuid
-      sha256: "1fef9e8e11e2991bb773070d4656b7bd5d850967a2456cfc83cf47925ba79489"
+      sha256: "9b129329f58692f6e6578329498a8fe9fbe98f090beb764ffbb8ee2eadd01dcd"
       url: "https://pub.dev"
     source: hosted
-    version: "4.5.3"
+    version: "4.6.0"
   vector_graphics:
     dependency: transitive
     description:
@@ -950,10 +943,10 @@ packages:
     dependency: transitive
     description:
       name: video_player
-      sha256: "48a7bdaa38a3d50ec10c78627abdbfad863fdf6f0d6e08c7c3c040cfd80ae36f"
+      sha256: "8c837b570dccb9ae6ff73d2e0b03c7e708bfefd3bd1194faa7f3e7f200dfc399"
       url: "https://pub.dev"
     source: hosted
-    version: "2.11.1"
+    version: "2.14.0"
   video_player_android:
     dependency: transitive
     description:

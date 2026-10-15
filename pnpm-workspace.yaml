@@ -1,0 +1,8 @@
+# Sem versão obrigatória do pnpm: validado com 9, 10, 11 e 12.
+# O pnpm 9 exige "packages"; o 10 lê onlyBuiltDependencies e o 11+ lê allowBuilds.
+packages:
+  - .
+onlyBuiltDependencies:
+  - esbuild
+allowBuilds:
+  esbuild: true

@@ -2,7 +2,7 @@ import 'package:flutter_extension/flutter_extension.dart';
 
 import 'package:components_bloomy/components_bloomy.dart' hide CAvatarUpdater;
 
-// Candidate change based on components_bloomy 6.39.0. Data and style contracts
+// Candidate change based on components_bloomy 6.39.0 (CAvatarUpdater unchanged in 6.41.2). Data and style contracts
 // remain unchanged; presentation follows Figma nodes 2339:4997 and 2339:5002.
 
 class CAvatarUpdater extends StatefulWidget {

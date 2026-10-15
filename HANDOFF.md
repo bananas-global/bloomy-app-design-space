@@ -6,7 +6,13 @@ Status: **candidata à revisão**. Nenhuma aprovação humana registrada.
 
 Fonte: sidedoor-tech/bloomy_app, commit `a61a468a3339d1f64c64cc5fbd02e0e786f8600f`, versão 1.11.3+94. Gravações fornecidas em 23/09/2026 mostram 1.10.3+89.
 
-A prévia é Flutter 3.44.9 com imports reais de components_bloomy 6.39.0 e flutter_extension 6.2.0. CScaffold, CAppBarUser2, CBottomBarUser, CCalendarWeekly, CTextField, CTileParentContent, CMetricCurrentArea, CMetricPhase, CAvatarUpdater, CTileSettings e CButton são os widgets do pacote privado. Não há reconstrução CSS dessas telas.
+A prévia é Flutter 3.44.9 com imports reais de components_bloomy 6.41.2, flutter_extension 6.4.0 e global_messages 6.1.4. CScaffold, CAppBarUser2, CBottomBarUser, CCalendarWeekly, CTextField, CTileParentContent, CMetricCurrentArea, CMetricPhase, CAvatarUpdater, CTileSettings e CButton são os widgets do pacote privado. Não há reconstrução CSS dessas telas.
+
+Em 15/10/2026 as dependências privadas passaram de components_bloomy 6.39.0, flutter_extension 6.2.0 e global_messages 6.1.1 para as versões atuais. A 6.41.2 exige essas versões exatas. As mudanças que alcançam a prévia são estas:
+- O `CButton2` ganhou `isIgnorePointer` e deixou o `InkWell` fora da árvore de semântica.
+- O `CTileScheduleParent` ganhou `showFullStartDate`, que vem desligado por padrão. Ligado, o chip de horário mostra `dd mon HH:mm` em vez de `HH:mm`. O controle “Horário com data” expõe a opção nas variações do card, de Próximos atendimentos, do Início e da Agenda.
+- O `CBottomBarCheckbox` foi removido. A prévia não o usava.
+- O `flutter_extension` removeu o ícone vazio, que estava depreciado, e renomeou `EquatableMixin` para `Equatable`. Nenhum dos dois era usado aqui.
 
 Composição editável em `flutter_preview/lib/main.dart`. O cartão de conteúdo e os estados vazios são funções compartilhadas entre telas e biblioteca. O pacote não foi modificado no cache. O wrapper React cuida da moldura, seleção de tela e comentários exportáveis; a comunicação de navegação do iframe confere origem e janela de origem.
 
@@ -27,7 +33,7 @@ Não há backend, envio de arquivo, autenticação, alteração real de senha, p
 
 ## Entrega
 
-`npm run handoff -- baseline` gera ZIP dos fontes, patch binário, resumo e version.json com commit e base. `.env` e binários compilados ficam fora do Git/ZIP. O receptor precisa de acesso ao registro privado. Baseline e histórico preservam a versão React anterior.
+`pnpm run handoff -- baseline` gera ZIP dos fontes, patch binário, resumo e version.json com commit e base. `.env` e binários compilados ficam fora do Git/ZIP. O receptor precisa de acesso ao registro privado. Baseline e histórico preservam a versão React anterior.
 
 Após revisão humana, registrar aprovador, data, escopo e commit aprovado. Publicação do código autorizada no repositório privado `bananas-global/bloomy-app-design-space`, na branch `main`. Não houve deploy nem modificação do app original.
 
@@ -61,7 +67,7 @@ Este objeto é uma fixture compartilhada de apresentação, não um DTO da API. 
 | `title`, `description`, `contentType` | `CTileParentContentData` com os mesmos nomes; tipo convertido para o enum da biblioteca |
 | `label`, `isEnabled` | `CButtonData` com os mesmos nomes |
 | `status` | `CTileScheduleParentData.status`, convertido para `ScheduleStatus` |
-| `roomName`, `unitName`, `hasProfessional`, `hasSupervisor` | `CTileScheduleParentData` com os mesmos nomes |
+| `roomName`, `unitName`, `hasProfessional`, `hasSupervisor`, `showFullStartDate` | `CTileScheduleParentData` com os mesmos nomes |
 
 A estrutura interna plana do editor combina esses dois grupos somente para renderizar controles. A serialização os separa; não copie controles de `preview` para contratos do app. Seletores como `scheduleTime` geram datas sintéticas e `postText` gera um texto de amostra; fotos de amostra são convertidas em `CAvatarData.imageUrl`. Ações simuladas devem ser conectadas aos fluxos já existentes no app.
 
@@ -70,7 +76,7 @@ O leitor mantém compatibilidade com fixtures planas antigas e nomes antigos (`g
 
 ## Proposta: edição pelo avatar
 
-A implementação candidata está em `flutter_preview/lib/avatar_updater_candidate.dart`, baseada em `CAvatarUpdater` de components_bloomy 6.39.0. Preserva `CAvatarUpdaterData`, `IAvatarUpdaterStyle`, o callback `onAvatarTap` e a seleção de perfis. O app usa esta classe local no lugar da classe exportada pela biblioteca; a biblioteca instalada não foi alterada.
+A implementação candidata está em `flutter_preview/lib/avatar_updater_candidate.dart`, baseada em `CAvatarUpdater` de components_bloomy 6.39.0, que não mudou até a 6.41.2. Preserva `CAvatarUpdaterData`, `IAvatarUpdaterStyle`, o callback `onAvatarTap` e a seleção de perfis. O app usa esta classe local no lugar da classe exportada pela biblioteca; a biblioteca instalada não foi alterada.
 
 Referências Figma: [com foto](https://www.figma.com/design/SJGEgCu6BDmmhUfWGQ3N13/App-dos-Pais?node-id=2339-4997) e [com iniciais](https://www.figma.com/design/SJGEgCu6BDmmhUfWGQ3N13/App-dos-Pais?node-id=2339-5002).
 

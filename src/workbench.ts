@@ -25,6 +25,7 @@ export const componentDefaults = {
   hasProfessional: true,
   hasSupervisor: false,
   professionalPhoto: false,
+  showFullStartDate: false,
 };
 export type Fixture = typeof componentDefaults & {
   showFeed: boolean;
@@ -242,7 +243,7 @@ export const variationIds: Record<string, string[]> = {
 export const variationsFor = (target: string) =>
   variationIds[target] || ["default"];
 // Real widget property names. Preview-only selectors never belong to app DTOs.
-export const fixtureDataFields = ["legalGuardianName", "patientName", "title", "description", "label", "isEnabled", "status", "roomName", "unitName", "contentType", "hasProfessional", "hasSupervisor"] as const;
+export const fixtureDataFields = ["legalGuardianName", "patientName", "title", "description", "label", "isEnabled", "status", "roomName", "unitName", "contentType", "hasProfessional", "hasSupervisor", "showFullStartDate"] as const;
 const legacyFixtureFields: Record<string, string> = {guardian: "legalGuardianName", patient: "patientName", contentTitle: "title", contentDescription: "description", buttonLabel: "label", buttonEnabled: "isEnabled", scheduleStatus: "status", scheduleRoom: "roomName", scheduleUnit: "unitName"};
 export function serializeFixture(fixture: Fixture) {
   const data: Record<string, string | boolean> = {};
@@ -508,6 +509,14 @@ const appointmentControls: ControlGroup = {
         ["true", "Com supervisor"],
       ],
     },
+    {
+      field: "showFullStartDate",
+      label: "Horário com data",
+      options: [
+        ["false", "Somente horário"],
+        ["true", "Data e horário"],
+      ],
+    },
   ],
 };
 const group = (component: string, title: string, controls: Control[]): ControlGroup => ({ component, title, controls });
@@ -556,7 +565,7 @@ export function componentGroupsFor(target: string): ControlGroup[] {
     case "CCardFeed": return [postControls];
     case "AppointmentsSection": return [scheduleControls, appointmentControls];
     case "CTileScheduleParent": return [
-      { ...appointmentControls, controls: appointmentControls.controls.filter(c => ["hasProfessional", "hasSupervisor"].includes(c.field)) },
+      { ...appointmentControls, controls: appointmentControls.controls.filter(c => ["hasProfessional", "hasSupervisor", "showFullStartDate"].includes(c.field)) },
       { component: "CAvatar", previewData: { avatarRole: "patient" }, nested: true, title: "Paciente · CAvatar", controls: [{field: "schedulePatientPhoto", label: "Avatar do paciente", options: [["inherit", "Foto conforme os dados atuais"], ["true", "Com foto"], ["false", "Sem foto · iniciais"]]}] },
       { component: "CChip", previewData: { chipRole: "status" }, nested: true, title: "Status · CChip", controls: [appointmentControls.controls[0]] },
       { component: "CDivider", previewData: {  }, nested: true, title: "Separação · CDivider", controls: [], note: "Aparece quando há profissional. Usa o estilo definido pelo card." },
@@ -601,7 +610,7 @@ export const itemDetails: Record<string, string> = {
   FeedSection: "Seção que reúne o título, o acesso ao feed completo e seus posts. Pode estar vazia, carregando, com erro ou preenchida com um a três registros.",
   CCardFeed: "O avatar é do paciente. O card exige imagem ou vídeo e não oferece post sem mídia. As variações se aplicam a todos os posts da amostra.",
   AppointmentsSection: "Seção dos próximos atendimentos, com acesso à agenda. O estado da lista e a quantidade de cartões são independentes dos estados do feed.",
-  CTileScheduleParent: "Cartão com paciente, especialidade, status, profissional, supervisor, horário e local. Permite comparar disponibilidade da equipe, fotos e status do atendimento.",
+  CTileScheduleParent: "Cartão com paciente, especialidade, status, profissional, supervisor, horário e local. Permite comparar disponibilidade da equipe, fotos, status do atendimento e horário com ou sem data.",
   CBottomBarUser: "Navegação principal do responsável. A amostra isolada permite escolher o item selecionado; nas telas, ele acompanha a navegação do app.",
   CCalendarWeekly: "Calendário com visualização mensal ou semanal e seleção de data. A amostra inclui a busca e feriados de demonstração em setembro de 2026.",
   CTextField: "Campo de busca com texto editável. A amostra isolada permite conferir o campo vazio, preenchido e com mensagem de erro.",

@@ -424,7 +424,7 @@ export default function App() {
           </div>
         )}
         <footer>
-          Flutter 3.44.9<p>components_bloomy 6.39.0</p>
+          Flutter 3.44.9<p>components_bloomy 6.41.2</p>
           <button className="ds-text-button" onClick={() => setView("handoff")}>
             Sobre este ambiente
           </button>
@@ -522,7 +522,7 @@ export default function App() {
                 <h2>O que é compartilhado</h2>
                 <p>
                   Tema, fontes, ícones e widgets vêm de components_bloomy
-                  6.39.0. Cabeçalhos, busca, calendário, navegação, cartões e
+                  6.41.2. Cabeçalhos, busca, calendário, navegação, cartões e
                   controles são os componentes reais.
                 </p>
                 <code>flutter_preview/lib/main.dart</code>
@@ -555,7 +555,7 @@ export default function App() {
                   Salve as alterações em Git e gere o
                   pacote com commit exato, fontes e patch.
                 </p>
-                <code>npm run handoff -- baseline</code>
+                <code>pnpm run handoff -- baseline</code>
                 <p>
                   A aprovação humana deve registrar pessoa, escopo e commit no
                   HANDOFF.md. Nenhuma aprovação automática.
@@ -710,7 +710,7 @@ export default function App() {
                     </ul>
                     <h3>Origem do código</h3>
                     <code>{view !== "library" || focus === "FeedSection" || focus === "AppointmentsSection" ? "flutter_preview/lib/main.dart" : `lib/src/widgets/${c[2]}`}</code>
-                    {view === "library" && <a className="ds-source" href="https://gitea.sidedoor.tech/bloomy/-/packages/pub/components_bloomy/6.39.0" target="_blank" rel="noreferrer">components_bloomy 6.39.0 ↗</a>}
+                    {view === "library" && <a className="ds-source" href="https://gitea.sidedoor.tech/bloomy/-/packages/pub/components_bloomy/6.41.2" target="_blank" rel="noreferrer">components_bloomy 6.41.2 ↗</a>}
                   </>
                 )}
               </aside>

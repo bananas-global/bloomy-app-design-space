@@ -188,3 +188,12 @@ test("legacy links migrate equivalent fields without losing preview settings", (
  assert.equal(result.roomName, "");
  assert.equal(result.feedCount, old.feedCount);
 });
+test("full start date is card data exposed only where the card renders", () => {
+  const targets = Object.keys(variationIds).filter(target => componentGroupsFor(target).some(g => g.controls.some(c => c.field === "showFullStartDate")));
+  assert.deepEqual(targets.sort(), ["AppointmentsSection", "CTileScheduleParent", "agenda", "home"]);
+  assert.equal(fixtures.default.data.showFullStartDate, false);
+  const payload = serializeFixture({ ...fixtures.populated.data, showFullStartDate: true });
+  assert.equal(payload.data.showFullStartDate, true);
+  assert.equal(payload.preview.showFullStartDate, undefined);
+  assert.equal(parseFixture(JSON.stringify(payload)).showFullStartDate, true);
+});

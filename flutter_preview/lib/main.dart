@@ -532,6 +532,7 @@ class _PreviewState extends State<Preview> {
         sessionType: SessionType.none,
         sessionLocation: SessionLocation.inClinic,
         startDateTime: fixture.scheduleTime == 'none' ? null : DateTime(2026, 9, 23, fixture.scheduleTime == '09:30' ? 9 : 14 + index, fixture.scheduleTime == '09:30' ? 30 : 0),
+        showFullStartDate: fixture.showFullStartDate,
         endDateTime: DateTime(2026, 9, 23, 14 + index, 50),
         unitName: fixture.unitName,
         roomName: fixture.roomName == 'Sala 1' ? 'Sala ${index + 1}' : fixture.roomName,
