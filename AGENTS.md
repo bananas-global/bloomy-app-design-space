@@ -7,6 +7,7 @@ Ambiente local de criação para o app Flutter dos responsáveis. Leia README.md
 - Preserve dados sintéticos e ausência de chamadas ao backend clínico.
 - Referências visuais: gravações 1.10.3+89; fonte consultada 1.11.3+94. Documente diferenças de versão.
 - Dependências privadas usam GITEA_PUB_TOKEN no .env local, ignorado no Git. Nunca compile credenciais via dart-define/VITE_*.
+- O gerenciador de pacotes é pnpm, de qualquer versão a partir da 9. Não use npm, npx, yarn ou bun para instalar dependências ou rodar scripts. Use pnpm install, pnpm add e pnpm dlx. Não crie nem commite package-lock.json ou yarn.lock. Não fixe a versão do pnpm com packageManager. A liberação de scripts de build fica em pnpm-workspace.yaml (onlyBuiltDependencies e allowBuilds). Se o npm for usado por engano, apague package-lock.json e node_modules e rode pnpm install.
 - pnpm run build:native recompila Dart; pnpm run dev inicia tudo. pnpm run dev:host só atualiza a moldura.
 - Antes de entregar execute pnpm run check e inspecione visualmente o fluxo alterado.
 - Preserve acessibilidade, comentários locais exportáveis e mudanças do usuário.

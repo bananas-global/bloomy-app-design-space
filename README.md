@@ -6,6 +6,8 @@ Laboratório local para desenhar o app dos responsáveis com **Flutter e os widg
 
 Requer Node, pnpm 9 ou mais recente, Flutter 3.44.9 e acesso de leitura ao registro privado.
 
+O projeto usa somente pnpm. Não rode `npm install` nem `npm ci`. O npm cria um `package-lock.json` paralelo e ignora as liberações de build do `pnpm-workspace.yaml`.
+
 ```sh
 pnpm install --frozen-lockfile
 # Configure uma vez; o valor do token fica somente no .env local:
