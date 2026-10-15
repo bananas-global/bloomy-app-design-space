@@ -7,8 +7,8 @@ Ambiente local de criação para o app Flutter dos responsáveis. Leia README.md
 - Preserve dados sintéticos e ausência de chamadas ao backend clínico.
 - Referências visuais: gravações 1.10.3+89; fonte consultada 1.11.3+94. Documente diferenças de versão.
 - Dependências privadas usam GITEA_PUB_TOKEN no .env local, ignorado no Git. Nunca compile credenciais via dart-define/VITE_*.
-- npm run build:native recompila Dart; npm run dev inicia tudo. npm run dev:host só atualiza a moldura.
-- Antes de entregar execute npm run check e inspecione visualmente o fluxo alterado.
+- pnpm run build:native recompila Dart; pnpm run dev inicia tudo. pnpm run dev:host só atualiza a moldura.
+- Antes de entregar execute pnpm run check e inspecione visualmente o fluxo alterado.
 - Preserve acessibilidade, comentários locais exportáveis e mudanças do usuário.
 - Git local autorizado. Não publique, faça push ou altere o app original sem autorização.
 - A navegação do ambiente separa Telas e Componentes; Variações é o painel principal. Não recrie um catálogo obrigatório de fluxos/cenários.

@@ -4,13 +4,13 @@ Laboratório local para desenhar o app dos responsáveis com **Flutter e os widg
 
 ## Abrir
 
-Requer Node, Flutter 3.44.9 e acesso de leitura ao registro privado.
+Requer Node, pnpm 9 ou mais recente, Flutter 3.44.9 e acesso de leitura ao registro privado.
 
 ```sh
-npm ci
+pnpm install --frozen-lockfile
 # Configure uma vez; o valor do token fica somente no .env local:
 dart pub token add https://gitea.sidedoor.tech/api/packages/bloomy/pub --env-var GITEA_PUB_TOKEN
-npm run dev
+pnpm run dev
 ```
 
 URL: http://127.0.0.1:5217/?view=canvas&screen=home
@@ -23,10 +23,10 @@ O script lê `GITEA_PUB_TOKEN` do `.env` apenas para baixar dependências; não 
 - `flutter_preview/lib/app_icons.dart`: mapeamento de ícones do app original.
 - `flutter_preview/pubspec.lock`: versões reproduzíveis das dependências privadas.
 - `src/App.tsx` e `src/native-space.css`: ambiente, comentários e exportação.
-- `npm run build:native`: recompilar depois de editar Dart; atualize a prévia no navegador.
-- `npm run dev:host`: iniciar somente a moldura quando Flutter já está compilado.
-- `npm run check`: análise Dart, testes de widgets, compilação Flutter e TypeScript/Vite.
-- `npm run handoff -- baseline`: gerar fontes e patch ligados ao commit exato; exige Git limpo.
+- `pnpm run build:native`: recompilar depois de editar Dart; atualize a prévia no navegador.
+- `pnpm run dev:host`: iniciar somente a moldura quando Flutter já está compilado.
+- `pnpm run check`: análise Dart, testes de widgets, compilação Flutter e TypeScript/Vite.
+- `pnpm run handoff -- baseline`: gerar fontes e patch ligados ao commit exato; exige Git limpo.
 
 O build mantém todas as fontes de ícones. Tree shaking removeu glifos usados por getters da biblioteca privada nos testes visuais; não reative sem conferir as telas.
 
@@ -56,7 +56,7 @@ O painel direito abre em **Variações** e filtra as fixtures pelo item selecion
 
 Os controles da Home, Feed e Agenda são independentes por componente, definidos em `componentGroupsFor` e compartilhados com as amostras isoladas. Há 8 telas e 12 entradas de componentes/composições. Cabeçalho: foto e nome; Feed: estado e 1–3 posts; Post: imagem/capa de vídeo, avatar e descrição; Atendimentos: estado, 1–3 itens, profissional/supervisor e status. Os outros componentes mantêm seus estados contextuais. `variationIds` e `fixtures` fornecem os casos de teste e a compatibilidade de links. “Referência da gravação” deixou de ser um estado; links antigos com `fixture=reference` migram para `default`.
 
-`npm run check` gera a matriz de fixtures e a exercita no Flutter. Home, Feed e Agenda incluem a variação “Feed e atendimentos preenchidos”, com registros fictícios e cards originais CCardFeed e CTileScheduleParent. A Home também oferece somente feed e somente atendimentos. As duas sessões são em 23/09/2026, às 14h e 15h; outros dias da Agenda ficam vazios. A mídia do feed é uma ilustração de marca local, sem fotografia clínica. Compartilhar, abrir mídia e detalhes exibem avisos locais. Evolutivo mantém a amostra vazia.
+`pnpm run check` gera a matriz de fixtures e a exercita no Flutter. Home, Feed e Agenda incluem a variação “Feed e atendimentos preenchidos”, com registros fictícios e cards originais CCardFeed e CTileScheduleParent. A Home também oferece somente feed e somente atendimentos. As duas sessões são em 23/09/2026, às 14h e 15h; outros dias da Agenda ficam vazios. A mídia do feed é uma ilustração de marca local, sem fotografia clínica. Compartilhar, abrir mídia e detalhes exibem avisos locais. Evolutivo mantém a amostra vazia.
 
 Os avatares com foto usam os três retratos fornecidos pelo usuário: `avatar_mother.jpg` (mãe), `avatar_lucas.jpg` (Lucas) e `avatar_ana_lima.jpg` (Ana Lima), em `flutter_preview/assets/images`. Paula Costa e Bia Luz mantêm as iniciais. O card original `CCardFeed` exige imagem ou vídeo; não foi criado um estado sem mídia. A opção de vídeo demonstra a capa e o botão original, sem reprodução remota. `postText` escolhe amostras para o campo original `description`, sem truncamento artificial. Os controles de post/atendimento afetam todas as instâncias da amostra. Alterar um controle preserva os outros e a configuração é compartilhada na URL, inclusive ao alternar Telas/Componentes.
 
@@ -64,7 +64,7 @@ Alterações de fixtures são enviadas ao Flutter por uma ponte local com valida
 
 ### Uso dos componentes
 
-`npm run check` gera `src/component-usage.generated.json` a partir dos widgets montados pelos testes das telas e suas fixtures. O painel Informações usa esse índice para criar links às telas. Não edite o JSON manualmente. Novas telas e estados precisam fazer parte do catálogo de fixtures para serem incluídos; widgets de fluxos ainda não cobertos pelos testes não entram no índice. As seções compostas são identificadas pelas suas `ValueKey`s.
+`pnpm run check` gera `src/component-usage.generated.json` a partir dos widgets montados pelos testes das telas e suas fixtures. O painel Informações usa esse índice para criar links às telas. Não edite o JSON manualmente. Novas telas e estados precisam fazer parte do catálogo de fixtures para serem incluídos; widgets de fluxos ainda não cobertos pelos testes não entram no índice. As seções compostas são identificadas pelas suas `ValueKey`s.
 
 ### Aceite de termos
 

@@ -555,7 +555,7 @@ export default function App() {
                   Salve as alterações em Git e gere o
                   pacote com commit exato, fontes e patch.
                 </p>
-                <code>npm run handoff -- baseline</code>
+                <code>pnpm run handoff -- baseline</code>
                 <p>
                   A aprovação humana deve registrar pessoa, escopo e commit no
                   HANDOFF.md. Nenhuma aprovação automática.
