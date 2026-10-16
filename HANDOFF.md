@@ -14,11 +14,11 @@ Em 15/10/2026 as dependências privadas passaram de components_bloomy 6.39.0, fl
 - O `CBottomBarCheckbox` foi removido. A prévia não o usava.
 - O `flutter_extension` removeu o ícone vazio, que estava depreciado, e renomeou `EquatableMixin` para `Equatable`. Nenhum dos dois era usado aqui.
 
-Composição editável em `flutter_preview/lib/main.dart`. O cartão de conteúdo e os estados vazios são funções compartilhadas entre telas e biblioteca. O pacote não foi modificado no cache. O wrapper React cuida da moldura, seleção de tela e comentários exportáveis; a comunicação de navegação do iframe confere origem e janela de origem.
+Composição editável em `flutter_preview/lib/main.dart`. O cartão de conteúdo e os estados vazios são funções compartilhadas entre telas e biblioteca. O pacote não foi modificado no cache. O chrome de revisão é o do pacote `@brucesantos/design-space` 0.13; `src/app/flutter.tsx` carrega o Flutter dentro do quadro dele, e a comunicação com o iframe confere origem e janela de origem.
 
 ## Decisões de reprodução
 
-- Quadro de 402 × 874, área segura superior 62 e inferior 34, data inicial 23/09/2026.
+- Paridade conferida em 402 × 874, tamanho dos testes de widgets. A revisão usa os tamanhos do design-space (Celular 375 × 812); no Celular, área segura superior 62 e inferior 34. Data inicial 23/09/2026.
 - Escala de texto 1,1 escolhida por comparação visual; não foi possível ler a configuração de acessibilidade do aparelho gravado.
 - Tema, fontes e ícones originais. Fontes completas no build para preservar glifos eliminados pelo tree shaking.
 - Marcações de calendário de 5, 6 e 7/9 e 10/10 reproduzem a amostra visível, sem assumir calendário operacional real.
@@ -35,28 +35,19 @@ Não há backend, envio de arquivo, autenticação, alteração real de senha, p
 
 `pnpm run handoff -- baseline` gera ZIP dos fontes, patch binário, resumo e version.json com commit e base. `.env` e binários compilados ficam fora do Git/ZIP. O receptor precisa de acesso ao registro privado. Baseline e histórico preservam a versão React anterior.
 
-Após revisão humana, registrar aprovador, data, escopo e commit aprovado. Publicação do código autorizada no repositório privado `bananas-global/bloomy-app-design-space`, na branch `main`. Não houve deploy nem modificação do app original.
+Após revisão humana, registrar aprovador, data, escopo e commit aprovado. Publicação do código autorizada no repositório privado `bananas-global/bloomy-app-design-space`, na branch `main`. O `main` é publicado na Vercel; não houve modificação do app original.
 
-## Ferramentas restauradas
+## Ambiente de revisão
 
-Busca unificada, biblioteca de componentes isolados, viewport com presets e medidas livres, zoom e orientação, fixtures editáveis/salvas/exportáveis e links de contexto foram recuperados. O schema compartilhado do ambiente está em `src/workbench.ts`; o contrato correspondente no Flutter é `lib/preview_fixture.dart`. Os componentes e os dados continuam locais. O estado de busca e o JSON ainda não aplicado não entram no link; a fixture aplicada entra.
+Desde 16/10/2026, o chrome e as URLs vêm do design-space real; antes eram uma reimplementação manual em `src/App.tsx`, que imitava uma versão antiga do pacote. `src/workbench.ts` continua sendo a fonte das fixtures, variações e controles, e `src/app/catalog.ts` traduz esses dados: cada tela é uma rota, cada variação é o cenário `<tela>.<fixture>` com o comportamento esperado de `scenarioExpected`, e cada widget do catálogo vira um componente com exemplos prontos. O contrato correspondente no Flutter continua em `lib/preview_fixture.dart`.
 
-A biblioteca agora mostra o componente selecionado em vez de uma lista fixa. As gravações são apenas fontes visuais; fixtures de textos longos são instrumentos para explorar limites do componente original, não um compromisso de layout de produção.
+Decisões da migração (ver README): tamanhos de tela do pacote; componentes isolados só com exemplos prontos; sem o editor de dados em JSON; motivo de opção sem efeito na dica do controle; toque sempre simulado; sem a página “Sobre este ambiente”. Links antigos abrem a variação correspondente; os com dados personalizados abrem a padrão.
 
-## Organização por item
-
-As abas Telas/Componentes substituem Área de criação/Biblioteca Flutter. O painel Variações é contextual, e editar JSON é opcional. A matriz gerada cobre os estados dos widgets originais e os controles independentes têm testes de composição; estados de carregamento/erro ficam estáveis para revisão. Nenhum catálogo de fluxos foi criado, pois as entradas atuais são telas e componentes, não jornadas completas.
-
-Home, Feed, Agenda e suas peças isoladas compartilham controles por componente. Sem a opção “Referência da gravação”. Consultar README para o contrato de compatibilidade, mídia obrigatória e avatares fornecidos.
-
-## Revisão do ambiente
-
-Laterais redimensionáveis, controles de viewport no cabeçalho, Handoff com cópia de link e texto, painel contextual de informações e variações para os 20 itens do catálogo. O índice de uso dos componentes é gerado pelos testes Flutter. As amostras respeitam o posicionamento estrutural de cabeçalho e navegação inferior. O modo sem hover simula toques e usa um cursor circular. Os posts usam a foto ilustrativa fornecida pelo usuário.
-
+As gravações são apenas fontes visuais; fixtures de textos longos são instrumentos para explorar limites do componente original, não um compromisso de layout de produção. Nenhum catálogo de fluxos foi criado, pois as entradas são telas e componentes, não jornadas completas. Home, Feed, Agenda e suas peças isoladas compartilham controles por componente. O índice de uso dos componentes é gerado pelos testes Flutter. As amostras respeitam o posicionamento estrutural de cabeçalho e navegação inferior. Os posts usam a foto ilustrativa fornecida pelo usuário.
 
 ## Dados dos componentes e controles da prévia
 
-Links, JSON editável/exportado e mensagens para Flutter separam `data` de `preview`.
+As mensagens para o Flutter separam `data` de `preview`.
 `data` usa nomes de propriedades da biblioteca; `preview` contém os seletores exclusivos do Design Space (fotos de exemplo, quantidades, estados de carregamento, plataforma e simulações).
 Este objeto é uma fixture compartilhada de apresentação, não um DTO da API. O adaptador em `flutter_preview/lib/main.dart` constrói os objetos reais da biblioteca:
 
@@ -69,9 +60,9 @@ Este objeto é uma fixture compartilhada de apresentação, não um DTO da API. 
 | `status` | `CTileScheduleParentData.status`, convertido para `ScheduleStatus` |
 | `roomName`, `unitName`, `hasProfessional`, `hasSupervisor`, `showFullStartDate` | `CTileScheduleParentData` com os mesmos nomes |
 
-A estrutura interna plana do editor combina esses dois grupos somente para renderizar controles. A serialização os separa; não copie controles de `preview` para contratos do app. Seletores como `scheduleTime` geram datas sintéticas e `postText` gera um texto de amostra; fotos de amostra são convertidas em `CAvatarData.imageUrl`. Ações simuladas devem ser conectadas aos fluxos já existentes no app.
+A fixture plana de `src/workbench.ts` combina esses dois grupos para os controles. A serialização os separa; não copie controles de `preview` para contratos do app. Seletores como `scheduleTime` geram datas sintéticas e `postText` gera um texto de amostra; fotos de amostra são convertidas em `CAvatarData.imageUrl`. Ações simuladas devem ser conectadas aos fluxos já existentes no app.
 
-O leitor mantém compatibilidade com fixtures planas antigas e nomes antigos (`guardian`, `patient`, `contentTitle`, `contentDescription`, `buttonLabel`, `buttonEnabled`, `scheduleStatus`, `scheduleRoom`, `scheduleUnit`). Novos links e exportações usam o formato separado. Não há mudança nos contratos do app original.
+O leitor do Flutter mantém compatibilidade com fixtures planas antigas e nomes antigos (`guardian`, `patient`, `contentTitle`, `contentDescription`, `buttonLabel`, `buttonEnabled`, `scheduleStatus`, `scheduleRoom`, `scheduleUnit`). Não há mudança nos contratos do app original.
 
 
 ## Proposta: edição pelo avatar

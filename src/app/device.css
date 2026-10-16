@@ -1,0 +1,58 @@
+/* Product side of the design-space frame: the Flutter preview fills the frame,
+   and the mobile preset draws the simulated iOS status bar and home indicator
+   over the 62/34 safe area that Flutter reserves when `safe=1`. */
+.bloomy-device {
+  position: fixed;
+  inset: 0;
+  background: #eef6f9;
+}
+.bloomy-device iframe {
+  display: block;
+  border: 0;
+  width: 100%;
+  height: 100%;
+}
+.bloomy-ios {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 62px;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 19px 28px 0 32px;
+  color: #000;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 17px;
+  line-height: 22px;
+  font-weight: 600;
+}
+.bloomy-ios i {
+  position: absolute;
+  background: black;
+  border-radius: 30px;
+  width: 124px;
+  height: 36px;
+  left: 50%;
+  top: 10px;
+  transform: translateX(-50%);
+}
+.bloomy-ios-icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 22px;
+}
+.bloomy-home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 130px;
+  height: 5px;
+  border-radius: 3px;
+  background: #141316;
+  pointer-events: none;
+}

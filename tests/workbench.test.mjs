@@ -16,28 +16,10 @@ const {
   variationsFor,
   parseFixture,
   serializeFixture,
-  initialFixture,
-  dimension,
-  normalizeSearch,
 } = await import(
   `data:text/javascript;base64,${Buffer.from(js).toString("base64")}`
 );
-test("custom fixture round trips through a shareable URL", () => {
-  const data = {
-    ...fixtures.default.data,
-    patientName: "Amostra Silva",
-    showContent: false,
-  };
-  const p = new URLSearchParams({
-    fixture: "custom",
-    data: JSON.stringify(data),
-  });
-  assert.deepEqual(
-    initialFixture(new URLSearchParams(p.toString())).data,
-    data,
-  );
-});
-test("invalid fixture data falls back explicitly", () => {
+test("invalid fixture data is rejected", () => {
   for (const value of [
     null,
     [],
@@ -46,19 +28,8 @@ test("invalid fixture data falls back explicitly", () => {
     { ...fixtures.default.data, extra: 1 },
   ])
     assert.throws(() => parseFixture(JSON.stringify(value)));
-  assert.ok(initialFixture(new URLSearchParams({ data: "{" })).error);
+  assert.throws(() => parseFixture("{"));
 });
-test("viewport bounds reject malformed and excessive dimensions", () => {
-  assert.equal(dimension("NaN", 402, 320, 1920), 402);
-  assert.equal(dimension("20000", 402, 320, 1920), 1920);
-  assert.equal(dimension("-1", 402, 320, 1920), 320);
-});
-test("search matches Portuguese names regardless of accents", () =>
-  assert.ok(
-    normalizeSearch("Conteúdos educativos").includes(
-      normalizeSearch("conteudos"),
-    ),
-  ));
 
 test("each screen and component exposes valid contextual presets", () => {
   assert.equal(Object.keys(variationIds).length, 31);
@@ -75,7 +46,7 @@ test("each screen and component exposes valid contextual presets", () => {
   assert.ok(variationsFor("CButton").includes("disabled"));
 });
 
-test("component changes preserve independent section state and survive URLs", () => {
+test("component changes preserve independent section state", () => {
   const mixed = patchComponent(fixtures.loading.data, {
     feedState: "ready",
     feedCount: "3",
@@ -85,10 +56,7 @@ test("component changes preserve independent section state and survive URLs", ()
   const photo = patchComponent(mixed, { headerPhoto: true });
   assert.equal(photo.feedCount, "3");
   assert.equal(photo.scheduleState, "loading");
-  assert.deepEqual(
-    initialFixture(new URLSearchParams({ data: JSON.stringify(photo) })).data,
-    photo,
-  );
+  assert.deepEqual(parseFixture(JSON.stringify(photo)), photo);
   assert.deepEqual(
     componentGroupsFor("home")[0],
     componentGroupsFor("CAppBarUser2")[0],
@@ -103,10 +71,6 @@ test("component changes preserve independent section state and survive URLs", ()
     { headerPhoto: "yes" },
   ])
     assert.throws(() => parseFixture(JSON.stringify({ ...photo, ...invalid })));
-  assert.equal(
-    initialFixture(new URLSearchParams({ fixture: "reference" })).id,
-    "default",
-  );
 });
 
 test("every catalog item has contextual controls with valid values", () => {

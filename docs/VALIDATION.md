@@ -45,3 +45,12 @@ Removido o cabeçalho promocional em telas e biblioteca. Controles reunidos na b
 - 49 combinações geradas do catálogo TypeScript para testes Flutter. Todas verificam renderização em 402 × 874; assertions adicionais verificam carregamento, erro, calendário semanal, senha, campo preenchido/com erro, documento, seleção de navegação e permissões.
 - 68 testes Flutter e 5 testes Node no total. A fixture desabilitada não aparece na Agenda; ao trocar para um item incompatível, a referência é restaurada.
 - Navegador: erro de Conteúdos, botão desabilitado, alternância de abas, presets pertinentes ao cabeçalho, biblioteca e busca. Fixtures são estados de desenho, sem simulação de resposta de servidor.
+
+## Design-space real — 16/10/2026
+
+O chrome caseiro (`src/App.tsx`, `src/FixtureEditor.tsx`, `src/native-space.css`) foi substituído pelo pacote `@brucesantos/design-space` 0.13.0. As seções anteriores descrevem a reimplementação manual e ficam como histórico.
+
+- `pnpm run check`: 10 testes Node (dados de `src/workbench.ts`), 13 testes vitest (contrato do design-space sem erros nem avisos, variações fixando os dados da fixture, estado de rede, valores vazios, ids do catálogo, componentes por tela e links antigos), Flutter analyze sem problemas, 408 testes Flutter e build. A matriz de variações e o índice de uso não mudaram.
+- Navegador: as 9 telas carregam o Flutter dentro do quadro, com a barra do iOS no Celular e sem ela no Ajustar (`safe=0`). Trocar um controle atualiza a URL (`c.scheduleState=loading`) e o Flutter sem recarregar o iframe. Tocar em Agenda na barra inferior do app leva o chrome a `/agenda?scenario=agenda.default`. O catálogo abre `tile-schedule-parent` com 29 exemplos. Links antigos de tela e de biblioteca abrem a variação correspondente. Informações mostra comportamento esperado, controles e os componentes usados. Tema escuro do chrome não altera o app.
+- Build de produção (`vite preview`): link direto para `/agenda?scenario=agenda.populated` abre a tela preenchida. A regra de rotas do `vercel.json` só fica comprovada no deploy.
+- A dica de opção sem efeito aparece ao passar o mouse sobre o controle, porque o pacote mostra descrições como `title`.

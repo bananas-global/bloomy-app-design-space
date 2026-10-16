@@ -242,6 +242,92 @@ export const variationIds: Record<string, string[]> = {
 };
 export const variationsFor = (target: string) =>
   variationIds[target] || ["default"];
+export const screens = [
+  ["home", "Início"],
+  ["agenda", "Agenda"],
+  ["contents", "Conteúdos"],
+  ["metrics", "Evolutivo"],
+  ["settings", "Configurações"],
+  ["login", "Login"],
+  ["agreements", "Aceite de termos"],
+  ["feed", "Feed"],
+  ["notifications", "Notificações"],
+] as const;
+export const screenDescriptions: Record<string, string> = {
+  home: "Visão geral do responsável, com novidades do feed e os próximos atendimentos.",
+  agenda: "Consulta dos atendimentos por data, com informações de horário, profissional e local.",
+  contents: "Conteúdos e orientações para acompanhar o desenvolvimento do paciente.",
+  metrics: "Acompanhamento da evolução do paciente ao longo dos atendimentos.",
+  settings: "Dados do perfil e preferências de uso do aplicativo.",
+  agreements: "Leitura, aceite dos termos e contratos e assinatura digital local.",
+  login: "Acesso do responsável ao aplicativo por CPF e senha.",
+  feed: "Registros de atividades do paciente, com fotos, vídeos e descrições.",
+  notifications: "Avisos e atualizações para o responsável.",
+};
+// Widget catalog: [widget, name, source]. Sections are compositions in main.dart.
+export const catalogWidgets: [string, string, string][] = [
+  ["FeedSection", "Feed · seção", "flutter_preview/lib/main.dart"],
+  ["CCardFeed", "Post do feed", "cards/card_feed.dart"],
+  ["AppointmentsSection", "Próximos atendimentos · seção", "flutter_preview/lib/main.dart"],
+  ["CTileScheduleParent", "Atendimento", "tiles/tile_schedule_parent.dart"],
+  ["CAppBarUser2", "Cabeçalho", "app_bars/app_bar_user.dart"],
+  ["CBottomBarUser", "Navegação", "bottom_bars/bottom_bar_user.dart"],
+  ["CCalendarWeekly", "Calendário", "calendars/calendar_weekly.dart"],
+  ["CTextField", "Campos e busca", "texts/text_field.dart"],
+  ["CContainerListInformation", "Estados vazios", "containers/container_list_information.dart"],
+  ["CTileParentContent", "Conteúdo educativo", "tiles/tile_parent_content.dart"],
+  ["CTileSettings", "Configuração", "tiles/tile_settings.dart"],
+  ["CAvatarUpdater", "Seletor de perfis", "flutter_preview/lib/avatar_updater_candidate.dart"],
+  ["CAppBarRow", "Cabeçalho com retorno", "app_bars/app_bar_row.dart"],
+  ["CButtonBack", "Voltar", "buttons/button_back.dart"],
+  ["CText", "Texto", "texts/text.dart"],
+  ["CHeader", "Título de seção", "headers/header.dart"],
+  ["CCardList", "Cartão de lista", "cards/card_list.dart"],
+  ["CScaffold", "Estrutura da tela", "scaffolds/scaffold.dart"],
+  ["CAvatar", "Avatar", "avatars/avatar.dart"],
+  ["CChip", "Chip", "chips/chip.dart"],
+  ["CDivider", "Divisória", "dividers/divider.dart"],
+  ["CButton", "Botões", "buttons/button.dart"],
+];
+// Expected behavior per screen variation (`<screen>.<fixture>`), shown in
+// Informações and in "Copiar para o PR".
+export const scenarioExpected: Record<string, string[]> = {
+  "home.default": ["O cabeçalho cumprimenta Teste.", "Feed e Próximos atendimentos mostram os estados vazios."],
+  "home.populated": ["O feed mostra 1 post de Lucas Santos com imagem.", "Próximos atendimentos mostra 2 atendimentos agendados."],
+  "home.feed-only": ["O feed mostra 1 post.", "Próximos atendimentos mostra o estado vazio."],
+  "home.appointments-only": ["O feed mostra o estado vazio.", "Próximos atendimentos mostra 2 atendimentos."],
+  "home.long": ["O nome longo do responsável quebra sem sobrepor o avatar nem o menu."],
+  "home.loading": ["Feed e Próximos atendimentos mostram o carregamento."],
+  "home.error": ["Feed e Próximos atendimentos mostram a mensagem de erro ao carregar."],
+  "agenda.default": ["O calendário mensal de setembro de 2026 abre com 23/09 selecionado.", "A lista do dia mostra o estado vazio."],
+  "agenda.populated": ["23/09/2026 mostra 2 atendimentos, às 14h e às 15h."],
+  "agenda.week": ["O calendário aparece na visualização semanal."],
+  "agenda.loading": ["A lista de atendimentos mostra o carregamento."],
+  "agenda.error": ["A lista de atendimentos mostra a mensagem de erro ao carregar."],
+  "contents.default": ["A lista mostra o conteúdo em vídeo Teste v1."],
+  "contents.empty": ["A lista mostra o estado sem conteúdos."],
+  "contents.long": ["Título e descrição longos quebram dentro do cartão."],
+  "contents.document": ["O cartão identifica o conteúdo como documento."],
+  "contents.loading": ["A lista mostra o carregamento."],
+  "contents.error": ["A lista mostra a mensagem de erro ao carregar."],
+  "metrics.default": ["Áreas e fases aparecem com os valores zerados da amostra."],
+  "metrics.long": ["Os nomes longos do responsável e do paciente quebram sem sobreposição."],
+  "metrics.loading": ["A tela mostra o carregamento."],
+  "metrics.error": ["A tela mostra a mensagem de erro ao carregar."],
+  "settings.default": ["O seletor de perfis mostra o responsável e 1 paciente, e a foto principal abre a edição.", "Segurança, Permissões e Informações aparecem como seções."],
+  "login.default": ["A tela pede o CPF do responsável."],
+  "login.password": ["A tela mostra a etapa de senha."],
+  "agreements.default": ["Os dois documentos aparecem pendentes, e Assinar documentos fica desabilitado."],
+  "agreements.agreements-partial": ["Um documento aparece aceito, e Assinar documentos continua desabilitado."],
+  "agreements.agreements-accepted": ["Os dois documentos aparecem aceitos, e Assinar documentos fica habilitado."],
+  "feed.default": ["O feed mostra o estado vazio."],
+  "feed.populated": ["O feed mostra o post de Lucas Santos."],
+  "feed.loading": ["O feed mostra o carregamento."],
+  "feed.error": ["O feed mostra a mensagem de erro ao carregar."],
+  "notifications.default": ["A lista de avisos mostra o estado vazio."],
+  "notifications.loading": ["A lista de avisos mostra o carregamento."],
+  "notifications.error": ["A lista de avisos mostra a mensagem de erro ao carregar."],
+};
 // Real widget property names. Preview-only selectors never belong to app DTOs.
 export const fixtureDataFields = ["legalGuardianName", "patientName", "title", "description", "label", "isEnabled", "status", "roomName", "unitName", "contentType", "hasProfessional", "hasSupervisor", "showFullStartDate"] as const;
 const legacyFixtureFields: Record<string, string> = {guardian: "legalGuardianName", patient: "patientName", contentTitle: "title", contentDescription: "description", buttonLabel: "label", buttonEnabled: "isEnabled", scheduleStatus: "status", scheduleRoom: "roomName", scheduleUnit: "unitName"};
@@ -314,63 +400,6 @@ export function parseFixture(raw: string): Fixture {
     if (!values.includes(value[key])) throw Error(`Valor inválido em ${key}.`);
   return value as Fixture;
 }
-export function initialFixture(params: URLSearchParams): {
-  id: string;
-  data: Fixture;
-  error: string;
-} {
-  const requested = params.get("fixture") || "default";
-  const id = requested === "reference" ? "default" : requested;
-  if (params.has("data"))
-    try {
-      return {
-        id: "custom",
-        data: parseFixture(params.get("data")!),
-        error: "",
-      };
-    } catch {
-      return {
-        id: "default",
-        data: fixtures.default.data,
-        error: "Fixture do link inválida. Padrões restaurados.",
-      };
-    }
-  return fixtures[id]
-    ? { id, data: fixtures[id].data, error: "" }
-    : {
-        id: "default",
-        data: fixtures.default.data,
-        error: "Fixture desconhecida. Padrões restaurados.",
-      };
-}
-export const viewports: Record<
-  string,
-  { label: string; width: number; height: number }
-> = {
-  mobile: { label: "iPhone · 402 × 874", width: 402, height: 874 },
-  max: { label: "iPhone Max · 440 × 956", width: 440, height: 956 },
-  android: { label: "Android · 412 × 915", width: 412, height: 915 },
-  tablet: { label: "Tablet · 768 × 1024", width: 768, height: 1024 },
-  fluid: { label: "Área livre", width: 0, height: 0 },
-};
-export function dimension(
-  raw: string | null,
-  fallback: number,
-  min: number,
-  max: number,
-) {
-  const n = Number(raw);
-  return raw && Number.isFinite(n)
-    ? Math.max(min, Math.min(max, Math.round(n)))
-    : fallback;
-}
-export function normalizeSearch(s: string) {
-  return s
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
-}
-
 export function sectionState(data: Fixture, section: "feed" | "schedule") {
   const explicit = section === "feed" ? data.feedState : data.scheduleState;
   if (explicit !== "inherit") return explicit;
