@@ -15,7 +15,7 @@ describe("product contract", () => {
 
   it("offers one variation per screen fixture", () => {
     expect(product.routes.map((route) => route.path)).toEqual(screens.map(([id]) => `/${id}`));
-    expect(scenarios).toHaveLength(35);
+    expect(scenarios).toHaveLength(39);
     expect(scenarios.find((s) => s.id === "home.populated")?.fixture).toBe("populated");
   });
 

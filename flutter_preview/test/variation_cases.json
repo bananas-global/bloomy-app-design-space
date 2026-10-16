@@ -20,6 +20,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -74,6 +76,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -128,6 +132,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -182,6 +188,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -236,6 +244,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -290,6 +300,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -344,6 +356,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -398,6 +412,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -452,6 +468,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -506,6 +524,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -560,6 +580,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -614,6 +636,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -668,6 +692,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -722,6 +748,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -776,6 +804,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -830,6 +860,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -884,6 +916,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -938,6 +972,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -992,6 +1028,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -1046,6 +1084,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -1100,6 +1140,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -1154,6 +1196,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -1208,6 +1252,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -1262,6 +1308,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -1316,6 +1364,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -1370,6 +1420,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -1424,6 +1476,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -1478,6 +1532,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -1532,6 +1588,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -1586,6 +1644,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -1640,6 +1700,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -1694,6 +1756,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -1748,6 +1812,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -1802,6 +1868,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -1856,6 +1924,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -1910,6 +1980,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -1964,6 +2036,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2018,6 +2092,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2072,6 +2148,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2126,6 +2204,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2180,6 +2260,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2234,6 +2316,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2288,6 +2372,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2342,6 +2428,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2396,6 +2484,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2450,6 +2540,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2504,6 +2596,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2558,6 +2652,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2612,6 +2708,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2666,6 +2764,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2720,6 +2820,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2774,6 +2876,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2828,6 +2932,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2882,6 +2988,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2936,6 +3044,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -2990,6 +3100,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -3044,6 +3156,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -3098,6 +3212,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -3152,6 +3268,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -3206,6 +3324,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -3260,6 +3380,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -3314,6 +3436,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -3368,6 +3492,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -3422,6 +3548,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -3476,6 +3604,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -3530,6 +3660,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -3584,6 +3716,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -3638,6 +3772,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -3692,6 +3828,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -3746,6 +3884,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -3800,6 +3940,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -3854,6 +3996,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -3908,6 +4052,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -3962,6 +4108,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4016,6 +4164,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4070,6 +4220,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4124,6 +4276,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4178,6 +4332,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4232,6 +4388,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4286,6 +4444,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4340,6 +4500,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4394,6 +4556,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4448,6 +4612,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4502,6 +4668,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4556,6 +4724,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4610,6 +4780,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4664,6 +4836,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4718,6 +4892,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4772,6 +4948,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4826,6 +5004,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4880,6 +5060,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4934,6 +5116,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -4988,6 +5172,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -5042,6 +5228,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -5096,6 +5284,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -5150,6 +5340,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -5204,6 +5396,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -5258,6 +5452,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -5312,6 +5508,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -5366,6 +5564,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -5420,6 +5620,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -5474,6 +5676,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -5528,6 +5732,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -5582,6 +5788,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -5636,6 +5844,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -5690,6 +5900,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -5744,6 +5956,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -5798,6 +6012,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -5852,6 +6068,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -5906,6 +6124,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -5960,6 +6180,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -6014,6 +6236,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -6068,6 +6292,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -6122,6 +6348,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": false,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -6176,6 +6404,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -6230,6 +6460,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -6284,6 +6516,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -6338,6 +6572,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": false,
         "settingsProfileCount": "2",
@@ -6392,6 +6628,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -6446,6 +6684,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -6500,6 +6740,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "1",
@@ -6554,6 +6796,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -6608,6 +6852,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "4",
@@ -6662,6 +6908,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -6716,6 +6964,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -6770,6 +7020,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -6824,6 +7076,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -6878,6 +7132,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -6932,6 +7188,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -6966,6 +7224,510 @@
     }
   },
   {
+    "target": "password-recovery",
+    "id": "default",
+    "data": {
+      "data": {
+        "roomName": "Sala 1",
+        "unitName": "Unidade Jardim",
+        "status": "scheduled",
+        "hasProfessional": true,
+        "hasSupervisor": false,
+        "showFullStartDate": false,
+        "contentType": "video",
+        "legalGuardianName": "Teste",
+        "patientName": "Teste Maria",
+        "title": "Teste v1",
+        "description": "Teste vídeo de coelho.",
+        "label": "PRÓXIMO",
+        "isEnabled": true
+      },
+      "preview": {
+        "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
+        "settingsGuardianPhoto": true,
+        "settingsPatientPhoto": true,
+        "settingsProfileCount": "2",
+        "settingsPlatform": "ios",
+        "settingsSection": "security",
+        "settingsItem": "password",
+        "avatarRole": "patient",
+        "chipRole": "status",
+        "schedulePatientPhoto": "inherit",
+        "supervisorInitials": true,
+        "scheduleTime": "14:00",
+        "headerPhoto": false,
+        "feedState": "inherit",
+        "feedCount": "1",
+        "postAvatarPhoto": false,
+        "postText": "medium",
+        "postMedia": "image",
+        "scheduleState": "inherit",
+        "scheduleCount": "2",
+        "professionalPhoto": false,
+        "showFeed": false,
+        "showSchedules": false,
+        "state": "ready",
+        "calendarMode": "month",
+        "loginStep": "cpf",
+        "permissions": "reference",
+        "searchText": "",
+        "fieldError": false,
+        "navigation": "home",
+        "showContent": true
+      }
+    }
+  },
+  {
+    "target": "password-recovery",
+    "id": "recovery-email",
+    "data": {
+      "data": {
+        "roomName": "Sala 1",
+        "unitName": "Unidade Jardim",
+        "status": "scheduled",
+        "hasProfessional": true,
+        "hasSupervisor": false,
+        "showFullStartDate": false,
+        "contentType": "video",
+        "legalGuardianName": "Teste",
+        "patientName": "Teste Maria",
+        "title": "Teste v1",
+        "description": "Teste vídeo de coelho.",
+        "label": "PRÓXIMO",
+        "isEnabled": true
+      },
+      "preview": {
+        "agreementState": "pending",
+        "recoveryContacts": "email",
+        "recoverySent": false,
+        "settingsGuardianPhoto": true,
+        "settingsPatientPhoto": true,
+        "settingsProfileCount": "2",
+        "settingsPlatform": "ios",
+        "settingsSection": "security",
+        "settingsItem": "password",
+        "avatarRole": "patient",
+        "chipRole": "status",
+        "schedulePatientPhoto": "inherit",
+        "supervisorInitials": true,
+        "scheduleTime": "14:00",
+        "headerPhoto": false,
+        "feedState": "inherit",
+        "feedCount": "1",
+        "postAvatarPhoto": false,
+        "postText": "medium",
+        "postMedia": "image",
+        "scheduleState": "inherit",
+        "scheduleCount": "2",
+        "professionalPhoto": false,
+        "showFeed": false,
+        "showSchedules": false,
+        "state": "ready",
+        "calendarMode": "month",
+        "loginStep": "cpf",
+        "permissions": "reference",
+        "searchText": "",
+        "fieldError": false,
+        "navigation": "home",
+        "showContent": true
+      }
+    }
+  },
+  {
+    "target": "password-recovery",
+    "id": "recovery-both",
+    "data": {
+      "data": {
+        "roomName": "Sala 1",
+        "unitName": "Unidade Jardim",
+        "status": "scheduled",
+        "hasProfessional": true,
+        "hasSupervisor": false,
+        "showFullStartDate": false,
+        "contentType": "video",
+        "legalGuardianName": "Teste",
+        "patientName": "Teste Maria",
+        "title": "Teste v1",
+        "description": "Teste vídeo de coelho.",
+        "label": "PRÓXIMO",
+        "isEnabled": true
+      },
+      "preview": {
+        "agreementState": "pending",
+        "recoveryContacts": "both",
+        "recoverySent": false,
+        "settingsGuardianPhoto": true,
+        "settingsPatientPhoto": true,
+        "settingsProfileCount": "2",
+        "settingsPlatform": "ios",
+        "settingsSection": "security",
+        "settingsItem": "password",
+        "avatarRole": "patient",
+        "chipRole": "status",
+        "schedulePatientPhoto": "inherit",
+        "supervisorInitials": true,
+        "scheduleTime": "14:00",
+        "headerPhoto": false,
+        "feedState": "inherit",
+        "feedCount": "1",
+        "postAvatarPhoto": false,
+        "postText": "medium",
+        "postMedia": "image",
+        "scheduleState": "inherit",
+        "scheduleCount": "2",
+        "professionalPhoto": false,
+        "showFeed": false,
+        "showSchedules": false,
+        "state": "ready",
+        "calendarMode": "month",
+        "loginStep": "cpf",
+        "permissions": "reference",
+        "searchText": "",
+        "fieldError": false,
+        "navigation": "home",
+        "showContent": true
+      }
+    }
+  },
+  {
+    "target": "password-recovery",
+    "id": "recovery-sent",
+    "data": {
+      "data": {
+        "roomName": "Sala 1",
+        "unitName": "Unidade Jardim",
+        "status": "scheduled",
+        "hasProfessional": true,
+        "hasSupervisor": false,
+        "showFullStartDate": false,
+        "contentType": "video",
+        "legalGuardianName": "Teste",
+        "patientName": "Teste Maria",
+        "title": "Teste v1",
+        "description": "Teste vídeo de coelho.",
+        "label": "PRÓXIMO",
+        "isEnabled": true
+      },
+      "preview": {
+        "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": true,
+        "settingsGuardianPhoto": true,
+        "settingsPatientPhoto": true,
+        "settingsProfileCount": "2",
+        "settingsPlatform": "ios",
+        "settingsSection": "security",
+        "settingsItem": "password",
+        "avatarRole": "patient",
+        "chipRole": "status",
+        "schedulePatientPhoto": "inherit",
+        "supervisorInitials": true,
+        "scheduleTime": "14:00",
+        "headerPhoto": false,
+        "feedState": "inherit",
+        "feedCount": "1",
+        "postAvatarPhoto": false,
+        "postText": "medium",
+        "postMedia": "image",
+        "scheduleState": "inherit",
+        "scheduleCount": "2",
+        "professionalPhoto": false,
+        "showFeed": false,
+        "showSchedules": false,
+        "state": "ready",
+        "calendarMode": "month",
+        "loginStep": "cpf",
+        "permissions": "reference",
+        "searchText": "",
+        "fieldError": false,
+        "navigation": "home",
+        "showContent": true
+      }
+    }
+  },
+  {
+    "target": "password-recovery",
+    "id": "control-recoveryContacts-0",
+    "data": {
+      "data": {
+        "roomName": "Sala 1",
+        "unitName": "Unidade Jardim",
+        "status": "scheduled",
+        "hasProfessional": true,
+        "hasSupervisor": false,
+        "showFullStartDate": false,
+        "contentType": "video",
+        "legalGuardianName": "Marina",
+        "patientName": "Lucas Santos",
+        "title": "Teste v1",
+        "description": "Teste vídeo de coelho.",
+        "label": "PRÓXIMO",
+        "isEnabled": true
+      },
+      "preview": {
+        "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
+        "settingsGuardianPhoto": true,
+        "settingsPatientPhoto": true,
+        "settingsProfileCount": "2",
+        "settingsPlatform": "ios",
+        "settingsSection": "security",
+        "settingsItem": "password",
+        "avatarRole": "patient",
+        "chipRole": "status",
+        "schedulePatientPhoto": "inherit",
+        "supervisorInitials": true,
+        "scheduleTime": "14:00",
+        "headerPhoto": false,
+        "feedState": "ready",
+        "feedCount": "1",
+        "postAvatarPhoto": false,
+        "postText": "medium",
+        "postMedia": "image",
+        "scheduleState": "ready",
+        "scheduleCount": "2",
+        "professionalPhoto": false,
+        "showFeed": true,
+        "showSchedules": true,
+        "state": "ready",
+        "calendarMode": "month",
+        "loginStep": "cpf",
+        "permissions": "reference",
+        "searchText": "",
+        "fieldError": false,
+        "navigation": "home",
+        "showContent": true
+      }
+    }
+  },
+  {
+    "target": "password-recovery",
+    "id": "control-recoveryContacts-1",
+    "data": {
+      "data": {
+        "roomName": "Sala 1",
+        "unitName": "Unidade Jardim",
+        "status": "scheduled",
+        "hasProfessional": true,
+        "hasSupervisor": false,
+        "showFullStartDate": false,
+        "contentType": "video",
+        "legalGuardianName": "Marina",
+        "patientName": "Lucas Santos",
+        "title": "Teste v1",
+        "description": "Teste vídeo de coelho.",
+        "label": "PRÓXIMO",
+        "isEnabled": true
+      },
+      "preview": {
+        "agreementState": "pending",
+        "recoveryContacts": "email",
+        "recoverySent": false,
+        "settingsGuardianPhoto": true,
+        "settingsPatientPhoto": true,
+        "settingsProfileCount": "2",
+        "settingsPlatform": "ios",
+        "settingsSection": "security",
+        "settingsItem": "password",
+        "avatarRole": "patient",
+        "chipRole": "status",
+        "schedulePatientPhoto": "inherit",
+        "supervisorInitials": true,
+        "scheduleTime": "14:00",
+        "headerPhoto": false,
+        "feedState": "ready",
+        "feedCount": "1",
+        "postAvatarPhoto": false,
+        "postText": "medium",
+        "postMedia": "image",
+        "scheduleState": "ready",
+        "scheduleCount": "2",
+        "professionalPhoto": false,
+        "showFeed": true,
+        "showSchedules": true,
+        "state": "ready",
+        "calendarMode": "month",
+        "loginStep": "cpf",
+        "permissions": "reference",
+        "searchText": "",
+        "fieldError": false,
+        "navigation": "home",
+        "showContent": true
+      }
+    }
+  },
+  {
+    "target": "password-recovery",
+    "id": "control-recoveryContacts-2",
+    "data": {
+      "data": {
+        "roomName": "Sala 1",
+        "unitName": "Unidade Jardim",
+        "status": "scheduled",
+        "hasProfessional": true,
+        "hasSupervisor": false,
+        "showFullStartDate": false,
+        "contentType": "video",
+        "legalGuardianName": "Marina",
+        "patientName": "Lucas Santos",
+        "title": "Teste v1",
+        "description": "Teste vídeo de coelho.",
+        "label": "PRÓXIMO",
+        "isEnabled": true
+      },
+      "preview": {
+        "agreementState": "pending",
+        "recoveryContacts": "both",
+        "recoverySent": false,
+        "settingsGuardianPhoto": true,
+        "settingsPatientPhoto": true,
+        "settingsProfileCount": "2",
+        "settingsPlatform": "ios",
+        "settingsSection": "security",
+        "settingsItem": "password",
+        "avatarRole": "patient",
+        "chipRole": "status",
+        "schedulePatientPhoto": "inherit",
+        "supervisorInitials": true,
+        "scheduleTime": "14:00",
+        "headerPhoto": false,
+        "feedState": "ready",
+        "feedCount": "1",
+        "postAvatarPhoto": false,
+        "postText": "medium",
+        "postMedia": "image",
+        "scheduleState": "ready",
+        "scheduleCount": "2",
+        "professionalPhoto": false,
+        "showFeed": true,
+        "showSchedules": true,
+        "state": "ready",
+        "calendarMode": "month",
+        "loginStep": "cpf",
+        "permissions": "reference",
+        "searchText": "",
+        "fieldError": false,
+        "navigation": "home",
+        "showContent": true
+      }
+    }
+  },
+  {
+    "target": "password-recovery",
+    "id": "control-recoverySent-0",
+    "data": {
+      "data": {
+        "roomName": "Sala 1",
+        "unitName": "Unidade Jardim",
+        "status": "scheduled",
+        "hasProfessional": true,
+        "hasSupervisor": false,
+        "showFullStartDate": false,
+        "contentType": "video",
+        "legalGuardianName": "Marina",
+        "patientName": "Lucas Santos",
+        "title": "Teste v1",
+        "description": "Teste vídeo de coelho.",
+        "label": "PRÓXIMO",
+        "isEnabled": true
+      },
+      "preview": {
+        "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
+        "settingsGuardianPhoto": true,
+        "settingsPatientPhoto": true,
+        "settingsProfileCount": "2",
+        "settingsPlatform": "ios",
+        "settingsSection": "security",
+        "settingsItem": "password",
+        "avatarRole": "patient",
+        "chipRole": "status",
+        "schedulePatientPhoto": "inherit",
+        "supervisorInitials": true,
+        "scheduleTime": "14:00",
+        "headerPhoto": false,
+        "feedState": "ready",
+        "feedCount": "1",
+        "postAvatarPhoto": false,
+        "postText": "medium",
+        "postMedia": "image",
+        "scheduleState": "ready",
+        "scheduleCount": "2",
+        "professionalPhoto": false,
+        "showFeed": true,
+        "showSchedules": true,
+        "state": "ready",
+        "calendarMode": "month",
+        "loginStep": "cpf",
+        "permissions": "reference",
+        "searchText": "",
+        "fieldError": false,
+        "navigation": "home",
+        "showContent": true
+      }
+    }
+  },
+  {
+    "target": "password-recovery",
+    "id": "control-recoverySent-1",
+    "data": {
+      "data": {
+        "roomName": "Sala 1",
+        "unitName": "Unidade Jardim",
+        "status": "scheduled",
+        "hasProfessional": true,
+        "hasSupervisor": false,
+        "showFullStartDate": false,
+        "contentType": "video",
+        "legalGuardianName": "Marina",
+        "patientName": "Lucas Santos",
+        "title": "Teste v1",
+        "description": "Teste vídeo de coelho.",
+        "label": "PRÓXIMO",
+        "isEnabled": true
+      },
+      "preview": {
+        "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": true,
+        "settingsGuardianPhoto": true,
+        "settingsPatientPhoto": true,
+        "settingsProfileCount": "2",
+        "settingsPlatform": "ios",
+        "settingsSection": "security",
+        "settingsItem": "password",
+        "avatarRole": "patient",
+        "chipRole": "status",
+        "schedulePatientPhoto": "inherit",
+        "supervisorInitials": true,
+        "scheduleTime": "14:00",
+        "headerPhoto": false,
+        "feedState": "ready",
+        "feedCount": "1",
+        "postAvatarPhoto": false,
+        "postText": "medium",
+        "postMedia": "image",
+        "scheduleState": "ready",
+        "scheduleCount": "2",
+        "professionalPhoto": false,
+        "showFeed": true,
+        "showSchedules": true,
+        "state": "ready",
+        "calendarMode": "month",
+        "loginStep": "cpf",
+        "permissions": "reference",
+        "searchText": "",
+        "fieldError": false,
+        "navigation": "home",
+        "showContent": true
+      }
+    }
+  },
+  {
     "target": "agreements",
     "id": "default",
     "data": {
@@ -6986,6 +7748,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -7040,6 +7804,8 @@
       },
       "preview": {
         "agreementState": "partial",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -7094,6 +7860,8 @@
       },
       "preview": {
         "agreementState": "accepted",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -7148,6 +7916,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -7202,6 +7972,8 @@
       },
       "preview": {
         "agreementState": "partial",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -7256,6 +8028,8 @@
       },
       "preview": {
         "agreementState": "accepted",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -7310,6 +8084,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -7364,6 +8140,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -7418,6 +8196,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -7472,6 +8252,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -7526,6 +8308,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -7580,6 +8364,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -7634,6 +8420,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -7688,6 +8476,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -7742,6 +8532,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -7796,6 +8588,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -7850,6 +8644,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -7904,6 +8700,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -7958,6 +8756,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8012,6 +8812,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8066,6 +8868,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8120,6 +8924,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8174,6 +8980,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8228,6 +9036,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8282,6 +9092,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8336,6 +9148,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8390,6 +9204,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8444,6 +9260,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8498,6 +9316,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8552,6 +9372,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8606,6 +9428,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8660,6 +9484,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8714,6 +9540,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8768,6 +9596,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8822,6 +9652,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8876,6 +9708,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8930,6 +9764,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -8984,6 +9820,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -9038,6 +9876,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -9092,6 +9932,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -9146,6 +9988,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -9200,6 +10044,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -9254,6 +10100,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -9308,6 +10156,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -9362,6 +10212,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -9416,6 +10268,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -9470,6 +10324,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -9524,6 +10380,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -9578,6 +10436,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -9632,6 +10492,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -9686,6 +10548,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -9740,6 +10604,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -9794,6 +10660,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -9848,6 +10716,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -9902,6 +10772,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -9956,6 +10828,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10010,6 +10884,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10064,6 +10940,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10118,6 +10996,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10172,6 +11052,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10226,6 +11108,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10280,6 +11164,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10334,6 +11220,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10388,6 +11276,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10442,6 +11332,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10496,6 +11388,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10550,6 +11444,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10604,6 +11500,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10658,6 +11556,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10712,6 +11612,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10766,6 +11668,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10820,6 +11724,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10874,6 +11780,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10928,6 +11836,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -10982,6 +11892,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -11036,6 +11948,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -11090,6 +12004,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -11144,6 +12060,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -11198,6 +12116,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -11252,6 +12172,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -11306,6 +12228,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -11360,6 +12284,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -11414,6 +12340,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -11468,6 +12396,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -11522,6 +12452,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -11576,6 +12508,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -11630,6 +12564,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -11684,6 +12620,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -11738,6 +12676,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -11792,6 +12732,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -11846,6 +12788,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -11900,6 +12844,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -11954,6 +12900,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12008,6 +12956,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12062,6 +13012,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12116,6 +13068,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12170,6 +13124,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12224,6 +13180,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12278,6 +13236,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12332,6 +13292,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12386,6 +13348,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12440,6 +13404,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12494,6 +13460,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12548,6 +13516,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12602,6 +13572,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12656,6 +13628,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12710,6 +13684,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12764,6 +13740,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12818,6 +13796,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12872,6 +13852,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12926,6 +13908,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -12980,6 +13964,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -13034,6 +14020,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -13088,6 +14076,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -13142,6 +14132,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -13196,6 +14188,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -13250,6 +14244,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -13304,6 +14300,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -13358,6 +14356,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -13412,6 +14412,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -13466,6 +14468,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -13520,6 +14524,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -13574,6 +14580,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -13628,6 +14636,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -13682,6 +14692,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -13736,6 +14748,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -13790,6 +14804,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -13844,6 +14860,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -13898,6 +14916,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -13952,6 +14972,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14006,6 +15028,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14060,6 +15084,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14114,6 +15140,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14168,6 +15196,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14222,6 +15252,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14276,6 +15308,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14330,6 +15364,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14384,6 +15420,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14438,6 +15476,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14492,6 +15532,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14546,6 +15588,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14600,6 +15644,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14654,6 +15700,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14708,6 +15756,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14762,6 +15812,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14816,6 +15868,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14870,6 +15924,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14924,6 +15980,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -14978,6 +16036,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -15032,6 +16092,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -15086,6 +16148,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -15140,6 +16204,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -15194,6 +16260,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -15248,6 +16316,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -15302,6 +16372,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -15356,6 +16428,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -15410,6 +16484,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -15464,6 +16540,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -15518,6 +16596,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -15572,6 +16652,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -15626,6 +16708,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -15680,6 +16764,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -15734,6 +16820,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -15788,6 +16876,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -15842,6 +16932,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -15896,6 +16988,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -15950,6 +17044,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -16004,6 +17100,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -16058,6 +17156,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -16112,6 +17212,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -16166,6 +17268,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -16220,6 +17324,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -16274,6 +17380,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -16328,6 +17436,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -16382,6 +17492,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": false,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -16436,6 +17548,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -16490,6 +17604,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -16544,6 +17660,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -16598,6 +17716,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": false,
         "settingsProfileCount": "2",
@@ -16652,6 +17772,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -16706,6 +17828,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -16760,6 +17884,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "1",
@@ -16814,6 +17940,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -16868,6 +17996,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "4",
@@ -16922,6 +18052,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -16976,6 +18108,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -17030,6 +18164,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -17084,6 +18220,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -17138,6 +18276,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -17192,6 +18332,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -17246,6 +18388,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -17300,6 +18444,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -17354,6 +18500,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -17408,6 +18556,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -17462,6 +18612,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -17516,6 +18668,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -17570,6 +18724,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -17624,6 +18780,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -17678,6 +18836,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -17732,6 +18892,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -17786,6 +18948,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -17840,6 +19004,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -17894,6 +19060,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -17948,6 +19116,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18002,6 +19172,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18056,6 +19228,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18110,6 +19284,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18164,6 +19340,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18218,6 +19396,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18272,6 +19452,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18326,6 +19508,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18380,6 +19564,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": false,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18434,6 +19620,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18488,6 +19676,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18542,6 +19732,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18596,6 +19788,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18650,6 +19844,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18704,6 +19900,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18758,6 +19956,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18812,6 +20012,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18866,6 +20068,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18920,6 +20124,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -18974,6 +20180,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -19028,6 +20236,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -19082,6 +20292,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -19136,6 +20348,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -19190,6 +20404,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -19244,6 +20460,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -19298,6 +20516,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -19352,6 +20572,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -19406,6 +20628,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -19460,6 +20684,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -19514,6 +20740,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -19568,6 +20796,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -19622,6 +20852,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -19676,6 +20908,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -19730,6 +20964,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -19784,6 +21020,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -19838,6 +21076,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -19892,6 +21132,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -19946,6 +21188,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -20000,6 +21244,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -20054,6 +21300,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -20108,6 +21356,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -20162,6 +21412,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",
@@ -20216,6 +21468,8 @@
       },
       "preview": {
         "agreementState": "pending",
+        "recoveryContacts": "phone",
+        "recoverySent": false,
         "settingsGuardianPhoto": true,
         "settingsPatientPhoto": true,
         "settingsProfileCount": "2",

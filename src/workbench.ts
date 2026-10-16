@@ -1,5 +1,7 @@
 export const componentDefaults = {
   agreementState: "pending",
+  recoveryContacts: "phone",
+  recoverySent: false,
   settingsGuardianPhoto: true,
   settingsPatientPhoto: true,
   settingsProfileCount: "2",
@@ -179,6 +181,9 @@ add("week", "Calendário semanal", { calendarMode: "week" });
 add("agreements-partial", "Um documento aceito", { agreementState: "partial" });
 add("agreements-accepted", "Todos aceitos", { agreementState: "accepted" });
 add("password", "Etapa de senha", { loginStep: "password" });
+add("recovery-email", "Somente e-mail", { recoveryContacts: "email" });
+add("recovery-both", "WhatsApp e e-mail", { recoveryContacts: "both" });
+add("recovery-sent", "Após o envio", { recoverySent: true });
 add("permissions-on", "Todas permitidas", { permissions: "on" });
 add("permissions-off", "Todas desativadas", { permissions: "off" });
 add("search-filled", "Busca preenchida", { searchText: "Teste" });
@@ -214,6 +219,7 @@ export const variationIds: Record<string, string[]> = {
   metrics: ["default", "long", "loading", "error"],
   settings: ["default"],
   login: ["default", "password"],
+  "password-recovery": ["default", "recovery-email", "recovery-both", "recovery-sent"],
   agreements: ["default", "agreements-partial", "agreements-accepted"],
   feed: ["default", "populated", "loading", "error"],
   notifications: ["default", "loading", "error"],
@@ -249,6 +255,7 @@ export const screens = [
   ["metrics", "Evolutivo"],
   ["settings", "Configurações"],
   ["login", "Login"],
+  ["password-recovery", "Envio de link"],
   ["agreements", "Aceite de termos"],
   ["feed", "Feed"],
   ["notifications", "Notificações"],
@@ -261,6 +268,7 @@ export const screenDescriptions: Record<string, string> = {
   settings: "Dados do perfil e preferências de uso do aplicativo.",
   agreements: "Leitura, aceite dos termos e contratos e assinatura digital local.",
   login: "Acesso do responsável ao aplicativo por CPF e senha.",
+  "password-recovery": "Envio do link para o responsável criar ou redefinir a senha, por WhatsApp ou e-mail.",
   feed: "Registros de atividades do paciente, com fotos, vídeos e descrições.",
   notifications: "Avisos e atualizações para o responsável.",
 };
@@ -317,6 +325,10 @@ export const scenarioExpected: Record<string, string[]> = {
   "settings.default": ["O seletor de perfis mostra o responsável e 1 paciente, e a foto principal abre a edição.", "Segurança, Permissões e Informações aparecem como seções."],
   "login.default": ["A tela pede o CPF do responsável."],
   "login.password": ["A tela mostra a etapa de senha."],
+  "password-recovery.default": ["Ícone e texto indicam o WhatsApp, com o número mascarado (11) *****-4321.", "Não há opção de trocar de canal; ENVIAR fica no rodapé."],
+  "password-recovery.recovery-email": ["Ícone e texto indicam o e-mail, com o endereço mascarado re...@example.invalid.", "Não há opção de trocar de canal."],
+  "password-recovery.recovery-both": ["A tela começa pelo WhatsApp e mostra o link Trocar para email.", "Tocar no link alterna para o e-mail, e o link passa a ser Trocar para whatsapp."],
+  "password-recovery.recovery-sent": ["O texto muda para Enviamos uma mensagem para o seu Número whatsapp.", "Abaixo aparece a orientação para contatar o suporte se a mensagem não chegar."],
   "agreements.default": ["Os dois documentos aparecem pendentes, e Assinar documentos fica desabilitado."],
   "agreements.agreements-partial": ["Um documento aparece aceito, e Assinar documentos continua desabilitado."],
   "agreements.agreements-accepted": ["Os dois documentos aparecem aceitos, e Assinar documentos fica habilitado."],
@@ -392,6 +404,7 @@ export function parseFixture(raw: string): Fixture {
     calendarMode: ["month", "week"],
     agreementState: ["pending", "partial", "accepted"],
     loginStep: ["cpf", "password"],
+    recoveryContacts: ["phone", "email", "both"],
     permissions: ["reference", "on", "off"],
     navigation: ["home", "contents", "metrics", "agenda"],
     contentType: ["video", "document"],
@@ -589,6 +602,10 @@ export function componentGroupsFor(target: string): ControlGroup[] {
  ];
     case "agreements": return [group("", "Aceite dos documentos", [{ field: "agreementState", label: "Documentos aceitos", options: [["pending", "Nenhum"], ["partial", "Um documento"], ["accepted", "Todos"]] }])];
     case "login": return [group("", "Acesso", [{ field: "loginStep", label: "Etapa de acesso", options: [["cpf", "CPF"], ["password", "Senha"]] }])];
+    case "password-recovery": return [group("", "Envio de link", [
+      { field: "recoveryContacts", label: "Contatos cadastrados", options: [["phone", "Somente WhatsApp"], ["email", "Somente e-mail"], ["both", "WhatsApp e e-mail"]] },
+      { field: "recoverySent", label: "Envio", options: [["false", "Antes do envio"], ["true", "Após o envio"]] },
+    ])];
     case "notifications": return [group("", "Notificações", [stateControl])];
     case "CAppBarUser2": return [headerControls];
     case "CCardFeed": return [postControls];
@@ -632,7 +649,8 @@ export const itemDetails: Record<string, string> = {
   metrics: "Apresenta áreas e fases de evolução. A amostra atual tem valores zerados; as variações permitem conferir carregamento e erro.",
   settings: "Reúne o perfil do responsável e as preferências do aplicativo. As permissões são simuladas localmente e podem ser alteradas na prévia.",
   agreements: "Fluxo do app 1.11.3+94: leitura de cada documento, aceite e assinatura. Documentos sintéticos; assinatura descartada ao fechar, sem validade ou envio. O app exige cadastro prévio na clínica.",
-  login: "O acesso tem uma etapa de CPF e outra de senha. Os campos são interativos, mas não autenticam em um serviço real.",
+  login: "O acesso tem uma etapa de CPF e outra de senha. Os campos são interativos, mas não autenticam em um serviço real. Esqueci minha senha abre o Envio de link.",
+  "password-recovery": "Proposta de redesign: o topo não tem mais faixa de fundo, o ícone e o círculo do WhatsApp usam o verde da marca (#25D366, sem token na biblioteca) e o contato perdeu o texto entre parênteses. Base: tela do app 1.11.3+94, sem mudanças até a 1.13.0+98 e ausente das gravações 1.10.3+89. Abre por Esqueci minha senha ou quando o responsável ainda não tem senha. Começa pelo WhatsApp quando há telefone; com os dois contatos, o link do rodapé alterna o canal. Telefone e e-mail são sintéticos e mascarados como no app. ENVIAR mostra o aviso do app, mas nada é enviado.",
   feed: "Reúne os registros de atividades do paciente. O estado e a quantidade de posts são configuráveis; as opções do cartão se aplicam aos posts da amostra.",
   notifications: "Lista de avisos do responsável. A amostra atual é vazia; também permite avaliar carregamento e erro.",
   CAppBarUser2: "Cabeçalho com saudação, nome do responsável, avatar e acesso ao menu. Permite comparar nomes de comprimentos diferentes e avatar com ou sem foto.",

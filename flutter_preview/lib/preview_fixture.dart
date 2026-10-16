@@ -35,6 +35,8 @@ class PreviewFixture {
     this.state = 'ready',
     this.calendarMode = 'month',
     this.agreementState = 'pending',
+    this.recoveryContacts = 'phone',
+    this.recoverySent = false,
     this.loginStep = 'cpf',
     this.permissions = 'reference',
     this.searchText = '',
@@ -50,6 +52,10 @@ class PreviewFixture {
     this.isEnabled = true,
   });
   final String agreementState;
+  /// Contacts registered for the password link: `phone`, `email` or `both`.
+  final String recoveryContacts;
+  /// Whether ENVIAR was already tapped (`isFirstSend` is false in the app).
+  final bool recoverySent;
   final bool settingsGuardianPhoto, settingsPatientPhoto;
   final String settingsProfileCount, settingsPlatform, settingsSection, settingsItem;
   final String avatarRole, chipRole;
@@ -160,6 +166,8 @@ class PreviewFixture {
         state: field('state', 'ready'),
         calendarMode: field('calendarMode', 'month'),
         agreementState: field('agreementState', 'pending'),
+        recoveryContacts: field('recoveryContacts', 'phone'),
+        recoverySent: data['recoverySent'] == true,
         loginStep: field('loginStep', 'cpf'),
         permissions: field('permissions', 'reference'),
         searchText: field('searchText', ''),

@@ -308,6 +308,20 @@ void main() {
           CalendarFormat.weekly,
         );
       if (id == 'password') expect(find.text('Senha'), findsOneWidget);
+      if (target == 'password-recovery') {
+        final contacts = PreviewFixture.fromJson(jsonEncode(entry['data'])).recoveryContacts;
+        final sent = PreviewFixture.fromJson(jsonEncode(entry['data'])).recoverySent;
+        expect(find.text('Envio de Link'), findsOneWidget);
+        expect(find.text('Definir Senha'), findsOneWidget);
+        expect(find.textContaining(contacts == 'email' ? 're...@example.invalid' : '(11) *****-4321', findRichText: true), findsOneWidget);
+        expect(find.text(contacts == 'email' ? 'Trocar para whatsapp' : 'Trocar para email'), contacts == 'both' ? findsOneWidget : findsNothing);
+        expect(find.textContaining(sent ? 'Enviamos uma mensagem' : 'Enviaremos uma mensagem', findRichText: true), findsOneWidget);
+        expect(find.textContaining('entre em contato com o nosso suporte'), sent ? findsOneWidget : findsNothing);
+        expect(find.textContaining(RegExp(r'\((Redireciona|Abre o email)'), findRichText: true), findsNothing);
+        final recoveryIcon = find.byWidgetPredicate((w) => w is CIcon && w.style is CIconPasswordRecoveryStyle);
+        final iconColor = tester.widget<CIcon>(recoveryIcon).style.backgroundColor(tester.element(recoveryIcon));
+        expect(iconColor, contacts == 'email' ? isNot(const Color(0xFF25D366)) : const Color(0xFF25D366));
+      }
       if (id == 'field-error')
         expect(find.text('Revise o termo informado.'), findsOneWidget);
       if (id == 'search-filled')
@@ -334,6 +348,27 @@ void main() {
       expect(tester.takeException(), isNull);
     });
   }
+  testWidgets('forgot password opens the link screen, which switches channel and sends', (tester) async {
+    await open(tester, 'login', fixture: const PreviewFixture(loginStep: 'password', recoveryContacts: 'both'));
+    await tester.tap(find.text('Esqueci minha senha'));
+    await tester.pumpAndSettle();
+    expect(find.text('Envio de Link'), findsOneWidget);
+    expect(find.textContaining('(11) *****-4321', findRichText: true), findsOneWidget);
+    expect(find.byWidgetPredicate((w) => w is CIcon && w.icon.faIconData == UIcons.whatsapp.faIconData), findsOneWidget);
+    await tester.tap(find.text('Trocar para email'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('re...@example.invalid', findRichText: true), findsOneWidget);
+    expect(find.byWidgetPredicate((w) => w is CIcon && w.icon.faIconData == UIcons.email.faIconData), findsOneWidget);
+    expect(find.text('Trocar para whatsapp'), findsOneWidget);
+    await tester.tap(find.text('ENVIAR'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    expect(find.text('Troca de senha enviada para o email'), findsOneWidget);
+    expect(find.textContaining('Enviamos uma mensagem', findRichText: true), findsOneWidget);
+    expect(find.textContaining('entre em contato com o nosso suporte'), findsOneWidget);
+    await tester.pumpAndSettle(const Duration(seconds: 5));
+    expect(tester.takeException(), isNull);
+  });
   testWidgets('home limits legacy three-post fixture with schedules loading', (
     tester,
   ) async {
