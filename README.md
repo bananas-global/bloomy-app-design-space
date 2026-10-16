@@ -1,6 +1,6 @@
 # Bloomy App Design Space
 
-Laboratório local para desenhar o app dos responsáveis com **Flutter e os widgets originais de components_bloomy 6.41.2**. React/Vite fornece apenas a moldura e a revisão.
+Laboratório local para desenhar o app dos responsáveis com **Flutter e os widgets originais de components_bloomy 6.41.2**. O chrome de revisão e as URLs vêm do pacote [`@brucesantos/design-space`](https://www.npmjs.com/package/@brucesantos/design-space) 0.13; o Flutter roda dentro do quadro dele.
 
 ## Abrir
 
@@ -15,7 +15,7 @@ dart pub token add https://gitea.sidedoor.tech/api/packages/bloomy/pub --env-var
 pnpm run dev
 ```
 
-URL: http://127.0.0.1:5217/?view=canvas&screen=home
+URL: http://127.0.0.1:5217/home?scenario=home.default&viewport=mobile
 
 O script lê `GITEA_PUB_TOKEN` do `.env` apenas para baixar dependências; não o injeta no JavaScript/Dart. `.env` é ignorado no Git e no pacote de entrega. Copie `.env.example` e preencha localmente em outra máquina.
 
@@ -24,10 +24,11 @@ O script lê `GITEA_PUB_TOKEN` do `.env` apenas para baixar dependências; não 
 - `flutter_preview/lib/main.dart`: composição das telas, estados locais e amostras da biblioteca.
 - `flutter_preview/lib/app_icons.dart`: mapeamento de ícones do app original.
 - `flutter_preview/pubspec.lock`: versões reproduzíveis das dependências privadas.
-- `src/App.tsx` e `src/native-space.css`: ambiente, comentários e exportação.
+- `src/workbench.ts`: fixtures, variações, controles por componente e textos de Informações. Não tem imports, porque o gerador da matriz e os testes Node o carregam direto.
+- `src/app/`: tradução desses dados para o design-space (`catalog.ts`, `product.tsx`, `components.tsx`) e a ponte com o Flutter (`flutter.tsx`).
 - `pnpm run build:native`: recompilar depois de editar Dart; atualize a prévia no navegador.
-- `pnpm run dev:host`: iniciar somente a moldura quando Flutter já está compilado.
-- `pnpm run check`: análise Dart, testes de widgets, compilação Flutter e TypeScript/Vite.
+- `pnpm run dev:host`: iniciar somente o design-space quando o Flutter já está compilado.
+- `pnpm run check`: matriz de variações, testes Node e vitest (contrato do design-space), análise Dart, testes de widgets, compilação Flutter e TypeScript/Vite.
 - `pnpm run handoff -- baseline`: gerar fontes e patch ligados ao commit exato; exige Git limpo.
 
 O build mantém todas as fontes de ícones. Tree shaking removeu glifos usados por getters da biblioteca privada nos testes visuais; não reative sem conferir as telas.
@@ -38,35 +39,37 @@ Início, Agenda, Conteúdos, Evolutivo, Configurações, Login, menu e bibliotec
 
 A prévia não acessa backend clínico. Nomes e avatares são sintéticos. Login, permissões e troca de foto demonstram estados locais. Veja `HANDOFF.md` e `docs/VALIDATION.md` para evidências, oito rodadas e diferenças conhecidas.
 
-O redesign React anterior permanece no histórico Git; foi substituído pelo laboratório Flutter. Nenhum push ou deploy foi feito.
+O redesign React anterior permanece no histórico Git; foi substituído pelo laboratório Flutter. O `main` é publicado na Vercel; o `vercel.json` instala o Flutter, compila com pnpm e manda os caminhos do design-space para o `index.html`, sem capturar `/flutter/`.
 
 ## Ferramentas do ambiente
 
-- Busca por telas ou componentes na aba ativa, incluindo nomes e usos; aceita termos sem acento. Cmd/Ctrl+K foca a busca.
-- Biblioteca com oito amostras isoladas dos widgets reais e origem no pacote.
-- Viewports celular, tablet e desktop; girar, zoom 25–150% e moldura opcional. Os controles ficam em uma única barra, sem campos de largura/altura. O zoom altera só a visualização; largura/altura chegam ao Flutter.
-- Estados padrão, sem conteúdos, textos longos e botão desabilitado. Editor JSON validado, salvamento local, restauração e exportação. Os campos e seus usos aparecem no painel.
-- URL preserva tela/componente, fixture, dados personalizados, dimensões, zoom e moldura. Copiar link e exportar revisão preservam esse contexto. Dados personalizados ficam no endereço: use somente dados sintéticos.
+O chrome é o do design-space: busca em Telas e Componentes (Cmd/Ctrl+K), tamanhos Celular 375 × 812, Tablet, Desktop e Ajustar, girar, zoom 25–150%, revisão limpa, abrir o quadro em nova janela, copiar link, tema claro/escuro, **Variações**, **Informações** e **Copiar para o PR**. A URL guarda a tela (`/home`), a variação (`scenario=home.populated`) e cada controle alterado (`c.feedState=ready`).
 
-Essas ferramentas reproduzem as funções úteis do `bloomy-design-space` na moldura Flutter; não importam o motor de cenários de backoffice nem alteram aquele projeto.
+O produto acrescenta só o que o pacote não sabe: no preset Celular, a barra de status do iOS e o indicador de início são desenhados sobre a área segura de 62/34 que o Flutter reserva. O toque é sempre simulado (cursor circular), como era o padrão.
+
+Decisões da migração para o pacote, em 16/10/2026:
+- Os tamanhos de tela são os do pacote. Os presets iPhone 402 × 874, iPhone Max e Android saíram; os testes de widgets continuam em 402 × 874.
+- Componentes isolados oferecem exemplos prontos: as variações do widget mais um exemplo por opção de controle, os mesmos casos da matriz testada no Flutter.
+- Saiu o “Editar dados” em JSON, com salvar, carregar e exportar. Dado novo entra como variação em `src/workbench.ts`.
+- O pacote não desativa opções. Quando uma opção não tem efeito, o motivo aparece na dica do controle (ao passar o mouse).
+- Saíram o interruptor Hover e a página “Sobre este ambiente”; as versões aparecem sob o nome do produto.
+- Links antigos (`?view=canvas&screen=agenda&fixture=week`) abrem a variação correspondente (`/agenda?scenario=agenda.week`). Links com dados personalizados (`data=`) abrem a variação padrão.
 
 ## Telas, componentes e variações
 
-A lateral esquerda tem duas abas, **Telas** e **Componentes**, com busca no catálogo ativo. Fluxos ainda não têm catálogo próprio. Revisão/handoff fica no topo.
+A lateral esquerda tem **Telas** e **Componentes**. Cada tela é uma rota; suas variações são os cenários `<tela>.<fixture>` de `variationIds`, com o comportamento esperado de `scenarioExpected`. Não há fluxos: o catálogo são telas e componentes.
 
-O painel direito abre em **Variações** e filtra as fixtures pelo item selecionado. **Informações** e **Comentários** são secundários. O JSON fica recolhido em **Editar dados**; salvar/carregar é separado por tela/componente. Links personalizados anteriores continuam aceitos com valores padrão para os campos novos.
-
-Os controles da Home, Feed e Agenda são independentes por componente, definidos em `componentGroupsFor` e compartilhados com as amostras isoladas. Há 8 telas e 12 entradas de componentes/composições. Cabeçalho: foto e nome; Feed: estado e 1–3 posts; Post: imagem/capa de vídeo, avatar e descrição; Atendimentos: estado, 1–3 itens, profissional/supervisor e status. Os outros componentes mantêm seus estados contextuais. `variationIds` e `fixtures` fornecem os casos de teste e a compatibilidade de links. “Referência da gravação” deixou de ser um estado; links antigos com `fixture=reference` migram para `default`.
+Em **Variações**, os controles por componente vêm de `componentGroupsFor`. Cada variação fixa os valores dos controles que a sua fixture implica; alterar um controle mantém a variação, mas tira o destaque dela. O seletor de estado de rede do pacote também vale: Carregando e Lento mostram o carregamento, Erro mostra o erro e Vazio esvazia as seções. **Informações** mostra descrição, comportamento esperado, valores dos controles e os componentes usados pela tela.
 
 `pnpm run check` gera a matriz de fixtures e a exercita no Flutter. Home, Feed e Agenda incluem a variação “Feed e atendimentos preenchidos”, com registros fictícios e cards originais CCardFeed e CTileScheduleParent. A Home também oferece somente feed e somente atendimentos. As duas sessões são em 23/09/2026, às 14h e 15h; outros dias da Agenda ficam vazios. A mídia do feed é uma ilustração de marca local, sem fotografia clínica. Compartilhar, abrir mídia e detalhes exibem avisos locais. Evolutivo mantém a amostra vazia.
 
-Os avatares com foto usam os três retratos fornecidos pelo usuário: `avatar_mother.jpg` (mãe), `avatar_lucas.jpg` (Lucas) e `avatar_ana_lima.jpg` (Ana Lima), em `flutter_preview/assets/images`. Paula Costa e Bia Luz mantêm as iniciais. O card original `CCardFeed` exige imagem ou vídeo; não foi criado um estado sem mídia. A opção de vídeo demonstra a capa e o botão original, sem reprodução remota. `postText` escolhe amostras para o campo original `description`, sem truncamento artificial. Os controles de post/atendimento afetam todas as instâncias da amostra. Alterar um controle preserva os outros e a configuração é compartilhada na URL, inclusive ao alternar Telas/Componentes.
+Os avatares com foto usam os três retratos fornecidos pelo usuário: `avatar_mother.jpg` (mãe), `avatar_lucas.jpg` (Lucas) e `avatar_ana_lima.jpg` (Ana Lima), em `flutter_preview/assets/images`. Paula Costa e Bia Luz mantêm as iniciais. O card original `CCardFeed` exige imagem ou vídeo; não foi criado um estado sem mídia. A opção de vídeo demonstra a capa e o botão original, sem reprodução remota. `postText` escolhe amostras para o campo original `description`, sem truncamento artificial. Os controles de post/atendimento afetam todas as instâncias da amostra. Alterar um controle preserva os outros, e a configuração vai na URL.
 
-Alterações de fixtures são enviadas ao Flutter por uma ponte local com validação de origem e janela, sem recarregar o iframe. O estado e a rolagem são preservados (limitados ao tamanho do conteúdo). Navegação pelo catálogo, moldura e reinício explícito continuam podendo recarregar a prévia.
+Alterações de controles são enviadas ao Flutter por `postMessage`, com validação de origem e janela, sem recarregar o iframe. O estado e a rolagem são preservados (limitados ao tamanho do conteúdo). Trocar de tela, de componente ou entre Celular e os outros tamanhos recarrega a prévia. A navegação feita dentro do app (barra inferior) leva o chrome para a tela correspondente; telas que só existem no Flutter (termos, senha, contratos) ficam no quadro atual.
 
 ### Uso dos componentes
 
-`pnpm run check` gera `src/component-usage.generated.json` a partir dos widgets montados pelos testes das telas e suas fixtures. O painel Informações usa esse índice para criar links às telas. Não edite o JSON manualmente. Novas telas e estados precisam fazer parte do catálogo de fixtures para serem incluídos; widgets de fluxos ainda não cobertos pelos testes não entram no índice. As seções compostas são identificadas pelas suas `ValueKey`s.
+`pnpm run check` gera `src/component-usage.generated.json` a partir dos widgets montados pelos testes das telas e suas fixtures. O design-space usa esse índice para “Componentes usados” de cada tela e “Usado em” de cada componente. Não edite o JSON manualmente. Novas telas e estados precisam fazer parte do catálogo de fixtures para serem incluídos; widgets de fluxos ainda não cobertos pelos testes não entram no índice. As seções compostas são identificadas pelas suas `ValueKey`s.
 
 ### Aceite de termos
 
