@@ -8,6 +8,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Actions": [
@@ -19,6 +20,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "AgreementsPreview": [
@@ -43,6 +45,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "AnimatedDefaultTextStyle": [
@@ -54,6 +57,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "AnimatedOpacity": [
@@ -70,6 +74,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "AnimatedTheme": [
@@ -81,6 +86,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "AnnotatedRegion<SystemUiOverlayStyle>": [
@@ -92,6 +98,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "AppointmentsSection": [
@@ -121,6 +128,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Builder": [
@@ -132,6 +140,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "CAppBarEmpty": [
@@ -141,6 +150,7 @@
     "feed",
     "login",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "CAppBarTitle": [
@@ -164,7 +174,8 @@
     "settings"
   ],
   "CBottomBarButton": [
-    "login"
+    "login",
+    "password-recovery"
   ],
   "CBottomBarButtons": [
     "agreements"
@@ -195,6 +206,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "CButton2": [
@@ -205,6 +217,7 @@
     "feed",
     "login",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "CCalendarDay": [
@@ -247,6 +260,7 @@
     "agreements",
     "contents",
     "home",
+    "password-recovery",
     "settings"
   ],
   "CDropdown<String>": [
@@ -257,6 +271,7 @@
     "contents",
     "home",
     "metrics",
+    "password-recovery",
     "settings"
   ],
   "CIcon": [
@@ -268,6 +283,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "CListInfinite": [
@@ -296,6 +312,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "CSwitch": [
@@ -306,6 +323,7 @@
     "feed",
     "login",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "CTextField": [
@@ -342,6 +360,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "CircularProgressIndicator": [
@@ -369,6 +388,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "ColoredBox": [
@@ -380,6 +400,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Column": [
@@ -391,6 +412,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "CompositedTransformTarget": [
@@ -408,6 +430,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Container": [
@@ -419,6 +442,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "CupertinoTheme": [
@@ -430,6 +454,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "CustomMultiChildLayout": [
@@ -441,6 +466,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "CustomPaint": [
@@ -452,6 +478,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "CustomScrollView": [
@@ -466,6 +493,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "DefaultSelectionStyle": [
@@ -477,6 +505,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "DefaultTextEditingShortcuts": [
@@ -488,6 +517,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "DefaultTextStyle": [
@@ -499,6 +529,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "DesignSystemBuilder": [
@@ -510,6 +541,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Directionality": [
@@ -521,6 +553,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Divider": [
@@ -528,6 +561,7 @@
     "agreements",
     "contents",
     "home",
+    "password-recovery",
     "settings"
   ],
   "DrawerController": [
@@ -547,6 +581,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "EditableText": [
@@ -563,6 +598,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Expanded": [
@@ -574,6 +610,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "FaIcon": [
@@ -585,6 +622,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "FadeTransition": [
@@ -596,6 +634,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "FeedSection": [
@@ -617,6 +656,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Focus": [
@@ -628,6 +668,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "FocusScope": [
@@ -639,6 +680,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "FocusTraversalGroup": [
@@ -650,6 +692,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "FractionalTranslation": [
@@ -661,6 +704,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "GestureDetector": [
@@ -672,6 +716,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "GestureWrapper": [
@@ -686,6 +731,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Icon": [
@@ -705,6 +751,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "IgnorePointer": [
@@ -716,6 +763,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Image": [
@@ -740,6 +788,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "InkWell": [
@@ -751,6 +800,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "InputDecorator": [
@@ -770,6 +820,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "LayoutBuilder": [
@@ -785,6 +836,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "LimitedBox": [
@@ -796,6 +848,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "ListTileTheme": [
@@ -815,6 +868,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Listener": [
@@ -826,6 +880,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Localizations": [
@@ -837,6 +892,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Material": [
@@ -848,6 +904,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "MaterialApp": [
@@ -859,6 +916,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "MediaQuery": [
@@ -870,6 +928,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "MergeSemantics": [
@@ -884,6 +943,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "MouseRegion": [
@@ -895,6 +955,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Navigator": [
@@ -906,6 +967,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "NotificationListener<KeepAliveNotification>": [
@@ -920,6 +982,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "NotificationListener<NavigationNotification>": [
@@ -931,6 +994,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "NotificationListener<Notification>": [
@@ -945,6 +1009,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "NotificationListener<ScrollNotification>": [
@@ -956,6 +1021,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Offstage": [
@@ -967,12 +1033,14 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Opacity": [
     "contents",
     "feed",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Overlay": [
@@ -984,6 +1052,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Padding": [
@@ -995,6 +1064,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "PageStorage": [
@@ -1006,6 +1076,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "PageView": [
@@ -1020,6 +1091,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "PhysicalShape": [
@@ -1031,12 +1103,14 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "PopScope<void>": [
     "feed",
     "login",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Positioned": [
@@ -1048,6 +1122,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Preview": [
@@ -1059,6 +1134,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "PreviewApp": [
@@ -1070,6 +1146,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "PrimaryScrollController": [
@@ -1081,6 +1158,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "RawGestureDetector": [
@@ -1092,6 +1170,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "RawImage": [
@@ -1113,6 +1192,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "RepaintBoundary": [
@@ -1124,6 +1204,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "RestorationScope": [
@@ -1135,6 +1216,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "RichText": [
@@ -1146,6 +1228,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "RootRestorationScope": [
@@ -1157,6 +1240,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "RotatedBox": [
@@ -1171,6 +1255,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Row": [
@@ -1182,6 +1267,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Scaffold": [
@@ -1193,6 +1279,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "ScaffoldMessenger": [
@@ -1204,6 +1291,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "ScaleTransition": [
@@ -1215,6 +1303,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "ScrollConfiguration": [
@@ -1226,6 +1315,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "ScrollNotificationObserver": [
@@ -1237,6 +1327,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Scrollable": [
@@ -1248,6 +1339,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Semantics": [
@@ -1259,6 +1351,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "SharedAppData": [
@@ -1270,6 +1363,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "ShortcutRegistrar": [
@@ -1281,6 +1375,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Shortcuts": [
@@ -1292,6 +1387,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "SideTitlesFlex": [
@@ -1309,6 +1405,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "SizeChangedLayoutNotifier": [
@@ -1325,6 +1422,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "SlideTransition": [
@@ -1336,6 +1434,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "SliverFillViewport": [
@@ -1345,6 +1444,7 @@
     "feed",
     "home",
     "login",
+    "password-recovery",
     "settings"
   ],
   "Stack": [
@@ -1356,6 +1456,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "StretchEffect": [
@@ -1367,6 +1468,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "StretchingOverscrollIndicator": [
@@ -1378,6 +1480,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "SvgPicture": [
@@ -1395,6 +1498,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Text": [
@@ -1406,6 +1510,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "TextField": [
@@ -1432,6 +1537,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "TickerMode": [
@@ -1443,6 +1549,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Title": [
@@ -1454,6 +1561,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Transform": [
@@ -1465,6 +1573,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "UndoHistory<TextEditingValue>": [
@@ -1481,6 +1590,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "ValueListenableBuilder<bool>": [
@@ -1492,6 +1602,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "VectorGraphic": [
@@ -1506,6 +1617,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Viewport": [
@@ -1521,6 +1633,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "Wrap": [
@@ -1536,6 +1649,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_BodyBuilder": [
@@ -1547,6 +1661,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_BorderContainer": [
@@ -1573,6 +1688,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_DesignSystemProvider": [
@@ -1584,6 +1700,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_Editable": [
@@ -1600,6 +1717,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_FadeForwardsPageTransition": [
@@ -1611,6 +1729,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_FloatingActionButtonTransition": [
@@ -1622,6 +1741,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_FocusInheritedScope": [
@@ -1633,6 +1753,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_FocusScopeWithExternalFocusNode": [
@@ -1644,6 +1765,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_GestureSemantics": [
@@ -1655,6 +1777,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_HelperError": [
@@ -1671,6 +1794,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_InkFeatures": [
@@ -1682,6 +1806,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_InkResponseStateWidget": [
@@ -1693,6 +1818,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_LocalizationsScope": [
@@ -1704,6 +1830,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_MaterialInterior": [
@@ -1715,6 +1842,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_MediaQueryFromView": [
@@ -1726,6 +1854,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_ModalBarrierGestureDetector": [
@@ -1737,6 +1866,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_ModalScope<dynamic>": [
@@ -1748,6 +1878,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_ModalScopeStatus": [
@@ -1759,6 +1890,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_OverlayEntryWidget": [
@@ -1770,6 +1902,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_PageTransitionsThemeTransitions<dynamic>": [
@@ -1781,6 +1914,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_ParentInkResponseProvider": [
@@ -1792,6 +1926,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_PipelineOwnerScope": [
@@ -1803,6 +1938,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_PredictiveBackGestureDetector": [
@@ -1814,6 +1950,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_ProfileOutline": [
@@ -1831,6 +1968,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_RenderTheaterMarker": [
@@ -1842,6 +1980,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_ScaffoldMessengerScope": [
@@ -1853,6 +1992,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_ScaffoldScope": [
@@ -1864,6 +2004,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_ScribbleFocusable": [
@@ -1880,6 +2021,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_ScrollSemantics": [
@@ -1891,6 +2033,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_ScrollableScope": [
@@ -1902,6 +2045,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_SelectionKeepAlive": [
@@ -1916,6 +2060,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_SharedAppModel": [
@@ -1927,6 +2072,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_ShortcutRegistrarScope": [
@@ -1938,6 +2084,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_SingleChildViewport": [
@@ -1949,6 +2096,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_SliverFillViewportRenderObjectWidget": [
@@ -1966,6 +2114,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ],
   "_ViewScope": [
@@ -1977,6 +2126,7 @@
     "login",
     "metrics",
     "notifications",
+    "password-recovery",
     "settings"
   ]
 }

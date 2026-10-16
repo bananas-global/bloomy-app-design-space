@@ -29,7 +29,7 @@ Composição editável em `flutter_preview/lib/main.dart`. O cartão de conteúd
 
 A paridade foi conferida visualmente; não é certificação pixel a pixel. Há diferenças de rasterização web/iOS, avatares, barra de sistema simulada, teclado nativo, versão do pacote e dados. O menu de seleção de paciente é uma demonstração simplificada. O calendário pode identificar o dia real do sistema além da seleção inicial fixa.
 
-Não há backend, envio de arquivo, autenticação, alteração real de senha, permissão do sistema ou conteúdo clínico. Documentos legais e vídeo são recipientes explícitos, não cópias completas. Sobre é uma identificação simples. Atendimentos preenchidos usam amostras sintéticas e o card original; não foram certificados contra gravações. Devolutivas e estados ausentes dos vídeos seguem fora da validação de paridade. Feed, Notificações e redefinição de senha foram confrontados com o código, não certificados contra vídeo.
+Não há backend, envio de arquivo, autenticação, alteração real de senha, permissão do sistema ou conteúdo clínico. Documentos legais e vídeo são recipientes explícitos, não cópias completas. Sobre é uma identificação simples. Atendimentos preenchidos usam amostras sintéticas e o card original; não foram certificados contra gravações. Devolutivas e estados ausentes dos vídeos seguem fora da validação de paridade. Feed, Notificações, redefinição de senha e Envio de link foram confrontados com o código, não certificados contra vídeo.
 
 ## Entrega
 
@@ -88,3 +88,16 @@ A composição usa CTileAgreement, CBottomBarButtons, CAppBarTitle e CSignature 
 Títulos e textos legais são sintéticos: o app recebe documentos do backend. A leitura usa texto local com tipografia da tela original em vez do renderizador HTML remoto. A assinatura mantém o painel girado e os componentes originais. Adaptação em `flutter_preview/lib/agreements_preview.dart` e `local_signature.dart`, montada em `main.dart`.
 
 Não foi encontrada tela de cadastro livre no app. Login informa que o responsável precisa estar previamente cadastrado na clínica. Quando não há senha cadastrada, encaminha para PasswordRecoveryScreen (Envio de Link / Definir Senha); a criação da senha acontece pelo link enviado. Essa constatação não autoriza criar um formulário de cadastro inexistente.
+
+## Envio de link
+
+Tela `password-recovery` adicionada ao catálogo a partir de `modules/authentication/password_recovery_screen.dart` e `password_recovery_manager.dart` do app 1.11.3+94, commit `a61a468a3339d1f64c64cc5fbd02e0e786f8600f`. Esses arquivos estão iguais na 1.13.0+98 (commit `b88c23b`, conferido em 16/10/2026). A tela não consta das gravações 1.10.3+89; é referência de código, sem certificação visual por vídeo.
+
+O app abre a tela por Esqueci minha senha ou quando o login retorna `need_change_password`. O canal inicial é o WhatsApp quando o telefone é válido; senão, o e-mail. Com os dois válidos, aparece o link Trocar para email/whatsapp. Depois de ENVIAR, o texto passa para “Enviamos” e aparece a orientação de suporte. A composição usa CScaffold, CAppBarRow, CButtonBack, CText, CIcon (`CIconPasswordRecoveryStyle`), CHeader, CBottomBarButton e `showCSnackBarMessage` reais, com os mesmos textos, cores, tipografia e identificadores. Os erros do envio (“O reset de senha já foi solicitado”, em amarelo, e os demais, em vermelho) não viraram variações.
+
+Diferenças da prévia:
+- O app chama `CHeader.title(CHeaderTitleData('Definir Senha'), CHeaderTitleStyle())`. Em `CHeader.build`, o ramo de `CHeaderTitleData` faz `data as CHeaderContentData` e lança `TypeError` (components_bloomy 6.39.0 e 6.41.2 conferidos; o app usa 6.40.1). Em release, o Flutter troca o widget por uma caixa cinza que, dentro da coluna, cobre o texto, os links e o aviso, e só o ícone e o botão ENVIAR ficam visíveis. A prévia usa `CHeader.content` com o mesmo estilo, que desenha o layout pretendido. Essa é a única chamada de `CHeader.title` no app. Correção sugerida na biblioteca: fazer o cast para `CHeaderTitleData`.
+- Telefone `(11) 98765-4321` e e-mail `responsavel@example.invalid` são sintéticos. Aparecem como `(11) *****-4321` e `re...@example.invalid`, pelas mesmas máscaras do app.
+- Tocar no contato mostra um aviso local em vez de abrir o WhatsApp ou o e-mail. ENVIAR não chama o backend.
+- O erro de digitação do app “(Redireciona para o whastapp)” foi mantido.
+- Os links de contato e de troca de canal são `GestureDetector` sem semântica de botão, como no app; leitores de tela não os anunciam como ações.

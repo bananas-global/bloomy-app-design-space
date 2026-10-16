@@ -42,6 +42,7 @@ class _PreviewAppState extends State<PreviewApp> {
     builder: (context, mode, light, dark, locale, delegates, locales) =>
         MaterialApp(
           navigatorKey: GlobalMessages.navigatorKey,
+          scaffoldMessengerKey: GlobalMessages.scaffoldMessengerKey,
           debugShowCheckedModeBanner: false,
           theme: light,
           darkTheme: dark,
@@ -88,6 +89,8 @@ class _PreviewState extends State<Preview> {
   final password = TextEditingController();
   DateTime day = DateTime(2026, 9, 23);
   late bool passwordStep = fixture.loginStep == 'password';
+  late bool recoveryByPhone = fixture.recoveryContacts != 'email';
+  late bool recoverySent = fixture.recoverySent;
   bool keep = true;
   late List<bool> permissions = fixture.permissions == 'on'
       ? [true, true, true]
@@ -127,6 +130,10 @@ class _PreviewState extends State<Preview> {
       if (next.searchText != fixture.searchText) search.text = next.searchText;
       if (next.loginStep != fixture.loginStep)
         passwordStep = next.loginStep == 'password';
+      if (next.recoveryContacts != fixture.recoveryContacts)
+        recoveryByPhone = next.recoveryContacts != 'email';
+      if (next.recoverySent != fixture.recoverySent)
+        recoverySent = next.recoverySent;
       if (next.permissions != fixture.permissions) {
         permissions = next.permissions == 'on'
             ? [true, true, true]
@@ -845,6 +852,7 @@ class _PreviewState extends State<Preview> {
   Widget build(BuildContext context) {
     if (page == 'agreements') return AgreementsPreview(initialState: fixture.agreementState, onComplete: () { go('home'); message('Assinatura demonstrativa concluída. Nenhum documento foi enviado.'); });
     if (page == 'login') return login();
+    if (page == 'password-recovery') return passwordRecovery();
     if (page == 'library') return library();
     if (page == 'password') return changePassword();
     if (page == 'settings')
@@ -1093,9 +1101,7 @@ class _PreviewState extends State<Preview> {
                       CButton(
                         CButtonData.label('Esqueci minha senha'),
                         const CButtonForgotPasswordStyle(),
-                        onTap: () => message(
-                          'Recuperação simulada. Nenhum e-mail será enviado.',
-                        ),
+                        onTap: () => go('password-recovery'),
                       ),
                     ],
                   ),
@@ -1128,6 +1134,162 @@ class _PreviewState extends State<Preview> {
       },
     ),
   );
+  /// PasswordRecoveryScreen of the app 1.11.3+94 (unchanged in 1.13.0+98).
+  /// Synthetic contacts; ENVIAR shows the app's notice and sends nothing.
+  Widget passwordRecovery() {
+    const phone = Phone.brazil('11987654321');
+    const email = Email('responsavel@example.invalid');
+    final hasBothData = fixture.recoveryContacts == 'both';
+    final isWhatsappShowed = recoveryByPhone;
+    final colors = context.theme<BloomyColors>();
+    TextStyle text({FontWeight weight = FontWeight.w400, bool link = false}) => TextStyle(
+      color: link ? colors?.primary.dark : colors?.text.main,
+      fontSize: 16,
+      fontFamily: TFontFamily.nunito,
+      fontWeight: link ? FontWeight.w700 : weight,
+      height: 1.50,
+      decoration: link ? TextDecoration.underline : null,
+      decorationColor: link ? colors?.primary.dark : null,
+    );
+    return CScaffold(
+      const CScaffoldData(isBodyUnderAppBar: false, isBodyUnderBottomBar: false, screenId: 'passwordRecoveryScreen'),
+      const CScaffoldParentStyle(),
+      appBarBuilder: (_) => CAppBarRow(
+        const CAppBarRowData(showDivider: false),
+        const CAppBarRowParentBackStyle(),
+        leftContent: CButtonBack<void>(
+          CButtonBackData(id: 'buttonBack'),
+          const CButtonBackDefaultStyle(),
+          onTap: () => go('login'),
+        ),
+        centerContent: const CText(CTextData('Envio de Link'), CTextParentDetailsStyle()),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            width: 393,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+            decoration: BoxDecoration(color: colors?.accent.main.withValues(alpha: 0.05)),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 10,
+              children: [
+                Container(
+                  width: 120,
+                  height: 120,
+                  decoration: ShapeDecoration(
+                    color: colors?.accent.op10,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 10,
+                    children: [
+                      CIcon(isWhatsappShowed ? UIcons.whatsapp : UIcons.email, const CIconPasswordRecoveryStyle()),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // The app calls CHeader.title, whose build casts CHeaderTitleData to
+          // CHeaderContentData and throws (components_bloomy 6.39.0–6.41.2). In
+          // release builds the error box hides the rest of the body. The content
+          // branch draws the same padded text with the same style.
+          const CHeader.content(CHeaderContentData('Definir Senha'), CHeaderTitleStyle()),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: recoverySent ? 'Enviamos uma mensagem para o seu ' : 'Enviaremos uma mensagem para o seu ',
+                    style: text(),
+                  ),
+                  TextSpan(text: isWhatsappShowed ? 'Número whatsapp' : 'Email', style: text(weight: FontWeight.w700)),
+                  TextSpan(text: ':', style: text()),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Semantics(
+            identifier: isWhatsappShowed ? 'buttonPhone' : 'buttonEmail',
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: GestureDetector(
+                onTap: () => message(
+                  isWhatsappShowed
+                      ? 'No app, abre o WhatsApp. Nada é aberto nesta prévia.'
+                      : 'No app, abre o e-mail. Nada é aberto nesta prévia.',
+                ),
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: isWhatsappShowed
+                            ? phone.toStringFormatted(Format.withMaskedPostfix)
+                            : email.toStringMasked(EmailMaskFormat.option6, obscureCharacter: '.'),
+                        style: text(link: true),
+                      ),
+                      // The app's typo "whastapp" is kept on purpose.
+                      TextSpan(
+                        text: isWhatsappShowed ? ' (Redireciona para o whastapp)' : ' (Abre o email)',
+                        style: text(),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          const CText(
+            CTextData('Basta seguir as instruções no link para criar a sua senha de acesso.'),
+            CTextSimpleStyle(customMargin: EdgeInsets.symmetric(horizontal: 24)),
+          ),
+          const Spacer(),
+          if (hasBothData)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              child: Semantics(
+                identifier: 'buttonChange',
+                child: GestureDetector(
+                  onTap: () => setState(() => recoveryByPhone = !recoveryByPhone),
+                  child: Text(
+                    isWhatsappShowed ? 'Trocar para email' : 'Trocar para whatsapp',
+                    style: text(link: true),
+                  ),
+                ),
+              ),
+            ),
+          if (recoverySent)
+            const CText(
+              CTextData('Se você não recebeu a mensagem ou não reconhece o número mencionado, entre em contato com o nosso suporte.'),
+              CTextSimpleStyle(customMargin: EdgeInsets.symmetric(horizontal: 24, vertical: 12)),
+            ),
+        ],
+      ),
+      bottomBarBuilder: (_) => CBottomBarButton(
+        CBottomBarButtonData(buttonData: CButtonData.label('ENVIAR', id: 'buttonSend')),
+        const CBottomBarButtonDefaultStyle(),
+        onTap: () async {
+          setState(() => recoverySent = true);
+          await showCSnackBarMessage(
+            CSnackBarMessageData(
+              isWhatsappShowed ? 'Troca de senha enviada para o Whatsapp' : 'Troca de senha enviada para o email',
+              id: 'snackBarMessage',
+            ),
+            const CSnackBarMessageSuccessStyle(),
+          );
+        },
+      ),
+    );
+  }
+
   Widget library() {
     final component =
         widget.component ?? Uri.base.queryParameters['component'] ?? 'CButton';

@@ -35,7 +35,7 @@ O build mantém todas as fontes de ícones. Tree shaking removeu glifos usados p
 
 ## Recorte
 
-Início, Agenda, Conteúdos, Evolutivo, Configurações, Login, menu e biblioteca. Feed, Notificações e redefinição de senha têm composição baseada no código original, mas não foram mostrados integralmente nas gravações. Textos legais completos e reprodução de vídeo continuam fora do recorte.
+Início, Agenda, Conteúdos, Evolutivo, Configurações, Login, Envio de link, menu e biblioteca. Feed, Notificações e redefinição de senha têm composição baseada no código original, mas não foram mostrados integralmente nas gravações. Textos legais completos e reprodução de vídeo continuam fora do recorte.
 
 A prévia não acessa backend clínico. Nomes e avatares são sintéticos. Login, permissões e troca de foto demonstram estados locais. Veja `HANDOFF.md` e `docs/VALIDATION.md` para evidências, oito rodadas e diferenças conhecidas.
 
@@ -74,3 +74,9 @@ Alterações de controles são enviadas ao Flutter por `postMessage`, com valida
 ### Aceite de termos
 
 Em **Telas → Aceite de termos**, abra cada documento, toque em ACEITAR e depois em ASSINAR DOCUMENTOS. O painel Variações permite iniciar sem aceites, com um aceite ou com todos. A assinatura pode ser desenhada e refeita, mas é descartada; não há envio nem aceite jurídico real. Fonte: app 1.11.3+94 (não mostrado nas gravações 1.10.3+89). Textos legais demonstrativos. O app não possui cadastro livre: exige cadastro prévio na clínica e envia link para definição de senha no primeiro acesso.
+
+### Envio de link
+
+Em **Telas → Envio de link** está a tela que envia o link para criar ou redefinir a senha. No Login, Esqueci minha senha (etapa de senha) também abre essa tela. As variações cobrem somente WhatsApp, somente e-mail, os dois contatos e o estado após o envio, e os controles combinam contatos e envio. Com os dois contatos, o link do rodapé alterna o canal. ENVIAR mostra o aviso verde do app e passa para o estado após o envio, sem enviar nada. Telefone e e-mail são sintéticos e mascarados pelas mesmas regras do app. Fonte: app 1.11.3+94, sem mudanças até a 1.13.0+98, não mostrada nas gravações 1.10.3+89.
+
+No app, o título Definir Senha usa `CHeader.title`, que lança erro em components_bloomy 6.39.0 a 6.41.2. Em build de release, o erro vira uma caixa cinza que cobre o conteúdo abaixo do ícone. A prévia mostra o layout pretendido (detalhes em `HANDOFF.md`).
