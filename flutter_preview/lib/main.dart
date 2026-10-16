@@ -1134,8 +1134,9 @@ class _PreviewState extends State<Preview> {
       },
     ),
   );
-  /// PasswordRecoveryScreen of the app 1.11.3+94 (unchanged in 1.13.0+98).
-  /// Synthetic contacts; ENVIAR shows the app's notice and sends nothing.
+  /// Redesign of PasswordRecoveryScreen from the app 1.11.3+94 (unchanged in
+  /// 1.13.0+98); commit 8e84c0b reproduces the original. Synthetic contacts;
+  /// ENVIAR shows the app's notice and sends nothing.
   Widget passwordRecovery() {
     const phone = Phone.brazil('11987654321');
     const email = Email('responsavel@example.invalid');
@@ -1170,7 +1171,6 @@ class _PreviewState extends State<Preview> {
           Container(
             width: 393,
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
-            decoration: BoxDecoration(color: colors?.accent.main.withValues(alpha: 0.05)),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -1180,7 +1180,7 @@ class _PreviewState extends State<Preview> {
                   width: 120,
                   height: 120,
                   decoration: ShapeDecoration(
-                    color: colors?.accent.op10,
+                    color: isWhatsappShowed ? _whatsAppGreen.withValues(alpha: 0.10) : colors?.accent.op10,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
                   ),
                   child: Row(
@@ -1188,7 +1188,9 @@ class _PreviewState extends State<Preview> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     spacing: 10,
                     children: [
-                      CIcon(isWhatsappShowed ? UIcons.whatsapp : UIcons.email, const CIconPasswordRecoveryStyle()),
+                      isWhatsappShowed
+                          ? CIcon(UIcons.whatsapp, const _WhatsAppIconStyle())
+                          : CIcon(UIcons.email, const CIconPasswordRecoveryStyle()),
                     ],
                   ),
                 ),
@@ -1226,22 +1228,11 @@ class _PreviewState extends State<Preview> {
                       ? 'No app, abre o WhatsApp. Nada é aberto nesta prévia.'
                       : 'No app, abre o e-mail. Nada é aberto nesta prévia.',
                 ),
-                child: Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: isWhatsappShowed
-                            ? phone.toStringFormatted(Format.withMaskedPostfix)
-                            : email.toStringMasked(EmailMaskFormat.option6, obscureCharacter: '.'),
-                        style: text(link: true),
-                      ),
-                      // The app's typo "whastapp" is kept on purpose.
-                      TextSpan(
-                        text: isWhatsappShowed ? ' (Redireciona para o whastapp)' : ' (Abre o email)',
-                        style: text(),
-                      ),
-                    ],
-                  ),
+                child: Text(
+                  isWhatsappShowed
+                      ? phone.toStringFormatted(Format.withMaskedPostfix)
+                      : email.toStringMasked(EmailMaskFormat.option6, obscureCharacter: '.'),
+                  style: text(link: true),
                 ),
               ),
             ),
@@ -1395,4 +1386,14 @@ class _PreviewState extends State<Preview> {
       ],
     );
   }
+}
+
+/// WhatsApp brand green. components_bloomy has no token for it.
+const _whatsAppGreen = Color(0xFF25D366);
+
+class _WhatsAppIconStyle extends CIconPasswordRecoveryStyle {
+  const _WhatsAppIconStyle();
+
+  @override
+  Color? backgroundColor(BuildContext context) => _whatsAppGreen;
 }

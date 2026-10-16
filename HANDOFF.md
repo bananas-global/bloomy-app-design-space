@@ -99,5 +99,12 @@ Diferenças da prévia:
 - O app chama `CHeader.title(CHeaderTitleData('Definir Senha'), CHeaderTitleStyle())`. Em `CHeader.build`, o ramo de `CHeaderTitleData` faz `data as CHeaderContentData` e lança `TypeError` (components_bloomy 6.39.0 e 6.41.2 conferidos; o app usa 6.40.1). Em release, o Flutter troca o widget por uma caixa cinza que, dentro da coluna, cobre o texto, os links e o aviso, e só o ícone e o botão ENVIAR ficam visíveis. A prévia usa `CHeader.content` com o mesmo estilo, que desenha o layout pretendido. Essa é a única chamada de `CHeader.title` no app. Correção sugerida na biblioteca: fazer o cast para `CHeaderTitleData`.
 - Telefone `(11) 98765-4321` e e-mail `responsavel@example.invalid` são sintéticos. Aparecem como `(11) *****-4321` e `re...@example.invalid`, pelas mesmas máscaras do app.
 - Tocar no contato mostra um aviso local em vez de abrir o WhatsApp ou o e-mail. ENVIAR não chama o backend.
-- O erro de digitação do app “(Redireciona para o whastapp)” foi mantido.
+- O erro de digitação do app “(Redireciona para o whastapp)” foi mantido na reprodução fiel (commit `8e84c0b`); o redesign retirou o texto.
 - Os links de contato e de troca de canal são `GestureDetector` sem semântica de botão, como no app; leitores de tela não os anunciam como ações.
+
+### Redesign
+
+A tela do catálogo mostra a proposta; a reprodução fiel do app está no commit `8e84c0b`. Ajustes pedidos em 16/10/2026:
+- O bloco do ícone perdeu a faixa de fundo (`accent.main` a 5%) e fica sobre o fundo da tela. Só o círculo continua.
+- No WhatsApp, o ícone e o círculo usam o verde da marca, `#25D366`, no ícone e a 10% no círculo. A biblioteca não tem esse token (o `success` é `#87C619`); o estilo local `_WhatsAppIconStyle` estende `CIconPasswordRecoveryStyle` e só troca a cor. O e-mail mantém o roxo original.
+- O contato perdeu o texto entre parênteses, “(Redireciona para o whastapp)” e “(Abre o email)”, que quebrava linha e repetia o canal.

@@ -79,4 +79,6 @@ Em **Telas → Aceite de termos**, abra cada documento, toque em ACEITAR e depoi
 
 Em **Telas → Envio de link** está a tela que envia o link para criar ou redefinir a senha. No Login, Esqueci minha senha (etapa de senha) também abre essa tela. As variações cobrem somente WhatsApp, somente e-mail, os dois contatos e o estado após o envio, e os controles combinam contatos e envio. Com os dois contatos, o link do rodapé alterna o canal. ENVIAR mostra o aviso verde do app e passa para o estado após o envio, sem enviar nada. Telefone e e-mail são sintéticos e mascarados pelas mesmas regras do app. Fonte: app 1.11.3+94, sem mudanças até a 1.13.0+98, não mostrada nas gravações 1.10.3+89.
 
+A tela mostra a proposta de redesign (detalhes em `HANDOFF.md`). A reprodução fiel do app está no commit `8e84c0b`.
+
 No app, o título Definir Senha usa `CHeader.title`, que lança erro em components_bloomy 6.39.0 a 6.41.2. Em build de release, o erro vira uma caixa cinza que cobre o conteúdo abaixo do ícone. A prévia mostra o layout pretendido (detalhes em `HANDOFF.md`).

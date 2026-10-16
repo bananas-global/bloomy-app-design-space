@@ -317,6 +317,10 @@ void main() {
         expect(find.text(contacts == 'email' ? 'Trocar para whatsapp' : 'Trocar para email'), contacts == 'both' ? findsOneWidget : findsNothing);
         expect(find.textContaining(sent ? 'Enviamos uma mensagem' : 'Enviaremos uma mensagem', findRichText: true), findsOneWidget);
         expect(find.textContaining('entre em contato com o nosso suporte'), sent ? findsOneWidget : findsNothing);
+        expect(find.textContaining(RegExp(r'\((Redireciona|Abre o email)'), findRichText: true), findsNothing);
+        final recoveryIcon = find.byWidgetPredicate((w) => w is CIcon && w.style is CIconPasswordRecoveryStyle);
+        final iconColor = tester.widget<CIcon>(recoveryIcon).style.backgroundColor(tester.element(recoveryIcon));
+        expect(iconColor, contacts == 'email' ? isNot(const Color(0xFF25D366)) : const Color(0xFF25D366));
       }
       if (id == 'field-error')
         expect(find.text('Revise o termo informado.'), findsOneWidget);
