@@ -1,7 +1,7 @@
 import 'package:components_bloomy/components_bloomy.dart';
 import 'package:flutter_extension/flutter_extension.dart';
 
-/// Ícones utilizados no app, concentrando as chamadas nesta classe para facilitar manutenção
+/// Ícones utilizados no app, concentrando as chamadas nesta classe para facilitar manutenção.
 ///
 extension UIconsExtension on UIcons {
   static Icone get error => const Icone(Icons.error_outline);
