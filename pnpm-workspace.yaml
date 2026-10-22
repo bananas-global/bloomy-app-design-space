@@ -6,3 +6,9 @@ onlyBuiltDependencies:
   - esbuild
 allowBuilds:
   esbuild: true
+
+# O pnpm 11+ recusa pacote publicado há menos de um dia (minimumReleaseAge). O
+# motor é da própria organização e cada versão costuma ser consumida no dia em
+# que sai, então cada versão nova entra aqui.
+minimumReleaseAgeExclude:
+  - '@brucesantos/design-space@0.14.0'
