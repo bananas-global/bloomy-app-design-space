@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:js_interop';
+
 import 'package:web/web.dart' as web;
 
 void notifyScreen(String screen) {
@@ -11,15 +12,12 @@ void notifyScreen(String screen) {
 
 void Function() listenFixtures(void Function(String) onFixture) {
   final listener = ((web.MessageEvent event) {
-    if (event.origin != web.window.location.origin ||
-        event.source != web.window.parent ||
-        event.data == null)
+    if (event.origin != web.window.location.origin || event.source != web.window.parent || event.data == null) {
       return;
+    }
     try {
-      final data = jsonDecode((event.data as JSString).toDart);
-      if (data is Map &&
-          data['type'] == 'bloomy-fixture' &&
-          data['data'] is Map) {
+      final data = jsonDecode((event.data! as JSString).toDart);
+      if (data is Map && data['type'] == 'bloomy-fixture' && data['data'] is Map) {
         onFixture(jsonEncode(data['data']));
       }
     } catch (_) {}

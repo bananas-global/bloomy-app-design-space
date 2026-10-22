@@ -1,31 +1,24 @@
 import 'dart:convert';
 import 'dart:io';
-import 'image_client.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/material.dart';
+
+import 'package:bloomy_design_preview/avatar_updater_candidate.dart';
 import 'package:bloomy_design_preview/main.dart';
 import 'package:bloomy_design_preview/preview_fixture.dart';
 import 'package:components_bloomy/components_bloomy.dart' hide CAvatarUpdater;
-import 'package:bloomy_design_preview/avatar_updater_candidate.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-Future<void> open(
-  WidgetTester tester,
-  String page, {
-  PreviewFixture? fixture,
-  String? component,
-}) async {
+import 'image_client.dart';
+
+Future<void> open(WidgetTester tester, String page, {PreviewFixture? fixture, String? component}) async {
   tester.view.physicalSize = const Size(402, 874);
   tester.view.devicePixelRatio = 1;
   addTearDown(tester.view.resetPhysicalSize);
   addTearDown(tester.view.resetDevicePixelRatio);
-  debugNetworkImageHttpClientProvider = () => FixtureImageClient();
-  await tester.pumpWidget(
-    PreviewApp(initialScreen: page, fixture: fixture, component: component),
-  );
-  if (fixture?.state == 'loading' ||
-      fixture?.resolvedFeedState == 'loading' ||
-      fixture?.resolvedScheduleState == 'loading') {
+  debugNetworkImageHttpClientProvider = FixtureImageClient.new;
+  await tester.pumpWidget(PreviewApp(initialScreen: page, fixture: fixture, component: component));
+  if (fixture?.state == 'loading' || fixture?.resolvedFeedState == 'loading' || fixture?.resolvedScheduleState == 'loading') {
     await tester.pump(const Duration(milliseconds: 500));
   } else {
     await tester.pumpAndSettle();
@@ -34,6 +27,9 @@ Future<void> open(
 }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  final componentUsage = <String, Set<String>>{};
+
   testWidgets('agreements require each acceptance and signature can be cleared', (tester) async {
     await open(tester, 'agreements');
     CBottomBarButtonsOnlyData footer() => tester.widget<CBottomBarButtons>(find.byType(CBottomBarButtons).last).data as CBottomBarButtonsOnlyData;
@@ -60,14 +56,27 @@ void main() {
   });
 
   testWidgets('profile avatars use each person name as initials fallback', (tester) async {
-    await open(tester, 'settings', fixture: const PreviewFixture(settingsGuardianPhoto: false, settingsPatientPhoto: false, legalGuardianName: 'Mariana Santos', patientName: 'Lucas Santos'));
+    await open(
+      tester,
+      'settings',
+      fixture: const PreviewFixture(
+        settingsGuardianPhoto: false,
+        settingsPatientPhoto: false,
+        legalGuardianName: 'Mariana Santos',
+        patientName: 'Lucas Santos',
+      ),
+    );
     final avatars = tester.widgetList<CAvatar>(find.descendant(of: find.byType(CAvatarUpdater), matching: find.byType(CAvatar))).toList();
     expect(avatars.map((avatar) => avatar.data.defaultAbbreviationName), containsAll(['MS', 'LS']));
     expect(avatars.every((avatar) => avatar.data.defaultPriority == DefaultPriority.abbreviation), isTrue);
   });
 
   testWidgets('profile row aligns portraits and editing follows the selected person', (tester) async {
-    await open(tester, 'settings', fixture: const PreviewFixture(settingsProfileCount: '4', legalGuardianName: 'Mariana Santos', patientName: 'Lucas Santos'));
+    await open(
+      tester,
+      'settings',
+      fixture: const PreviewFixture(settingsProfileCount: '4', legalGuardianName: 'Mariana Santos', patientName: 'Lucas Santos'),
+    );
     final avatars = find.descendant(of: find.byType(CAvatarUpdater), matching: find.byType(CAvatar));
     expect(avatars, findsNWidgets(4));
     final rects = List.generate(4, (i) => tester.getRect(avatars.at(i)));
@@ -91,7 +100,8 @@ void main() {
     expect(find.text('SELECIONE'), findsOneWidget);
     expect(find.text('GALERIA'), findsOneWidget);
     expect(find.text('CAMERA'), findsOneWidget);
-    final bottomGap = tester.view.physicalSize.height / tester.view.devicePixelRatio - tester.getBottomRight(find.byType(CBottomSheetInternalScreen)).dy;
+    final bottomGap =
+        tester.view.physicalSize.height / tester.view.devicePixelRatio - tester.getBottomRight(find.byType(CBottomSheetInternalScreen)).dy;
     expect(bottomGap, greaterThanOrEqualTo(34));
     await tester.tap(find.text('GALERIA'));
     await tester.pumpAndSettle();
@@ -100,10 +110,12 @@ void main() {
   });
 
   test('fixture contracts accept separated data and legacy links', () {
-    final fixture = PreviewFixture.fromJson(jsonEncode({
-      'data': {'legalGuardianName': 'Mariana', 'patientName': 'Lucas', 'roomName': '', 'isEnabled': false},
-      'preview': {'headerPhoto': true, 'feedCount': '3'},
-    }));
+    final fixture = PreviewFixture.fromJson(
+      jsonEncode({
+        'data': {'legalGuardianName': 'Mariana', 'patientName': 'Lucas', 'roomName': '', 'isEnabled': false},
+        'preview': {'headerPhoto': true, 'feedCount': '3'},
+      }),
+    );
     expect(fixture.legalGuardianName, 'Mariana');
     expect(fixture.patientName, 'Lucas');
     expect(fixture.roomName, '');
@@ -117,29 +129,24 @@ void main() {
     expect(legacy.roomName, fixture.roomName);
   });
 
-  TestWidgetsFlutterBinding.ensureInitialized();
-  final componentUsage = <String, Set<String>>{};
   tearDownAll(() {
     if (componentUsage.isEmpty) return;
     final sorted = componentUsage.keys.toList()..sort();
     final output = <String, List<String>>{
-      for (final component in sorted)
-        component: componentUsage[component]!.toList()..sort(),
+      for (final component in sorted) component: componentUsage[component]!.toList()..sort(),
     };
-    File('../src/component-usage.generated.json').writeAsStringSync(
-      '${const JsonEncoder.withIndent('  ').convert(output)}\n',
-    );
+    File('../src/component-usage.generated.json').writeAsStringSync('${const JsonEncoder.withIndent('  ').convert(output)}\n');
   });
+
   setUpAll(() async {
     for (final font in {
       'Nunito': 'Nunito-VariableFont_wght.ttf',
       'Nunito Sans': 'NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf',
     }.entries) {
-      await (FontLoader(
-        font.key,
-      )..addFont(rootBundle.load('assets/fonts/${font.value}'))).load();
+      await (FontLoader(font.key)..addFont(rootBundle.load('assets/fonts/${font.value}'))).load();
     }
   });
+
   testWidgets('settings uses the supplied guardian and patient photos', (tester) async {
     await open(tester, 'settings');
     final updater = tester.widget<CAvatarUpdater>(find.byType(CAvatarUpdater));
@@ -147,6 +154,7 @@ void main() {
     expect(updater.data.avatarUsersData[1].avatarUrl.toString(), contains('avatar_lucas.jpg'));
     expect(tester.takeException(), isNull);
   });
+
   testWidgets('structural component samples use their real screen slots', (tester) async {
     await open(tester, 'home');
     final headerRect = tester.getRect(find.byType(CAppBarUser2));
@@ -161,17 +169,12 @@ void main() {
     expect(find.text('CAppBarUser2'), findsNothing);
     expect(tester.takeException(), isNull);
   });
-  testWidgets('live fixtures preserve preview state and scroll offset', (
-    tester,
-  ) async {
+
+  testWidgets('live fixtures preserve preview state and scroll offset', (tester) async {
     await open(
       tester,
       'home',
-      fixture: const PreviewFixture(
-        feedState: 'empty',
-        scheduleState: 'ready',
-        scheduleCount: '3',
-      ),
+      fixture: const PreviewFixture(feedState: 'empty', scheduleState: 'ready', scheduleCount: '3'),
     );
     final state = tester.state(find.byType(Preview));
     final scroll = tester.state<ScrollableState>(find.byType(Scrollable).first);
@@ -180,12 +183,7 @@ void main() {
     await tester.pumpWidget(
       const PreviewApp(
         initialScreen: 'home',
-        fixture: PreviewFixture(
-          legalGuardianName: 'Marina',
-          feedState: 'loading',
-          scheduleState: 'ready',
-          scheduleCount: '3',
-        ),
+        fixture: PreviewFixture(legalGuardianName: 'Marina', feedState: 'loading', scheduleState: 'ready', scheduleCount: '3'),
       ),
     );
     await tester.pump(const Duration(milliseconds: 100));
@@ -195,27 +193,21 @@ void main() {
     expect(find.byType(CLoading), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
-  for (final entry
-      in jsonDecode(File('test/variation_cases.json').readAsStringSync())
-          as List) {
+
+  for (final entry in jsonDecode(File('test/variation_cases.json').readAsStringSync()) as List) {
     testWidgets('catalog ${entry['target']} / ${entry['id']}', (tester) async {
       final target = entry['target'] as String;
       await open(
         tester,
-        (target.startsWith('C') || target.endsWith('Section'))
-            ? 'library'
-            : target,
-        component: (target.startsWith('C') || target.endsWith('Section'))
-            ? target
-            : null,
+        (target.startsWith('C') || target.endsWith('Section')) ? 'library' : target,
+        component: (target.startsWith('C') || target.endsWith('Section')) ? target : null,
         fixture: PreviewFixture.fromJson(jsonEncode(entry['data'])),
       );
       if (!(target.startsWith('C') || target.endsWith('Section'))) {
         for (final element in find.byWidgetPredicate((_) => true).evaluate()) {
           final widget = element.widget;
-          final name = widget.key is ValueKey<String> &&
-                  (widget.key as ValueKey<String>).value.endsWith('Section')
-              ? (widget.key as ValueKey<String>).value
+          final name = widget.key is ValueKey<String> && (widget.key! as ValueKey<String>).value.endsWith('Section')
+              ? (widget.key! as ValueKey<String>).value
               : widget.runtimeType.toString();
           (componentUsage[name] ??= <String>{}).add(target);
         }
@@ -235,15 +227,9 @@ void main() {
         }
       }
       if (id == 'permissions-on' || id == 'permissions-off') {
-        final values = tester
-            .widgetList<CTileSettings>(find.byType(CTileSettings))
-            .map((w) => w.data)
-            .whereType<CTileSettingsCheckboxData>();
+        final values = tester.widgetList<CTileSettings>(find.byType(CTileSettings)).map((w) => w.data).whereType<CTileSettingsCheckboxData>();
         expect(values, isNotEmpty);
-        expect(
-          values.every((v) => v.isChecked == (id == 'permissions-on')),
-          isTrue,
-        );
+        expect(values.every((v) => v.isChecked == (id == 'permissions-on')), isTrue);
       }
 
       if (id == 'loading') {
@@ -253,29 +239,11 @@ void main() {
           expect(find.text('PRÓXIMOS ATENDIMENTOS'), findsOneWidget);
           for (final loader in find.byType(CLoading).evaluate()) {
             expect(
-              tester
-                  .getSize(
-                    find.byElementPredicate(
-                      (element) => identical(element, loader),
-                    ),
-                  )
-                  .width,
-              tester
-                  .getSize(
-                    find.byElementPredicate(
-                      (element) => identical(element, loader),
-                    ),
-                  )
-                  .height,
+              tester.getSize(find.byElementPredicate((element) => identical(element, loader))).width,
+              tester.getSize(find.byElementPredicate((element) => identical(element, loader))).height,
             );
             expect(
-              tester
-                  .getSize(
-                    find.byElementPredicate(
-                      (element) => identical(element, loader),
-                    ),
-                  )
-                  .height,
+              tester.getSize(find.byElementPredicate((element) => identical(element, loader))).height,
               lessThan(100),
             );
           }
@@ -283,12 +251,9 @@ void main() {
       }
       if (id == 'error' && target == 'home') {
         expect(find.text('Erro ao recuperar o vídeo do feed.'), findsOneWidget);
-        expect(
-          find.text('Erro ao recuperar os atendimentos agendados.'),
-          findsOneWidget,
-        );
+        expect(find.text('Erro ao recuperar os atendimentos agendados.'), findsOneWidget);
       }
-      if (id == 'error' && target != 'home')
+      if (id == 'error' && target != 'home') {
         expect(
           find.text(
             ['feed', 'FeedSection'].contains(target)
@@ -299,14 +264,8 @@ void main() {
           ),
           findsOneWidget,
         );
-      if (id == 'week')
-        expect(
-          tester
-              .widget<CCalendarWeekly>(find.byType(CCalendarWeekly))
-              .data
-              .initialFormat,
-          CalendarFormat.weekly,
-        );
+      }
+      if (id == 'week') expect(tester.widget<CCalendarWeekly>(find.byType(CCalendarWeekly)).data.initialFormat, CalendarFormat.weekly);
       if (id == 'password') expect(find.text('Senha'), findsOneWidget);
       if (target == 'password-recovery') {
         final contacts = PreviewFixture.fromJson(jsonEncode(entry['data'])).recoveryContacts;
@@ -322,34 +281,20 @@ void main() {
         final iconColor = tester.widget<CIcon>(recoveryIcon).style.backgroundColor(tester.element(recoveryIcon));
         expect(iconColor, contacts == 'email' ? isNot(const Color(0xFF25D366)) : const Color(0xFF25D366));
       }
-      if (id == 'field-error')
-        expect(find.text('Revise o termo informado.'), findsOneWidget);
-      if (id == 'search-filled')
-        expect(
-          tester.widget<TextField>(find.byType(TextField)).controller!.text,
-          'Teste',
-        );
-      if (id == 'document')
-        expect(
-          tester
-              .widget<CTileParentContent>(find.byType(CTileParentContent))
-              .data
-              .contentType,
-          ContentType.document,
-        );
-      if (id == 'nav-agenda')
-        expect(
-          tester
-              .widget<CBottomBarUser>(find.byType(CBottomBarUser))
-              .data
-              .currentPath,
-          'agenda',
-        );
+      if (id == 'field-error') expect(find.text('Revise o termo informado.'), findsOneWidget);
+      if (id == 'search-filled') expect(tester.widget<TextField>(find.byType(TextField)).controller!.text, 'Teste');
+      if (id == 'document') expect(tester.widget<CTileParentContent>(find.byType(CTileParentContent)).data.contentType, ContentType.document);
+      if (id == 'nav-agenda') expect(tester.widget<CBottomBarUser>(find.byType(CBottomBarUser)).data.currentPath, 'agenda');
       expect(tester.takeException(), isNull);
     });
   }
+
   testWidgets('forgot password opens the link screen, which switches channel and sends', (tester) async {
-    await open(tester, 'login', fixture: const PreviewFixture(loginStep: 'password', recoveryContacts: 'both'));
+    await open(
+      tester,
+      'login',
+      fixture: const PreviewFixture(loginStep: 'password', recoveryContacts: 'both'),
+    );
     await tester.tap(find.text('Esqueci minha senha'));
     await tester.pumpAndSettle();
     expect(find.text('Envio de Link'), findsOneWidget);
@@ -369,9 +314,8 @@ void main() {
     await tester.pumpAndSettle(const Duration(seconds: 5));
     expect(tester.takeException(), isNull);
   });
-  testWidgets('home limits legacy three-post fixture with schedules loading', (
-    tester,
-  ) async {
+
+  testWidgets('home limits legacy three-post fixture with schedules loading', (tester) async {
     await open(
       tester,
       'home',
@@ -392,9 +336,8 @@ void main() {
     expect(post.data.avatarUrl.toString(), contains('avatar_lucas.jpg'));
     expect(tester.takeException(), isNull);
   });
-  testWidgets('home composes feed loading with three supervised appointments', (
-    tester,
-  ) async {
+
+  testWidgets('home composes feed loading with three supervised appointments', (tester) async {
     await open(
       tester,
       'home',
@@ -410,16 +353,13 @@ void main() {
     expect(find.byType(CLoading), findsOneWidget);
     expect(find.byType(CCardFeed), findsNothing);
     expect(find.byType(CTileScheduleParent), findsNWidgets(3));
-    final appointment = tester.widget<CTileScheduleParent>(
-      find.byType(CTileScheduleParent).first,
-    );
+    final appointment = tester.widget<CTileScheduleParent>(find.byType(CTileScheduleParent).first);
     expect(appointment.data.hasSupervisor, isTrue);
     expect(appointment.data.status, ScheduleStatus.cancelled);
     expect(tester.takeException(), isNull);
   });
-  testWidgets('appointment time chip shows the full start date when enabled', (
-    tester,
-  ) async {
+
+  testWidgets('appointment time chip shows the full start date when enabled', (tester) async {
     await open(tester, 'library', component: 'CTileScheduleParent');
     expect(find.text('14:00'), findsOneWidget);
     await tester.pumpWidget(const SizedBox.shrink());
@@ -427,25 +367,22 @@ void main() {
       tester,
       'library',
       component: 'CTileScheduleParent',
-      fixture: PreviewFixture.fromJson(jsonEncode({
-        'data': {'showFullStartDate': true},
-        'preview': <String, dynamic>{},
-      })),
+      fixture: PreviewFixture.fromJson(
+        jsonEncode({
+          'data': {'showFullStartDate': true},
+          'preview': <String, dynamic>{},
+        }),
+      ),
     );
-    final appointment = tester.widget<CTileScheduleParent>(
-      find.byType(CTileScheduleParent),
-    );
+    final appointment = tester.widget<CTileScheduleParent>(find.byType(CTileScheduleParent));
     expect(appointment.data.showFullStartDate, isTrue);
     expect(find.text('23 set 14:00'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
+
   for (final count in ['1', '2', '3']) {
     testWidgets('home limits feed count $count to one post', (tester) async {
-      final fixture = PreviewFixture(
-        feedState: 'ready',
-        feedCount: count,
-        scheduleState: 'empty',
-      );
+      final fixture = PreviewFixture(feedState: 'ready', feedCount: count, scheduleState: 'empty');
       await open(tester, 'home', fixture: fixture);
       expect(find.byType(CCardFeed), findsOneWidget);
       await tester.pumpWidget(const SizedBox.shrink());
@@ -454,9 +391,8 @@ void main() {
       expect(tester.takeException(), isNull);
     });
   }
-  testWidgets('home navigates to agenda and preserves the empty state', (
-    tester,
-  ) async {
+
+  testWidgets('home navigates to agenda and preserves the empty state', (tester) async {
     await open(tester, 'home');
     expect(find.text('Não há feed disponíveis.'), findsOneWidget);
     await tester.tap(find.text('Ver Tudo'));
@@ -465,9 +401,8 @@ void main() {
     expect(find.text('Não há atendimentos agendados.'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
-  testWidgets('content search hides unmatched synthetic content', (
-    tester,
-  ) async {
+
+  testWidgets('content search hides unmatched synthetic content', (tester) async {
     await open(tester, 'contents');
     expect(find.text('Teste v1'), findsOneWidget);
     await tester.enterText(find.byType(TextField), 'inexistente');
@@ -475,9 +410,8 @@ void main() {
     expect(find.text('Teste v1'), findsNothing);
     expect(find.text('Não há conteúdos disponíveis.'), findsOneWidget);
   });
-  testWidgets('demo login switches controllers and reaches home', (
-    tester,
-  ) async {
+
+  testWidgets('demo login switches controllers and reaches home', (tester) async {
     await open(tester, 'login');
     await tester.enterText(find.byType(TextField), '00000000000');
     await tester.pumpAndSettle();
@@ -489,52 +423,34 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Não há feed disponíveis.'), findsOneWidget);
   });
-  testWidgets(
-    'custom fixture changes native content and empty fixture removes it',
-    (tester) async {
-      await open(
-        tester,
-        'contents',
-        fixture: const PreviewFixture(
-          patientName: 'Paciente Exemplo',
-          title: 'Exemplo editado',
-        ),
-      );
-      expect(find.text('Paciente Exemplo'), findsOneWidget);
-      expect(find.text('Exemplo editado'), findsOneWidget);
-      await tester.pumpWidget(const SizedBox());
-      await open(
-        tester,
-        'contents',
-        fixture: const PreviewFixture(showContent: false),
-      );
-      expect(find.text('Teste v1'), findsNothing);
-      expect(find.text('Não há conteúdos disponíveis.'), findsOneWidget);
-    },
-  );
-  testWidgets('component fixture disables the actual Flutter button', (
-    tester,
-  ) async {
+
+  testWidgets('custom fixture changes native content and empty fixture removes it', (tester) async {
+    await open(
+      tester,
+      'contents',
+      fixture: const PreviewFixture(patientName: 'Paciente Exemplo', title: 'Exemplo editado'),
+    );
+    expect(find.text('Paciente Exemplo'), findsOneWidget);
+    expect(find.text('Exemplo editado'), findsOneWidget);
+    await tester.pumpWidget(const SizedBox());
+    await open(tester, 'contents', fixture: const PreviewFixture(showContent: false));
+    expect(find.text('Teste v1'), findsNothing);
+    expect(find.text('Não há conteúdos disponíveis.'), findsOneWidget);
+  });
+
+  testWidgets('component fixture disables the actual Flutter button', (tester) async {
     await open(
       tester,
       'library',
       component: 'CButton',
-      fixture: const PreviewFixture(
-        isEnabled: false,
-        label: 'INDISPONÍVEL',
-      ),
+      fixture: const PreviewFixture(isEnabled: false, label: 'INDISPONÍVEL'),
     );
-    expect(
-      tester
-          .widget<CButton>(find.widgetWithText(CButton, 'INDISPONÍVEL'))
-          .data
-          .isEnabled,
-      isFalse,
-    );
+    expect(tester.widget<CButton>(find.widgetWithText(CButton, 'INDISPONÍVEL')).data.isEnabled, isFalse);
     await tester.tap(find.text('INDISPONÍVEL'));
     await tester.pumpAndSettle();
     expect(find.text('Prévia local'), findsNothing);
   });
+
   for (final component in [
     'CAppBarUser2',
     'CBottomBarUser',
@@ -544,13 +460,12 @@ void main() {
     'CTileParentContent',
     'CTileSettings',
   ]) {
-    testWidgets('isolated $component renders the original widget', (
-      tester,
-    ) async {
+    testWidgets('isolated $component renders the original widget', (tester) async {
       await open(tester, 'library', component: component);
       expect(tester.takeException(), isNull);
     });
   }
+
   for (final page in [
     'metrics',
     'settings',
@@ -560,9 +475,7 @@ void main() {
     'notifications',
     'password',
   ]) {
-    testWidgets('$page renders without overflow at the recorded phone size', (
-      tester,
-    ) async {
+    testWidgets('$page renders without overflow at the recorded phone size', (tester) async {
       await open(tester, page);
       expect(tester.takeException(), isNull);
     });

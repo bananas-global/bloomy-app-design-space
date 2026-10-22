@@ -1,27 +1,34 @@
 name: bloomy_design_preview
 publish_to: none
 version: 0.2.0+1
+
 environment:
   sdk: ">=3.12.2 <4.0.0"
   flutter: "3.44.9"
+
 dependencies:
-  flutter:
-    sdk: flutter
   components_bloomy:
     hosted: https://gitea.sidedoor.tech/api/packages/bloomy/pub
     version: 6.41.2
+  cupertino_icons: ^1.0.8
+  flutter:
+    sdk: flutter
   flutter_extension:
     hosted: https://gitea.sidedoor.tech/api/packages/bloomy/pub
     version: 6.4.0
+  flutter_svg: 2.3.0
   global_messages:
     hosted: https://gitea.sidedoor.tech/api/packages/bloomy/pub
     version: 6.1.4
-  cupertino_icons: ^1.0.8
-  flutter_svg: 2.3.0
   web: ^1.1.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  linter:
+    hosted: https://gitea.sidedoor.tech/api/packages/bloomy/pub
+    version: 6.0.1
+
 flutter:
   uses-material-design: true
   assets:

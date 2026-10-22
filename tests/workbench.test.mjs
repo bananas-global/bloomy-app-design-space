@@ -1,7 +1,7 @@
-import test from "node:test";
 import assert from "node:assert/strict";
-import ts from "typescript";
 import { readFileSync } from "node:fs";
+import test from "node:test";
+import ts from "typescript";
 const js = ts.transpileModule(
   readFileSync(new URL("../src/workbench.ts", import.meta.url), "utf8"),
   { compilerOptions: { module: ts.ModuleKind.ES2022 } },

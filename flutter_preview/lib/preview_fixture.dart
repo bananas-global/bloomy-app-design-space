@@ -51,55 +51,7 @@ class PreviewFixture {
     this.label = 'PRÓXIMO',
     this.isEnabled = true,
   });
-  final String agreementState;
-  /// Contacts registered for the password link: `phone`, `email` or `both`.
-  final String recoveryContacts;
-  /// Whether ENVIAR was already tapped (`isFirstSend` is false in the app).
-  final bool recoverySent;
-  final bool settingsGuardianPhoto, settingsPatientPhoto;
-  final String settingsProfileCount, settingsPlatform, settingsSection, settingsItem;
-  final String avatarRole, chipRole;
-  final String schedulePatientPhoto, scheduleTime, roomName, unitName;
-  final bool supervisorInitials;
-  final bool headerPhoto;
-  final String feedState;
-  final String feedCount;
-  final bool postAvatarPhoto;
-  final String postText;
-  final String postMedia;
-  final String scheduleState;
-  final String scheduleCount;
-  final String status;
-  final bool hasProfessional;
-  final bool hasSupervisor;
-  final bool professionalPhoto;
-  final bool showFullStartDate;
-  String get resolvedFeedState => feedState != "inherit"
-      ? feedState
-      : state != "ready"
-      ? state
-      : showFeed
-      ? "ready"
-      : "empty";
-  String get resolvedScheduleState => scheduleState != "inherit"
-      ? scheduleState
-      : state != "ready"
-      ? state
-      : showSchedules
-      ? "ready"
-      : "empty";
-  int get postCount => (int.tryParse(feedCount) ?? 1).clamp(1, 3);
-  int get appointmentCount => (int.tryParse(scheduleCount) ?? 2).clamp(1, 3);
-  final String legalGuardianName, patientName, title, description, label;
-  final bool showContent, isEnabled, showFeed, showSchedules;
-  final String state,
-      calendarMode,
-      loginStep,
-      permissions,
-      searchText,
-      navigation,
-      contentType;
-  final bool fieldError;
+
   factory PreviewFixture.fromJson(String? raw) {
     if (raw == null) return const PreviewFixture();
     try {
@@ -108,10 +60,15 @@ class PreviewFixture {
           ? <String, dynamic>{...decoded['preview'] as Map<String, dynamic>, ...decoded['data'] as Map<String, dynamic>}
           : Map<String, dynamic>.from(decoded);
       const legacyFields = {
-        'guardian': 'legalGuardianName', 'patient': 'patientName',
-        'contentTitle': 'title', 'contentDescription': 'description',
-        'buttonLabel': 'label', 'buttonEnabled': 'isEnabled',
-        'scheduleStatus': 'status', 'scheduleRoom': 'roomName', 'scheduleUnit': 'unitName',
+        'guardian': 'legalGuardianName',
+        'patient': 'patientName',
+        'contentTitle': 'title',
+        'contentDescription': 'description',
+        'buttonLabel': 'label',
+        'buttonEnabled': 'isEnabled',
+        'scheduleStatus': 'status',
+        'scheduleRoom': 'roomName',
+        'scheduleUnit': 'unitName',
       };
       for (final entry in legacyFields.entries) {
         if (!data.containsKey(entry.value) && data.containsKey(entry.key)) data[entry.value] = data[entry.key];
@@ -120,9 +77,7 @@ class PreviewFixture {
 
       String field(String name, String fallback) {
         final v = data[name];
-        return v is String && (v.trim().isNotEmpty || name == 'roomName') && v.length <= 300
-            ? v
-            : fallback;
+        return v is String && (v.trim().isNotEmpty || name == 'roomName') && v.length <= 300 ? v : fallback;
       }
 
       return PreviewFixture(
@@ -139,26 +94,18 @@ class PreviewFixture {
         scheduleTime: field('scheduleTime', '14:00'),
         roomName: field('roomName', 'Sala 1'),
         unitName: field('unitName', 'Unidade Jardim'),
-        headerPhoto: data['headerPhoto'] is bool ? data['headerPhoto'] : false,
+        headerPhoto: data['headerPhoto'] is bool && data['headerPhoto'] as bool,
         feedState: field('feedState', 'inherit'),
         feedCount: field('feedCount', '1'),
-        postAvatarPhoto: data['postAvatarPhoto'] is bool
-            ? data['postAvatarPhoto']
-            : false,
+        postAvatarPhoto: data['postAvatarPhoto'] is bool && data['postAvatarPhoto'] as bool,
         postText: field('postText', 'medium'),
         postMedia: field('postMedia', 'image'),
         scheduleState: field('scheduleState', 'inherit'),
         scheduleCount: field('scheduleCount', '2'),
         status: field('status', 'scheduled'),
-        hasProfessional: data['hasProfessional'] is bool
-            ? data['hasProfessional']
-            : true,
-        hasSupervisor: data['hasSupervisor'] is bool
-            ? data['hasSupervisor']
-            : false,
-        professionalPhoto: data['professionalPhoto'] is bool
-            ? data['professionalPhoto']
-            : false,
+        hasProfessional: data['hasProfessional'] is! bool || data['hasProfessional'] as bool,
+        hasSupervisor: data['hasSupervisor'] is bool && data['hasSupervisor'] as bool,
+        professionalPhoto: data['professionalPhoto'] is bool && data['professionalPhoto'] as bool,
         showFullStartDate: data['showFullStartDate'] == true,
 
         showFeed: data['showFeed'] == true,
@@ -182,13 +129,84 @@ class PreviewFixture {
           'Teste vídeo de coelho.',
         ),
         label: field('label', 'PRÓXIMO'),
-        showContent: data['showContent'] is bool ? data['showContent'] : true,
-        isEnabled: data['isEnabled'] is bool
-            ? data['isEnabled']
-            : true,
+        showContent: data['showContent'] is! bool || data['showContent'] as bool,
+        isEnabled: data['isEnabled'] is! bool || data['isEnabled'] as bool,
       );
     } catch (_) {
       return const PreviewFixture();
     }
   }
+
+  final bool settingsGuardianPhoto;
+  final bool settingsPatientPhoto;
+  final String settingsProfileCount;
+  final String settingsPlatform;
+  final String settingsSection;
+  final String settingsItem;
+  final String avatarRole;
+  final String chipRole;
+  final String schedulePatientPhoto;
+  final bool supervisorInitials;
+  final String scheduleTime;
+  final String roomName;
+  final String unitName;
+  final bool headerPhoto;
+  final String feedState;
+  final String feedCount;
+  final bool postAvatarPhoto;
+  final String postText;
+  final String postMedia;
+  final String scheduleState;
+  final String scheduleCount;
+  final String status;
+  final bool hasProfessional;
+  final bool hasSupervisor;
+  final bool professionalPhoto;
+  final bool showFullStartDate;
+
+  final bool showFeed;
+  final bool showSchedules;
+  final String state;
+  final String calendarMode;
+  final String agreementState;
+
+  /// Contacts registered for the password link: `phone`, `email` or `both`.
+  final String recoveryContacts;
+
+  /// Whether ENVIAR was already tapped (`isFirstSend` is false in the app).
+  final bool recoverySent;
+
+  final String loginStep;
+  final String permissions;
+  final String searchText;
+  final bool fieldError;
+  final String navigation;
+  final String contentType;
+
+  final String legalGuardianName;
+  final String patientName;
+  final String title;
+  final String description;
+  final bool showContent;
+  final String label;
+  final bool isEnabled;
+
+  String get resolvedFeedState => feedState != 'inherit'
+      ? feedState
+      : state != 'ready'
+      ? state
+      : showFeed
+      ? 'ready'
+      : 'empty';
+
+  String get resolvedScheduleState => scheduleState != 'inherit'
+      ? scheduleState
+      : state != 'ready'
+      ? state
+      : showSchedules
+      ? 'ready'
+      : 'empty';
+
+  int get postCount => (int.tryParse(feedCount) ?? 1).clamp(1, 3);
+  int get appointmentCount => (int.tryParse(scheduleCount) ?? 2).clamp(1, 3);
 }

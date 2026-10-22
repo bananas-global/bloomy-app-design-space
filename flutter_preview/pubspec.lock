@@ -446,6 +446,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
+  linter:
+    dependency: "direct dev"
+    description:
+      name: linter
+      sha256: fdb802f4eb853e2585787af13d750e6b4ce0c1bc72feb7c44ca8c632955254b7
+      url: "https://gitea.sidedoor.tech/api/packages/bloomy/pub/"
+    source: hosted
+    version: "6.0.1"
   loading_animation_widget:
     dependency: transitive
     description:
