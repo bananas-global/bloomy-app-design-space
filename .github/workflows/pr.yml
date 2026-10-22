@@ -1,0 +1,46 @@
+# Critérios de aceite na descrição do PR.
+#
+# A cada push, o motor reescreve na descrição do PR as telas que ele cria ou
+# altera, com o comportamento esperado de cada variação (decisão 0018 do
+# motor). É onde os devs e os agentes de validação leem o critério. Não há
+# preview por branch (`vercel.json` só publica a main), então o bloco sai sem
+# links de variação.
+name: Descrição do PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  criterios:
+    # O token de PR do Dependabot e de fork é só de leitura.
+    if: >-
+      github.actor != 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Critérios de aceite na descrição do PR
+        run: pnpm exec design-space-pr
+        env:
+          GH_TOKEN: ${{ github.token }}

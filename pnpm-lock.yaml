@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@brucesantos/design-space':
-        specifier: ^0.13.0
-        version: 0.13.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: ^0.14.0
+        version: 0.14.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       react:
         specifier: ^19.1.0
         version: 19.3.0
@@ -125,8 +125,9 @@ packages:
     resolution: {integrity: sha512-Vj1jF3cPfxg7OAfoI7QnVKLoILlm2JF9pnVHrX8qx7AHMiYWT+NDAA7jChlNgRS4WTLc/fD1lXLmPixluj+3Gg==}
     engines: {node: '>=6.9.0'}
 
-  '@brucesantos/design-space@0.13.0':
-    resolution: {integrity: sha512-AW3f1+ClwO6f/zsG2+oe1xTnauqAbuywN5yaQLcsS9aez8TYuy7rBurStRYv+D4aqNGsp49tude2WYblMaVvfA==}
+  '@brucesantos/design-space@0.14.0':
+    resolution: {integrity: sha512-OzuwA3eob84JMMD3Kmhndw5oNJcPtFR81ZAc4OEyk424abG2MCxCESpB3Fd+0phZqOcYJrKkbitRBWzpdFxKjg==}
+    hasBin: true
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
@@ -918,7 +919,7 @@ snapshots:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@brucesantos/design-space@0.13.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@brucesantos/design-space@0.14.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
