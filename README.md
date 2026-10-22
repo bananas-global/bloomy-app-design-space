@@ -1,6 +1,6 @@
 # Bloomy App Design Space
 
-Laboratório local para desenhar o app dos responsáveis com **Flutter e os widgets originais de components_bloomy 6.41.2**. O chrome de revisão e as URLs vêm do pacote [`@brucesantos/design-space`](https://www.npmjs.com/package/@brucesantos/design-space) 0.13; o Flutter roda dentro do quadro dele.
+Laboratório local para desenhar o app dos responsáveis com **Flutter e os widgets originais de components_bloomy 6.41.2**. O chrome de revisão e as URLs vêm do pacote [`@brucesantos/design-space`](https://www.npmjs.com/package/@brucesantos/design-space) 0.14; o Flutter roda dentro do quadro dele.
 
 ## Abrir
 
@@ -43,7 +43,7 @@ O redesign React anterior permanece no histórico Git; foi substituído pelo lab
 
 ## Ferramentas do ambiente
 
-O chrome é o do design-space: busca em Telas e Componentes (Cmd/Ctrl+K), tamanhos Celular 375 × 812, Tablet, Desktop e Ajustar, girar, zoom 25–150%, revisão limpa, abrir o quadro em nova janela, copiar link, tema claro/escuro, **Variações**, **Informações** e **Copiar para o PR**. A URL guarda a tela (`/home`), a variação (`scenario=home.populated`) e cada controle alterado (`c.feedState=ready`).
+O chrome é o do design-space: busca em Telas e Componentes (Cmd/Ctrl+K), tamanhos Celular 375 × 812, Tablet, Desktop e Ajustar, girar, zoom 25–150%, revisão limpa, abrir o quadro em nova janela, copiar link, tema claro/escuro, **Variações** e **Informações**. A descrição de cada PR é escrita pelo motor a partir das variações (`.github/workflows/pr.yml`). A URL guarda a tela (`/home`), a variação (`scenario=home.populated`) e cada controle alterado (`c.feedState=ready`).
 
 O produto acrescenta só o que o pacote não sabe: no preset Celular, a barra de status do iOS e o indicador de início são desenhados sobre a área segura de 62/34 que o Flutter reserva. O toque é sempre simulado (cursor circular), como era o padrão.
 

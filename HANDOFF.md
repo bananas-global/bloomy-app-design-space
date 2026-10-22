@@ -14,7 +14,7 @@ Em 15/10/2026 as dependências privadas passaram de components_bloomy 6.39.0, fl
 - O `CBottomBarCheckbox` foi removido. A prévia não o usava.
 - O `flutter_extension` removeu o ícone vazio, que estava depreciado, e renomeou `EquatableMixin` para `Equatable`. Nenhum dos dois era usado aqui.
 
-Composição editável em `flutter_preview/lib/main.dart`. O cartão de conteúdo e os estados vazios são funções compartilhadas entre telas e biblioteca. O pacote não foi modificado no cache. O chrome de revisão é o do pacote `@brucesantos/design-space` 0.13; `src/app/flutter.tsx` carrega o Flutter dentro do quadro dele, e a comunicação com o iframe confere origem e janela de origem.
+Composição editável em `flutter_preview/lib/main.dart`. O cartão de conteúdo e os estados vazios são funções compartilhadas entre telas e biblioteca. O pacote não foi modificado no cache. O chrome de revisão é o do pacote `@brucesantos/design-space` 0.14; `src/app/flutter.tsx` carrega o Flutter dentro do quadro dele, e a comunicação com o iframe confere origem e janela de origem.
 
 ## Decisões de reprodução
 

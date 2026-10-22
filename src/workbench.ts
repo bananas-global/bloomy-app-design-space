@@ -298,7 +298,7 @@ export const catalogWidgets: [string, string, string][] = [
   ["CButton", "Botões", "buttons/button.dart"],
 ];
 // Expected behavior per screen variation (`<screen>.<fixture>`), shown in
-// Informações and in "Copiar para o PR".
+// Informações and written into each PR description by `design-space-pr`.
 export const scenarioExpected: Record<string, string[]> = {
   "home.default": ["O cabeçalho cumprimenta Teste.", "Feed e Próximos atendimentos mostram os estados vazios."],
   "home.populated": ["O feed mostra 1 post de Lucas Santos com imagem.", "Próximos atendimentos mostra 2 atendimentos agendados."],
