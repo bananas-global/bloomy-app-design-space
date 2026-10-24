@@ -57,7 +57,7 @@ Decisões da migração para o pacote, em 16/10/2026:
 
 ## Telas, componentes e variações
 
-A lateral esquerda tem **Telas** e **Componentes**. Cada tela é uma rota; suas variações são os cenários `<tela>.<fixture>` de `variationIds`, com o comportamento esperado de `scenarioExpected`. Não há fluxos: o catálogo são telas e componentes.
+A lateral esquerda tem **Telas** e **Componentes**. Cada tela é uma rota; suas variações são os cenários `<tela>.<fixture>` de `variationIds`, com o comportamento esperado de `scenarioExpected`. Não há fluxos: o catálogo são telas e componentes. Em **Componentes**, `catalogSections` define as seções na ordem exibida: **Componentes**, com os widgets de `components_bloomy 6.41.2`; **Composições**, com as seções montadas em `flutter_preview/lib/main.dart`; e **Fundamentos**, com os tokens do tema. Por enquanto Fundamentos traz **Cores**, lidos diretamente do `components_bloomy` no `flutter_preview`. Dimensões e fontes entram depois.
 
 Em **Variações**, os controles por componente vêm de `componentGroupsFor`. Cada variação fixa os valores dos controles que a sua fixture implica; alterar um controle mantém a variação, mas tira o destaque dela. O seletor de estado de rede do pacote também vale: Carregando e Lento mostram o carregamento, Erro mostra o erro e Vazio esvazia as seções. **Informações** mostra descrição, comportamento esperado, valores dos controles e os componentes usados pela tela.
 

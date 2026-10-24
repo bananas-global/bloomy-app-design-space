@@ -8,6 +8,7 @@ import 'app_icons.dart';
 import 'avatar_updater_candidate.dart';
 import 'preview_bridge.dart';
 import 'preview_fixture.dart';
+import 'widgets/card_color.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -1114,7 +1115,6 @@ class _PreviewState extends State<Preview> {
     TextStyle text({FontWeight weight = FontWeight.w400, bool link = false}) => TextStyle(
       color: link ? colors?.primary.dark : colors?.text.main,
       fontSize: 16,
-      fontFamily: TFontFamily.nunito,
       fontWeight: link ? FontWeight.w700 : weight,
       height: 1.50,
       decoration: link ? TextDecoration.underline : null,
@@ -1257,11 +1257,16 @@ class _PreviewState extends State<Preview> {
     );
   }
 
-  Widget library() {
+  Widget library(BuildContext context) {
     final component = widget.component ?? Uri.base.queryParameters['component'] ?? 'CButton';
     final card = appointmentCard(0);
     final cardData = card.data;
     final cardStyle = card.style;
+
+    if (component == 'foundation:cores') {
+      return _foundationColors(context);
+    }
+
     Widget sample() => switch (component) {
       'CAvatar' => Align(
         alignment: Alignment.topLeft,
@@ -1414,6 +1419,9 @@ class _PreviewState extends State<Preview> {
         bottomBarBuilder: component == 'CBottomBarUser' ? (_) => bottom() : null,
       );
     }
+    if (component.startsWith('foundation:')) {
+      return _foundationColors(context);
+    }
     return CScaffold.list(
       const CScaffoldListData(
         isBodyUnderAppBar: false,
@@ -1440,6 +1448,66 @@ class _PreviewState extends State<Preview> {
     );
   }
 
+  Widget _foundationColors(BuildContext context) {
+    final bloomyColors = context.theme<BloomyColors>()!;
+    final colorsData = [
+      CardColorData('primary', colorGroup: bloomyColors.primary),
+      CardColorData('secondary', colorGroup: bloomyColors.secondary),
+      CardColorData('accent', colorGroup: bloomyColors.accent),
+      CardColorData('success', colorGroup: bloomyColors.success),
+      CardColorData('info', colorGroup: bloomyColors.info),
+      CardColorData('warning', colorGroup: bloomyColors.warning),
+      CardColorData('danger', colorGroup: bloomyColors.danger),
+      CardColorData('shadow', colorGroup: bloomyColors.shadow),
+      CardColorData('text', colorGroupText: bloomyColors.text),
+      CardColorData('background', colorGroupBackground: bloomyColors.background),
+      CardColorData('backgroundGradient', gradient: bloomyColors.backgroundGradient),
+      CardColorData('splashBackground', color: bloomyColors.splashBackground),
+      CardColorData('white20', colorGroup: bloomyColors.white20),
+    ];
+    final opBackgroundColor = switch (_fixture.id) {
+      'bg-background-main' => bloomyColors.background.main,
+      'bg-background-light' => bloomyColors.background.light,
+      'bg-background-dark' => bloomyColors.background.dark,
+      'bg-black' => Colors.black,
+      'bg-white' => Colors.white,
+      'bg-transparent' => Colors.transparent,
+      _ => Colors.transparent,
+    };
+
+    return Container(
+      color: const Color(0xFFEEF6F9),
+      child: ListView(
+        padding: const EdgeInsets.all(24),
+        children: [
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final width = constraints.maxWidth;
+              final columns = switch (width) {
+                final w when w >= 1100 => 4,
+                final w when w >= 780 => 3,
+                final w when w >= 540 => 2,
+                _ => 1,
+              };
+
+              return Wrap(
+                spacing: 16,
+                runSpacing: 16,
+                children: colorsData.map((colorData) {
+                  return CardColor(
+                    colorData: colorData,
+                    opBackgroundColor: opBackgroundColor,
+                    width: (width - (columns - 1) * 16) / columns,
+                  );
+                }).toList(),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_page == 'agreements') {
@@ -1453,7 +1521,7 @@ class _PreviewState extends State<Preview> {
     }
     if (_page == 'login') return login();
     if (_page == 'password-recovery') return passwordRecovery();
-    if (_page == 'library') return library();
+    if (_page == 'library') return library(context);
     if (_page == 'password') return changePassword();
     if (_page == 'settings') {
       return CScaffold.list(

@@ -3,6 +3,7 @@ import 'dart:convert';
 /// Synthetic, bounded data accepted by the local design environment.
 class PreviewFixture {
   const PreviewFixture({
+    this.id = '',
     this.settingsGuardianPhoto = true,
     this.settingsPatientPhoto = true,
     this.settingsProfileCount = '2',
@@ -81,6 +82,7 @@ class PreviewFixture {
       }
 
       return PreviewFixture(
+        id: field('id', ''),
         settingsGuardianPhoto: data['settingsGuardianPhoto'] != false,
         settingsPatientPhoto: data['settingsPatientPhoto'] != false,
         settingsProfileCount: field('settingsProfileCount', '2'),
@@ -137,6 +139,7 @@ class PreviewFixture {
     }
   }
 
+  final String id;
   final bool settingsGuardianPhoto;
   final bool settingsPatientPhoto;
   final String settingsProfileCount;
