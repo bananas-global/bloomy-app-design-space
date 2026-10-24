@@ -5,7 +5,7 @@ import { applyControls, catalogIds, componentId, decodeValue, encodeValue, scena
 import { components } from "../src/app/components";
 import { legacyLocation } from "../src/app/legacy";
 import { product } from "../src/app/product";
-import { fixtures, patchComponent, screens } from "../src/workbench";
+import { catalogSections, catalogWidgets, fixtures, patchComponent, screens } from "../src/workbench";
 
 describe("product contract", () => {
   it("passes the engine validation without errors or warnings", () => {
@@ -58,7 +58,8 @@ describe("component catalog", () => {
   });
 
   it("gives every component ready-made examples, starting with the default", () => {
-    expect(components).toHaveLength(22);
+    const foundations = catalogSections.flatMap((section) => section.foundations ?? []);
+    expect(components).toHaveLength(catalogWidgets.length + foundations.length);
     for (const component of components) {
       expect(component.fixtures?.[0]?.id, component.id).toBe("default");
       expect(new Set(component.fixtures?.map((f) => f.id)).size, component.id).toBe(component.fixtures?.length);

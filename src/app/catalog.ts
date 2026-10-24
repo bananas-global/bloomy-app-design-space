@@ -154,6 +154,16 @@ export const personas: Persona[] = [
  * scripts/generate-variation-cases.mjs sends to the Flutter tests.
  */
 export function componentFixtures(widget: string): ComponentPreviewFixture<Fixture>[] {
+  if (widget === "cores" || widget === "Cores") {
+    return [
+      { id: "bg-background-main", label: "Background main", data: { ...fixtures.default.data, id: "bg-background-main" } },
+      { id: "bg-background-light", label: "Background light", data: { ...fixtures.default.data, id: "bg-background-light" } },
+      { id: "bg-background-dark", label: "Background dark", data: { ...fixtures.default.data, id: "bg-background-dark" } },
+      { id: "bg-black", label: "Preto", data: { ...fixtures.default.data, id: "bg-black" } },
+      { id: "bg-white", label: "Branco", data: { ...fixtures.default.data, id: "bg-white" } },
+      { id: "bg-transparent", label: "Transparente", data: { ...fixtures.default.data, id: "bg-transparent" } },
+    ];
+  }
   const presets = variationsFor(widget).map((id) => ({ id, label: fixtures[id].label, data: fixtures[id].data }));
   const options = componentGroupsFor(widget).flatMap((group) =>
     group.controls.flatMap((control) =>

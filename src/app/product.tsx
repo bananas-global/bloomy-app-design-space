@@ -1,5 +1,5 @@
-import { useMemo } from "react";
 import type { ProductDefinition, RouteDefinition, ScreenProps } from "@brucesantos/design-space";
+import { useMemo } from "react";
 import usage from "../component-usage.generated.json";
 import { catalogWidgets, itemDetails, screenDescriptions, screens, type Fixture } from "../workbench";
 import { catalogIds, engineFixtures, personas, scenarios, screenControls, screenData } from "./catalog";
@@ -39,13 +39,13 @@ function flutterScreen(screen: string) {
 }
 
 const routes: RouteDefinition[] = screens.map(([id, name]) => ({
-  path: `/${id}`,
-  name,
-  description: [screenDescriptions[id], itemDetails[id]].filter(Boolean).join(" "),
-  screen: flutterScreen(id),
-  controls: screenControls.get(id),
-  components: componentsOn(id),
-}));
+    path: `/${id}`,
+    name,
+    description: [screenDescriptions[id], itemDetails[id]].filter(Boolean).join(" "),
+    screen: flutterScreen(id),
+    controls: screenControls.get(id),
+    components: componentsOn(id),
+  }));
 
 export const product: ProductDefinition = {
   id: "bloomy-app",

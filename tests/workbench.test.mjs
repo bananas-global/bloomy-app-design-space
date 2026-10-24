@@ -1,12 +1,14 @@
-import test from "node:test";
 import assert from "node:assert/strict";
-import ts from "typescript";
 import { readFileSync } from "node:fs";
+import test from "node:test";
+import ts from "typescript";
 const js = ts.transpileModule(
   readFileSync(new URL("../src/workbench.ts", import.meta.url), "utf8"),
   { compilerOptions: { module: ts.ModuleKind.ES2022 } },
 ).outputText;
 const {
+  catalogSections,
+  catalogWidgets,
   fixtures,
   componentGroupsFor,
   controlDisabledReason,
@@ -19,6 +21,19 @@ const {
 } = await import(
   `data:text/javascript;base64,${Buffer.from(js).toString("base64")}`
 );
+test("catalog sections own every widget exactly once", () => {
+  const widgets = catalogSections.flatMap((section) => (section.widgets ?? []).map(([widget]) => widget));
+  assert.equal(new Set(widgets).size, widgets.length);
+  assert.deepEqual(widgets, catalogWidgets.map(([widget]) => widget));
+  assert.deepEqual(catalogSections.map(({ id, name }) => ({ id, name })), [
+    { id: "fundamentos", name: "Fundamentos" },
+    { id: "componentes", name: "Componentes" },
+    { id: "composicoes", name: "Composições" },
+  ]);
+  const foundations = catalogSections.flatMap((section) => section.foundations ?? []);
+  assert.deepEqual(foundations.map(({ id, name }) => ({ id, name })), [{ id: "cores", name: "Cores" }]);
+  assert.equal(new Set([...widgets, ...foundations.map(({ id }) => id)]).size, widgets.length + foundations.length);
+});
 test("invalid fixture data is rejected", () => {
   for (const value of [
     null,

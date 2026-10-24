@@ -1,25 +1,30 @@
 import 'package:components_bloomy/components_bloomy.dart';
 import 'package:flutter_extension/flutter_extension.dart';
-import 'local_signature.dart';
+
 import 'app_icons.dart';
+import 'local_signature.dart';
 
 /// Local adaptation of app 1.11.3+94. Never persists legal acceptance or ink.
 class AgreementsPreview extends StatefulWidget {
-  const AgreementsPreview({
-    super.key,
-    required this.initialState,
-    required this.onComplete,
-  });
+  const AgreementsPreview({required this.initialState, required this.onComplete, super.key});
+
   final String initialState;
   final VoidCallback onComplete;
+
   @override
   State<AgreementsPreview> createState() => _AgreementsPreviewState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(StringProperty('initialState', initialState))
+      ..add(ObjectFlagProperty<VoidCallback>.has('onComplete', onComplete));
+  }
 }
 
 class _AgreementsPreviewState extends State<AgreementsPreview> {
-  final accepted = <int>{};
-  int? selected;
-  static final documents = [
+  static final _documents = [
     AgreementEntity(
       id: 'demo-terms',
       versionId: 'demo-v1',
@@ -40,6 +45,10 @@ class _AgreementsPreviewState extends State<AgreementsPreview> {
       description: 'Contrato fictício, sem validade jurídica.',
     ),
   ];
+
+  final _accepted = <int>{};
+  int? _selected;
+
   @override
   void initState() {
     super.initState();
@@ -47,10 +56,10 @@ class _AgreementsPreviewState extends State<AgreementsPreview> {
   }
 
   void reset() {
-    accepted.clear();
-    if (widget.initialState != 'pending') accepted.add(0);
-    if (widget.initialState == 'accepted') accepted.add(1);
-    selected = null;
+    _accepted.clear();
+    if (widget.initialState != 'pending') _accepted.add(0);
+    if (widget.initialState == 'accepted') _accepted.add(1);
+    _selected = null;
   }
 
   @override
@@ -61,9 +70,10 @@ class _AgreementsPreviewState extends State<AgreementsPreview> {
 
   @override
   Widget build(BuildContext context) {
-    final index = selected;
+    final index = _selected;
+
     if (index != null) {
-      final document = documents[index];
+      final document = _documents[index];
       return CScaffold.list(
         const CScaffoldListData(isBodyUnderAppBar: false),
         const CScaffoldParentStyle(),
@@ -73,7 +83,7 @@ class _AgreementsPreviewState extends State<AgreementsPreview> {
           leftContent: CButtonBack<void>(
             CButtonBackData(),
             const CButtonBackDefaultStyle(),
-            onTap: () => setState(() => selected = null),
+            onTap: () => setState(() => _selected = null),
           ),
           centerContent: CText(
             CTextData(index == 0 ? 'Termo' : 'Contrato'),
@@ -101,12 +111,13 @@ class _AgreementsPreviewState extends State<AgreementsPreview> {
           ),
           const CBottomBarButtonsAgreementsStyle(),
           onButtonTap: () => setState(() {
-            accepted.add(index);
-            selected = null;
+            _accepted.add(index);
+            _selected = null;
           }),
         ),
       );
     }
+
     return CScaffold.list(
       const CScaffoldListData(isBodyUnderAppBar: false),
       const CScaffoldParentStyle(),
@@ -130,11 +141,11 @@ class _AgreementsPreviewState extends State<AgreementsPreview> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           spacing: 12,
           children: [
-            for (var i = 0; i < documents.length; i++)
+            for (var i = 0; i < _documents.length; i++)
               CTileAgreement(
                 CTileAgreementData(
-                  agreement: documents[i],
-                  isAccepted: accepted.contains(i),
+                  agreement: _documents[i],
+                  isAccepted: _accepted.contains(i),
                   showAgreeementButtonData: CButton2IconData(
                     UIconsExtension.document,
                   ),
@@ -142,7 +153,7 @@ class _AgreementsPreviewState extends State<AgreementsPreview> {
                 const CTileAgreementDefaultStyle(
                   customMargin: EdgeInsets.symmetric(horizontal: 20),
                 ),
-                onShowAgreeementButtonTap: () => setState(() => selected = i),
+                onShowAgreeementButtonTap: () => setState(() => _selected = i),
               ),
           ],
         ),
@@ -157,13 +168,13 @@ class _AgreementsPreviewState extends State<AgreementsPreview> {
           ]),
           buttonData: CButton2LabelData(
             'ASSINAR DOCUMENTOS',
-            isEnabled: accepted.length == documents.length,
+            isEnabled: _accepted.length == _documents.length,
           ),
         ),
         const CBottomBarButtonsAgreementsStyle(),
         onButtonTap: () async {
           final signed = await showLocalSignatureBottomSheet(context);
-          if (signed == true && mounted) widget.onComplete();
+          if ((signed ?? false) && mounted) widget.onComplete();
         },
       ),
     );

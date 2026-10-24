@@ -1,4 +1,5 @@
 export const componentDefaults = {
+  id: "",
   agreementState: "pending",
   recoveryContacts: "phone",
   recoverySent: false,
@@ -272,31 +273,55 @@ export const screenDescriptions: Record<string, string> = {
   feed: "Registros de atividades do paciente, com fotos, vídeos e descrições.",
   notifications: "Avisos e atualizações para o responsável.",
 };
-// Widget catalog: [widget, name, source]. Sections are compositions in main.dart.
-export const catalogWidgets: [string, string, string][] = [
-  ["FeedSection", "Feed · seção", "flutter_preview/lib/main.dart"],
-  ["CCardFeed", "Post do feed", "cards/card_feed.dart"],
-  ["AppointmentsSection", "Próximos atendimentos · seção", "flutter_preview/lib/main.dart"],
-  ["CTileScheduleParent", "Atendimento", "tiles/tile_schedule_parent.dart"],
-  ["CAppBarUser2", "Cabeçalho", "app_bars/app_bar_user.dart"],
-  ["CBottomBarUser", "Navegação", "bottom_bars/bottom_bar_user.dart"],
-  ["CCalendarWeekly", "Calendário", "calendars/calendar_weekly.dart"],
-  ["CTextField", "Campos e busca", "texts/text_field.dart"],
-  ["CContainerListInformation", "Estados vazios", "containers/container_list_information.dart"],
-  ["CTileParentContent", "Conteúdo educativo", "tiles/tile_parent_content.dart"],
-  ["CTileSettings", "Configuração", "tiles/tile_settings.dart"],
-  ["CAvatarUpdater", "Seletor de perfis", "flutter_preview/lib/avatar_updater_candidate.dart"],
-  ["CAppBarRow", "Cabeçalho com retorno", "app_bars/app_bar_row.dart"],
-  ["CButtonBack", "Voltar", "buttons/button_back.dart"],
-  ["CText", "Texto", "texts/text.dart"],
-  ["CHeader", "Título de seção", "headers/header.dart"],
-  ["CCardList", "Cartão de lista", "cards/card_list.dart"],
-  ["CScaffold", "Estrutura da tela", "scaffolds/scaffold.dart"],
-  ["CAvatar", "Avatar", "avatars/avatar.dart"],
-  ["CChip", "Chip", "chips/chip.dart"],
-  ["CDivider", "Divisória", "dividers/divider.dart"],
-  ["CButton", "Botões", "buttons/button.dart"],
+export const catalogSections = [
+  {
+    id: "fundamentos",
+    name: "Fundamentos",
+    foundations: [
+      {
+        id: "cores",
+        name: "Cores",
+        description: "Paleta de BloomyThemeData.colorsLight do components_bloomy.",
+        source: "components_bloomy 6.41.2 · lib/src/themes/bloomy_theme_data.dart",
+      },
+    ],
+  },
+  {
+    id: "componentes",
+    name: "Componentes",
+    widgets: [
+      ["CCardFeed", "Post do feed", "cards/card_feed.dart"],
+      ["CTileScheduleParent", "Atendimento", "tiles/tile_schedule_parent.dart"],
+      ["CAppBarUser2", "Cabeçalho", "app_bars/app_bar_user.dart"],
+      ["CBottomBarUser", "Navegação", "bottom_bars/bottom_bar_user.dart"],
+      ["CCalendarWeekly", "Calendário", "calendars/calendar_weekly.dart"],
+      ["CTextField", "Campos e busca", "texts/text_field.dart"],
+      ["CContainerListInformation", "Estados vazios", "containers/container_list_information.dart"],
+      ["CTileParentContent", "Conteúdo educativo", "tiles/tile_parent_content.dart"],
+      ["CTileSettings", "Configuração", "tiles/tile_settings.dart"],
+      ["CAvatarUpdater", "Seletor de perfis", "flutter_preview/lib/avatar_updater_candidate.dart"],
+      ["CAppBarRow", "Cabeçalho com retorno", "app_bars/app_bar_row.dart"],
+      ["CButtonBack", "Voltar", "buttons/button_back.dart"],
+      ["CText", "Texto", "texts/text.dart"],
+      ["CHeader", "Título de seção", "headers/header.dart"],
+      ["CCardList", "Cartão de lista", "cards/card_list.dart"],
+      ["CScaffold", "Estrutura da tela", "scaffolds/scaffold.dart"],
+      ["CAvatar", "Avatar", "avatars/avatar.dart"],
+      ["CChip", "Chip", "chips/chip.dart"],
+      ["CDivider", "Divisória", "dividers/divider.dart"],
+      ["CButton", "Botões", "buttons/button.dart"],
+    ],
+  },
+  {
+    id: "composicoes",
+    name: "Composições",
+    widgets: [
+      ["FeedSection", "Feed · seção", "flutter_preview/lib/main.dart"],
+      ["AppointmentsSection", "Próximos atendimentos · seção", "flutter_preview/lib/main.dart"],
+    ],
+  },
 ];
+export const catalogWidgets = catalogSections.flatMap((section) => section.widgets ?? []);
 // Expected behavior per screen variation (`<screen>.<fixture>`), shown in
 // Informações and written into each PR description by `design-space-pr`.
 export const scenarioExpected: Record<string, string[]> = {

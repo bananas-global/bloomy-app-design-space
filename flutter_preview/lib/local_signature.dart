@@ -4,36 +4,27 @@ import 'package:flutter_extension/flutter_extension.dart';
 Future<bool?> showLocalSignatureBottomSheet(BuildContext context) async {
   return showBottomSheetScreen<bool>(
     const BottomSheetScreenData(isLimitedHeightByRatio: true),
-    const BottomSheetScreenDefaultStyle(
-      customScrollControlDisabledMaxHeightRatio: 0.98,
-    ),
+    const BottomSheetScreenDefaultStyle(customScrollControlDisabledMaxHeightRatio: 0.98),
     builder: (_) => const _SignatureBottomSheet(),
   );
 }
 
 class _SignatureBottomSheet extends StatefulWidget {
   const _SignatureBottomSheet();
-  final String title = 'Assinatura digital';
-  final String description =
-      'Esta assinatura será utilizada para todos documentos aceitados previamente.';
-  final String buttonLabel = 'ASSINAR';
+
   @override
   State<_SignatureBottomSheet> createState() => _SignatureBottomSheetState();
 }
 
 class _SignatureBottomSheetState extends State<_SignatureBottomSheet> {
-  final controller = SignatureController(
-    penStrokeWidth: 4,
-    penColor: const Color(0xFF2B235B),
-    exportBackgroundColor: Colors.white,
-  );
+  final _controller = SignatureController(penStrokeWidth: 4, penColor: const Color(0xFF2B235B), exportBackgroundColor: Colors.white);
+  final _signatureKey = GlobalKey();
+
   @override
   void dispose() {
-    controller.dispose();
+    _controller.dispose();
     super.dispose();
   }
-
-  final _signatureKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +32,7 @@ class _SignatureBottomSheetState extends State<_SignatureBottomSheet> {
       quarterTurns: 3,
       child: CBottomSheetInternalScreen.list(
         CBottomSheetInternalScreenData(
-          appBarTitleData: CAppBarTitleBottomSheetData(title: widget.title),
+          appBarTitleData: CAppBarTitleBottomSheetData(title: 'Assinatura digital'),
           addFlexible: true,
           isScrollable: false,
           fixSpaceInIOS: false,
@@ -75,7 +66,7 @@ class _SignatureBottomSheetState extends State<_SignatureBottomSheet> {
               ),
               child: CSignature(
                 const CSignatureDefaultStyle(),
-                controller: controller,
+                controller: _controller,
                 key: _signatureKey,
               ),
             ),
@@ -83,7 +74,7 @@ class _SignatureBottomSheetState extends State<_SignatureBottomSheet> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             child: Text(
-              widget.description,
+              'Esta assinatura será utilizada para todos documentos aceitados previamente.',
               // TODO mudar o estilo
               style: TextStyle(
                 color: context.theme<BloomyColors>()?.text.op60,
@@ -96,17 +87,17 @@ class _SignatureBottomSheetState extends State<_SignatureBottomSheet> {
           ),
         ],
         bottomBar: ListenableBuilder(
-          listenable: controller,
+          listenable: _controller,
           builder: (_, _) => CBottomBarButtons.horizontal(
             CBottomBarButtonsHorizontalData(
               leftButtonData: const CButton2LabelData('REFAZER'),
               rightButtonData: CButton2LabelData(
-                widget.buttonLabel,
-                isEnabled: controller.isNotEmpty,
+                'ASSINAR',
+                isEnabled: _controller.isNotEmpty,
               ),
             ),
             const CBottomBarButtonsBottomSheetStyle(),
-            onLeftButtonTap: () async => controller.clear(),
+            onLeftButtonTap: () async => _controller.clear(),
             onRightButtonTap: () async {
               // final size = (_signatureKey.currentContext!.findRenderObject()! as RenderBox).size;
               Navigator.of(context).pop(true);
